@@ -162,7 +162,7 @@ def pagina(arq, titulo, desc, corpo, tipo='WebPage', ld=None, titulo_tag=None):
 <meta name="author" content="André Luiz Maciel">
 <link rel="canonical" href="{SITE}{arq}">
 <meta name="theme-color" content="#07090d">
-<meta property="og:type" content="website"><meta property="og:site_name" content="QualiCX Brasil"><meta property="og:title" content="{E(titulo)}"><meta property="og:description" content="{E(desc)}"><meta property="og:url" content="{SITE}{arq}"><meta property="og:image" content="{SITE}img/andre-luiz-maciel.png">
+<meta property="og:type" content="website"><meta property="og:site_name" content="QualiCX Brasil"><meta property="og:title" content="{E(titulo)}"><meta property="og:description" content="{E(desc)}"><meta property="og:url" content="{SITE}{arq}"><meta property="og:image" content="{SITE}img/og-qualicx.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="{SITE}img/og-qualicx.png">
 {ldj}
 {FONTS}
 <link rel="stylesheet" href="assets/qcx.css">
