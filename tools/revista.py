@@ -87,7 +87,7 @@ def nav(prefix=''):
     home = prefix or './'
     a = ''.join(f'<a href="{prefix + h}" style="color:#c9d3e0;text-decoration:none;white-space:nowrap;padding:6px 10px;border-radius:8px">{t}</a>' for h, t in LINKS[1:])
     return ('<!--qcx-nav--><nav aria-label="Seções da revista" style="position:sticky;top:0;z-index:50;background:rgba(7,9,13,.9);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid #222c3b;font:600 14px/1 Inter,system-ui,sans-serif">'
-            '<div style="max-width:1180px;margin:0 auto;padding:10px 14px;display:flex;align-items:center;overflow-x:auto;gap:2px">'
+            '<div style="max-width:1180px;margin:0 auto;padding:10px 14px;display:flex;align-items:center;overflow-x:auto;gap:2px;scrollbar-width:none">'
             f'<a href="{home}" style="color:#e8edf4;text-decoration:none;font:800 18px/1 Fraunces,Georgia,serif;padding:6px 14px 6px 6px;white-space:nowrap">QualiCX <span style="color:#8b5cf6">Brasil</span></a>{a}</div></nav><!--/qcx-nav-->')
 
 def injeta(p, prefix=''):
