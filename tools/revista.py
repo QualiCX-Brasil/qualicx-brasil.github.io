@@ -50,6 +50,7 @@ h2.sec a{font:600 .85rem var(--sans);color:var(--accent2);order:2;white-space:no
 .ncard .body{padding:16px 18px 18px;display:flex;flex-direction:column;gap:8px;flex:1}
 .ncard h3{font:600 1.03rem/1.4 var(--sans);margin:0}
 .ncard .meta{margin-top:auto}
+.src{position:absolute;left:12px;bottom:12px;display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.94);color:#0b1220;font:700 .78rem var(--sans);padding:5px 12px 5px 6px;border-radius:999px;box-shadow:0 2px 10px rgba(0,0,0,.35)}.src img{width:20px;height:20px;border-radius:5px;display:block}.src.tr{left:auto;right:16px;top:16px;bottom:auto}.mini .art{position:relative}.mini .src{left:6px;bottom:6px;padding:4px}
 .filters{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 26px}
 .filters button{font:600 .82rem var(--sans);padding:8px 14px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--fg);cursor:pointer}
 .filters button.on{background:var(--accent);border-color:var(--accent)}
@@ -186,8 +187,13 @@ atual = datetime.date.fromisoformat(N['atualizado']).strftime('%d/%m/%Y') if N['
 def dbr(s): return datetime.date.fromisoformat(s).strftime('%d/%m/%Y')
 def ext(i): return f'href="{E(i["link"])}" target="_blank" rel="noopener nofollow"'
 
+def logo(i, so_icone=False, cls='src'):
+    d = i.get('dominio')
+    if not d: return ''
+    nome = '' if so_icone else E(i['fonte'])
+    return f'<span class="{cls}"><img src="https://www.google.com/s2/favicons?domain={E(d)}&sz=64" alt="" width="20" height="20" loading="lazy">{nome}</span>'
 def ncard(i):
-    return (f'<a class="ncard" data-cat="{E(i["cat"])}" {ext(i)}><div class="art">{arte(i["titulo"], i["cores"], rotulo=i["cat"])}<span class="chip">{E(i["cat"])}</span></div>'
+    return (f'<a class="ncard" data-cat="{E(i["cat"])}" {ext(i)}><div class="art">{arte(i["titulo"], i["cores"], rotulo=i["cat"])}<span class="chip">{E(i["cat"])}</span>{logo(i)}</div>'
             f'<div class="body"><h3>{E(i["titulo"])}</h3><span class="meta">{E(i["fonte"])} · {dbr(i["data"])}</span></div></a>')
 
 ART = [('artigos/expertise360-atendimento-protagonista.html', 'Expertise360: o que o atendimento protagonista ensina à área de Qualidade', 'Cobertura da palestra Atendimento Protagonista, de Gisele Paula, no evento da CSH.', '14/11/2026', '', ('#0b1d3a', '#1d4ed8', '#38bdf8')),
@@ -210,9 +216,9 @@ PUB_CORES = ('#0b1d3a', '#0e7490', '#f59e0b')
 # ---------------- Início ----------------
 if IT:
     f0 = IT[0]
-    destaque = (f'<section class="featured"><a class="feat-main" {ext(f0)}><div class="art">{arte(f0["titulo"], f0["cores"], 900, 620, f0["cat"])}</div>'
+    destaque = (f'<section class="featured"><a class="feat-main" {ext(f0)}><div class="art">{arte(f0["titulo"], f0["cores"], 900, 620, f0["cat"])}{logo(f0, cls="src tr")}</div>'
                 f'<div class="ov"><span class="chip">{E(f0["cat"])}</span><h3>{E(f0["titulo"])}</h3><span class="meta">{E(f0["fonte"])} · {dbr(f0["data"])}</span></div></a>'
-                '<div class="feat-side">' + ''.join(f'<a class="mini" {ext(i)}><div class="art">{arte(i["titulo"], i["cores"], 400, 300, i["cat"])}</div><div><span class="kicker" style="font-size:.62rem">{E(i["cat"])}</span><h4>{E(i["titulo"])}</h4><span class="meta">{E(i["fonte"])}</span></div></a>' for i in IT[1:5]) +
+                '<div class="feat-side">' + ''.join(f'<a class="mini" {ext(i)}><div class="art">{arte(i["titulo"], i["cores"], 400, 300, i["cat"])}{logo(i, True)}</div><div><span class="kicker" style="font-size:.62rem">{E(i["cat"])}</span><h4>{E(i["titulo"])}</h4><span class="meta">{E(i["fonte"])}</span></div></a>' for i in IT[1:5]) +
                 '</div></section>')
     mais = '<div class="grid">' + ''.join(ncard(i) for i in IT[5:13]) + '</div>'
 else:

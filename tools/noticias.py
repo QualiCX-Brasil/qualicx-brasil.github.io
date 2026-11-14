@@ -21,6 +21,8 @@ for nome, url in FEEDS:
     for it in root.iter('item'):
         t = (it.findtext('title') or '').strip(); l = (it.findtext('link') or '').strip()
         src = (it.findtext('source') or nome).strip()
+        sel = it.find('source')
+        dom = urllib.parse.urlparse(sel.get('url') if sel is not None and sel.get('url') else (l if nome != 'Google Notícias' else '')).netloc.replace('www.', '')
         if nome == 'Google Notícias' and ' - ' in t and src != nome:
             t = t.rsplit(' - ', 1)[0]
         try: d = email.utils.parsedate_to_datetime(it.findtext('pubDate'))
@@ -30,7 +32,7 @@ for nome, url in FEEDS:
         if not KEY.search(t) or RUIDO.search(t) or src.lower() in ('instagram','facebook','youtube','tiktok'): continue
         k = re.sub(r'\W+', '', t.lower())[:80]
         if k in seen: continue
-        seen.add(k); items.append({'titulo': t, 'fonte': src, 'data': d.strftime('%Y-%m-%d'), 'link': l})
+        seen.add(k); items.append({'titulo': t, 'fonte': src, 'data': d.strftime('%Y-%m-%d'), 'link': l, 'dominio': dom})
 items.sort(key=lambda x: x['data'], reverse=True); items = items[:40]
 (BASE/'data').mkdir(exist_ok=True)
 (BASE/'data'/'noticias.json').write_text(json.dumps({'atualizado': now.strftime('%Y-%m-%d'), 'itens': items}, ensure_ascii=False, indent=1))
