@@ -195,9 +195,13 @@ ART = [('artigos/expertise360-atendimento-protagonista.html', 'Expertise360: o q
        ('artigos/nao-so-de-call-center.html', 'Não Só de Call Center Vive a Experiência do Cliente', 'Qualidade estratégica, Voz do Cliente e análise de dados para transformar jornadas em resultados.', '28/04/2026', '10.5281/zenodo.23898804', ('#0b1d3a', '#1d4ed8', '#22d3ee')),
        ('artigos/qualidade-nao-e-controle.html', 'Qualidade não é controle. É alavanca estratégica de resultado', 'Da monitoria à leitura estatística do NPS.', '06/04/2026', '10.5281/zenodo.23891605', ('#1e1b4b', '#6d28d9', '#22d3ee')),
        ('artigos/nps-com-rigor-estatistico.html', 'NPS com rigor estatístico', 'Como separar ruído de mudança real e descobrir o que move o indicador.', '02/11/2026', '', ('#042f2e', '#0f766e', '#a78bfa'))]
+CAPAS = {'artigos/qualidade-nao-e-controle.html': 'img/capas/qualidade-nao-e-controle.png', 'artigos/nao-so-de-call-center.html': 'img/capas/nao-so-de-call-center.png', 'artigos/expertise360-atendimento-protagonista.html': 'img/eventos/expertise360-andre-gisele.jpg'}
+def capa_html(pg):
+    f = CAPAS.get(pg)
+    return f'<img src="{f}" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover">' if f and (B/f).exists() else ''
 def arow(a):
     doi = f' · DOI {a[4]}' if a[4] else (' · código aberto' if 'nps' in a[0] else '')
-    return (f'<a class="arow" href="{a[0]}"><div class="art">{arte(a[0], a[5], 400, 300, "artigo")}</div><div><span class="kicker">Artigo</span>'
+    return (f'<a class="arow" href="{a[0]}"><div class="art">{capa_html(a[0]) or arte(a[0], a[5], 400, 300, "artigo")}</div><div><span class="kicker">Artigo</span>'
             f'<h3>{E(a[1])}</h3><p class="meta" style="margin:0">{E(a[2])}<br>André Luiz Maciel · {a[3]}{doi}</p></div></a>')
 
 PP_CORES = ('#1e1b4b', '#7c3aed', '#22d3ee')
@@ -314,6 +318,16 @@ def _rfc(d):
 itens = ''.join(f'<item><title>{E(a[1])}</title><link>{SITE}{a[0]}</link><guid>{SITE}{a[0]}</guid><pubDate>{_rfc(a[3])}</pubDate><description>{E(a[2])}</description></item>' for a in ART)
 (B/'feed.xml').write_text('<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"><channel><title>QualiCX Brasil</title><link>' + SITE + '</link><description>Revista de Qualidade, Customer Experience e Contact Center</description><language>pt-BR</language>' + itens + '</channel></rss>')
 pagina('404.html', 'Página não encontrada', 'A página procurada não existe no QualiCX Brasil.', '<div class="wrap narrow"><header style="padding:60px 0 0"><span class="kicker">Erro 404</span><h1>Página não encontrada</h1><p class="lead">O endereço pode ter mudado. Veja as <a href="noticias.html">notícias da semana</a>, os <a href="artigos.html">artigos</a> ou volte ao <a href="./">início</a>.</p></header></div>')
+
+# ---------------- Capas de compartilhamento dos artigos ----------------
+for _pg, _img in CAPAS.items():
+    _p = B/_pg
+    if _p.exists() and (B/_img).exists():
+        _t = _p.read_text()
+        _t = re.sub(r'<meta property="og:image" content="[^"]*">', lambda m: f'<meta property="og:image" content="{SITE}{_img}">', _t)
+        if 'twitter:card' not in _t:
+            _t = _t.replace('</head>', '<meta name="twitter:card" content="summary_large_image">\n</head>', 1)
+        _p.write_text(_t)
 
 # ---------------- Navegação nas demais páginas ----------------
 for p in list(B.glob('*.html')):
