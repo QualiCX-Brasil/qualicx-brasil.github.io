@@ -253,9 +253,13 @@ jobs:
                  ('artigos/nao-so-de-call-center.html', 'Não Só de Call Center Vive a Experiência do Cliente', 'Qualidade estratégica, Voz do Cliente e análise de dados para transformar jornadas em resultados.', '28/04/2026', '10.5281/zenodo.23898804', ('#0b1d3a', '#1d4ed8', '#22d3ee')),
                  ('artigos/qualidade-nao-e-controle.html', 'Qualidade não é controle. É alavanca estratégica de resultado', 'Da monitoria à leitura estatística do NPS.', '06/04/2026', '10.5281/zenodo.23891605', ('#1e1b4b', '#6d28d9', '#22d3ee')),
                  ('artigos/nps-com-rigor-estatistico.html', 'NPS com rigor estatístico', 'Como separar ruído de mudança real e descobrir o que move o indicador.', '02/11/2026', '', ('#042f2e', '#0f766e', '#a78bfa'))]
+          CAPAS = {'artigos/qualidade-nao-e-controle.html': 'img/capas/qualidade-nao-e-controle.png', 'artigos/nao-so-de-call-center.html': 'img/capas/nao-so-de-call-center.png', 'artigos/expertise360-atendimento-protagonista.html': 'img/eventos/expertise360-andre-gisele.jpg'}
+          def capa_html(pg):
+              f = CAPAS.get(pg)
+              return f'<img src="{f}" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover">' if f and (B/f).exists() else ''
           def arow(a):
               doi = f' · DOI {a[4]}' if a[4] else (' · código aberto' if 'nps' in a[0] else '')
-              return (f'<a class="arow" href="{a[0]}"><div class="art">{arte(a[0], a[5], 400, 300, "artigo")}</div><div><span class="kicker">Artigo</span>'
+              return (f'<a class="arow" href="{a[0]}"><div class="art">{capa_html(a[0]) or arte(a[0], a[5], 400, 300, "artigo")}</div><div><span class="kicker">Artigo</span>'
                       f'<h3>{E(a[1])}</h3><p class="meta" style="margin:0">{E(a[2])}<br>André Luiz Maciel · {a[3]}{doi}</p></div></a>')
 
           PP_CORES = ('#1e1b4b', '#7c3aed', '#22d3ee')
@@ -373,6 +377,16 @@ jobs:
           (B/'feed.xml').write_text('<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"><channel><title>QualiCX Brasil</title><link>' + SITE + '</link><description>Revista de Qualidade, Customer Experience e Contact Center</description><language>pt-BR</language>' + itens + '</channel></rss>')
           pagina('404.html', 'Página não encontrada', 'A página procurada não existe no QualiCX Brasil.', '<div class="wrap narrow"><header style="padding:60px 0 0"><span class="kicker">Erro 404</span><h1>Página não encontrada</h1><p class="lead">O endereço pode ter mudado. Veja as <a href="noticias.html">notícias da semana</a>, os <a href="artigos.html">artigos</a> ou volte ao <a href="./">início</a>.</p></header></div>')
 
+          # ---------------- Capas de compartilhamento dos artigos ----------------
+          for _pg, _img in CAPAS.items():
+              _p = B/_pg
+              if _p.exists() and (B/_img).exists():
+                  _t = _p.read_text()
+                  _t = re.sub(r'<meta property="og:image" content="[^"]*">', lambda m: f'<meta property="og:image" content="{SITE}{_img}">', _t)
+                  if 'twitter:card' not in _t:
+                      _t = _t.replace('</head>', '<meta name="twitter:card" content="summary_large_image">\n</head>', 1)
+                  _p.write_text(_t)
+
           # ---------------- Navegação nas demais páginas ----------------
           for p in list(B.glob('*.html')):
               if not p.name.startswith('google'): injeta(p)
@@ -443,6 +457,15 @@ jobs:
             echo linkedin-2026-11-14 > img/.foto-linkedin
           fi
           pip install -q pillow
+          mkdir -p img/capas
+          if [ ! -f img/capas/qualidade-nao-e-controle.png ]; then
+            curl -fsSL -o /tmp/qualidade-nao-e-controle.png "https://export-download.canva.com/do-ck/DAHa64do-ck/-1/0/0001-641159228552179727.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAQYCGKMUH4R7NKVBA%2F20261114%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20261114T093903Z&X-Amz-Expires=42216&X-Amz-Signature=4fd0f7ee86fe5f43cb21ce68edd8d4cf54a55d4d8deea0455d2071031b33031b&X-Amz-SignedHeaders=host%3Bx-amz-expected-bucket-owner&response-expires=Sat%2C%2014%20Nov%202026%2021%3A22%3A39%20GMT"
+            python3 -c "from PIL import Image;im=Image.open('/tmp/qualidade-nao-e-controle.png').convert('RGB');w,h=im.size;t=int(w/1.905);y=(h-t)//2;im.crop((0,y,w,y+t)).resize((1200,630)).save('img/capas/qualidade-nao-e-controle.png',optimize=True)"
+          fi
+          if [ ! -f img/capas/nao-so-de-call-center.png ]; then
+            curl -fsSL -o /tmp/nao-so-de-call-center.png "https://export-download.canva.com/-UGqo/DAHa6w-UGqo/-1/0/0001-1101652286988593712.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAQYCGKMUH4R7NKVBA%2F20261113%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20261113T202435Z&X-Amz-Expires=92033&X-Amz-Signature=17a70fbe8b66c9b0fff95b8e24c934ee808c6ae177cff9810b69fade407fc50a&X-Amz-SignedHeaders=host%3Bx-amz-expected-bucket-owner&response-expires=Sat%2C%2014%20Nov%202026%2021%3A58%3A28%20GMT"
+            python3 -c "from PIL import Image;im=Image.open('/tmp/nao-so-de-call-center.png').convert('RGB');w,h=im.size;t=int(w/1.905);y=(h-t)//2;im.crop((0,y,w,y+t)).resize((1200,630)).save('img/capas/nao-so-de-call-center.png',optimize=True)"
+          fi
           if [ ! -f img/og-qualicx.png ]; then
             curl -fsSL -o /tmp/og.png "https://export-download.canva.com/v9338/DAHa6zv9338/-1/0/0001-6163698268669662956.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAQYCGKMUH4R7NKVBA%2F20261114%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20261114T080343Z&X-Amz-Expires=47898&X-Amz-Signature=6fd52d6cfe2a05a760ba01952d7be5b59b842eeaaf46aa775a2c91609bfeb916&X-Amz-SignedHeaders=host%3Bx-amz-expected-bucket-owner&response-expires=Sat%2C%2014%20Nov%202026%2021%3A22%3A01%20GMT"
             python3 -c "from PIL import Image;im=Image.open('/tmp/og.png').convert('RGB');w,h=im.size;t=int(w/1.905);y=(h-t)//2;im.crop((0,y,w,y+t)).resize((1200,630)).save('img/og-qualicx.png',optimize=True)"
