@@ -1,0 +1,167 @@
+# QualiCX Brasil - gerador das paginas da revista (executado pelo GitHub Actions).
+import json, html, re, pathlib, datetime
+B = pathlib.Path('.')
+SITE = 'https://qualicx-brasil.github.io/'
+REPO = 'https://github.com/QualiCX-Brasil/qualicx-brasil.github.io'
+EMAIL_EDITORIAL = ''   # preencher quando a caixa editorial dedicada existir
+HOJE = datetime.date.today()
+CSS = re.search(r'<style>.*?</style>', (B/'frases.html').read_text(), re.S).group(0)
+EXTRA = '<style>ul.lista li{margin:12px 0}.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}.card h3{margin:0 0 6px;font-size:1rem}.tag{display:inline-block;font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);font-weight:700}.fases li{margin:10px 0}.btn{display:inline-block;background:var(--accent);color:#fff;padding:10px 18px;border-radius:10px;text-decoration:none;font-weight:700}.aviso{background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:14px 18px}</style>'
+LINKS = [('./', 'Início'), ('noticias.html', 'Notícias'), ('artigos.html', 'Artigos'), ('boas-praticas.html', 'Boas práticas'),
+         ('frases.html', 'Frases'), ('publique.html', 'Publique'), ('autor.html', 'Sobre')]
+
+def nav(prefix=''):
+    a = ''.join(f'<a href="{prefix}{h if h != "./" else ""}" style="color:#e1e7ef;text-decoration:none;white-space:nowrap;padding:0 10px">{t}</a>' for h, t in LINKS)
+    if prefix and a.count('href="../"') == 0:
+        a = a.replace(f'href="{prefix}"', 'href="../"', 1)
+    return ('<!--qcx-nav--><nav aria-label="Seções da revista" style="background:#0d1117;border-bottom:1px solid #232b36;font:600 14px/1 Inter,system-ui,sans-serif">'
+            '<div style="max-width:1100px;margin:0 auto;padding:12px 10px;display:flex;overflow-x:auto;gap:2px">'
+            f'<a href="{prefix or "./"}" style="color:#e1e7ef;text-decoration:none;font-weight:800;padding:0 10px;white-space:nowrap">QUALICX <span style="color:#8b5cf6">BRASIL</span></a>{a}</div></nav><!--/qcx-nav-->')
+
+def injeta(p, prefix=''):
+    t = p.read_text()
+    t = re.sub(r'<!--qcx-nav-->.*?<!--/qcx-nav-->', '', t, flags=re.S)
+    t = re.sub(r'(<body[^>]*>)', lambda m: m.group(1) + nav(prefix), t, count=1)
+    p.write_text(t)
+
+def pagina(arq, titulo, desc, corpo, tipo='WebPage'):
+    ld = json.dumps({'@context': 'https://schema.org', '@type': tipo, 'name': titulo, 'url': SITE + arq, 'inLanguage': 'pt-BR',
+                     'isPartOf': {'@id': SITE + '#site'}, 'publisher': {'@id': 'https://orcid.org/0009-0000-1747-1392'}}, ensure_ascii=False)
+    (B/arq).write_text(f'''<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{html.escape(titulo)} | QualiCX Brasil</title>
+<meta name="description" content="{html.escape(desc)}">
+<link rel="canonical" href="{SITE}{arq}">
+<meta property="og:site_name" content="QualiCX Brasil"><meta property="og:title" content="{html.escape(titulo)}"><meta property="og:url" content="{SITE}{arq}">
+<script type="application/ld+json">{ld}</script>
+{CSS}{EXTRA}
+</head><body>
+<main class="wrap">
+{corpo}
+</main>
+<footer><div class="wrap">QualiCX Brasil · Revista independente de Qualidade, CX e Contact Center · Editor: <a href="autor.html">André Luiz Maciel</a> · Textos sob licença CC BY 4.0, salvo indicação</div></footer>
+</body></html>
+''')
+
+# ---------- Notícias (dados gerados por noticias.py) ----------
+N = json.loads((B/'data'/'noticias.json').read_text()) if (B/'data'/'noticias.json').exists() else {'atualizado': '', 'itens': []}
+def li_noticia(i):
+    d = datetime.date.fromisoformat(i['data']).strftime('%d/%m/%Y')
+    return f'<li><a href="{html.escape(i["link"])}" target="_blank" rel="noopener nofollow">{html.escape(i["titulo"])}</a><br><span class="meta">{html.escape(i["fonte"])} · {d}</span></li>'
+atual = datetime.date.fromisoformat(N['atualizado']).strftime('%d/%m/%Y') if N['atualizado'] else '—'
+pagina('noticias.html', 'Notícias da semana: CX, SAC e Contact Center',
+       'Curadoria semanal de manchetes sobre experiência do cliente, SAC e Contact Center no Brasil.',
+       f'''<span class="tag">Curadoria semanal</span>
+<h1>Notícias da semana</h1>
+<p class="meta">Atualizado em {atual}. Toda segunda-feira o QualiCX Brasil reúne as manchetes mais recentes sobre experiência do cliente, SAC, Contact Center e defesa do consumidor. Mostramos apenas título, veículo e data; o conteúdo pertence aos veículos de origem e deve ser lido na fonte.</p>
+<ul class="lista">{"".join(li_noticia(i) for i in N["itens"]) or "<li>A primeira curadoria será publicada na próxima atualização.</li>"}</ul>
+<p class="aviso">Quer sugerir uma fonte para a curadoria? Use a página <a href="publique.html">Publique</a>.</p>''', 'CollectionPage')
+
+# ---------- Artigos ----------
+ART = [('artigos/reclame-aqui-armadilha.html', 'O Reclame Aqui é uma armadilha para as empresas? Reputação pública, resolução no primeiro contato e experiência do cliente', '06/11/2026', '10.5281/zenodo.24025962'),
+       ('artigos/nao-so-de-call-center.html', 'Não Só de Call Center Vive a Experiência do Cliente: qualidade estratégica, Voz do Cliente e análise de dados para transformar jornadas em resultados', '28/04/2026', '10.5281/zenodo.23898804'),
+       ('artigos/qualidade-nao-e-controle.html', 'Qualidade não é controle. É alavanca estratégica de resultado: da monitoria à leitura estatística do NPS', '06/04/2026', '10.5281/zenodo.23891605'),
+       ('artigos/nps-com-rigor-estatistico.html', 'NPS com rigor estatístico: como separar ruído de mudança real e descobrir o que move o indicador', '02/11/2026', '')]
+def li_art(a):
+    doi = f' · DOI <a href="https://doi.org/{a[3]}">{a[3]}</a>' if a[3] else ' · código aberto'
+    return f'<li><a href="{a[0]}">{html.escape(a[1])}</a><br><span class="meta">André Luiz Maciel · {a[2]}{doi}</span></li>'
+pagina('artigos.html', 'Artigos', 'Artigos sobre Qualidade, Customer Experience e Contact Center publicados no QualiCX Brasil, com DOI.',
+       f'''<span class="tag">Acervo</span><h1>Artigos</h1>
+<p>Textos autorais e colaborações sobre Qualidade, Voz do Cliente, indicadores e gestão de Contact Center. Os artigos com DOI têm registro permanente no Zenodo.</p>
+<ul class="lista">{"".join(li_art(a) for a in ART)}</ul>
+<p class="aviso">Tem um artigo sobre CX ou Contact Center? <a href="publique.html">Envie sua proposta</a>.</p>''', 'CollectionPage')
+
+# ---------- Boas práticas ----------
+pagina('boas-praticas.html', 'Boas práticas: Projeto Promotor, um modelo de atuação para a Qualidade em Contact Center',
+       'Boa prática em destaque: o Projeto Promotor, modelo de atuação que posiciona a Qualidade como alavanca estratégica de resultado em Contact Centers.',
+       '''<span class="tag">Boa prática em destaque</span>
+<h1>Projeto Promotor: o modelo de atuação que o QualiCX Brasil recomenda</h1>
+<p>Entre as práticas que acompanhamos, o Projeto Promotor é a que melhor traduz a linha editorial desta revista: a Qualidade deixa de ser apenas fiscalização de atendimentos e passa a funcionar como inteligência que conecta operação, Voz do Cliente, dados e decisão.</p>
+<blockquote>“Qualidade não é controle. É alavanca estratégica de resultado.” — André Luiz Maciel</blockquote>
+<h2>Por que é uma boa prática</h2>
+<ul class="lista">
+<li><b>Começa pela governança.</b> Metas de Qualidade ligadas a objetivos do negócio, papéis definidos e acompanhamento executivo com cadência D-1.</li>
+<li><b>Une números e escuta.</b> Indicadores como NPS, CSAT, FCR, rechamada e TMA são lidos junto com a jornada e a voz do cliente, em busca da causa raiz.</li>
+<li><b>Alerta para prevenir, não para punir.</b> Desvios críticos geram acionamento imediato e plano de ação com dono, prazo e evidência.</li>
+<li><b>Mede o efeito.</b> Toda ação é avaliada pelo antes e depois, e a camada estatística (NEXUS) verifica se a variação é real ou ruído.</li>
+</ul>
+<h2>As cinco fases do modelo</h2>
+<ol class="fases">
+<li><b>Zona qualitativa:</b> monitorias com mapeamento de jornada, leitura comportamental e análise multicanal.</li>
+<li><b>Alertas de qualidade:</b> acionamento preventivo para desvios críticos e riscos operacionais.</li>
+<li><b>Calibrações:</b> alinhamento técnico entre avaliadores, líderes e operação.</li>
+<li><b>Controle de ações:</b> responsável, prazo, evidência e medição de impacto.</li>
+<li><b>Ação estruturante de dados:</b> consolidação, limpeza e correlação dos dados para a decisão.</li>
+</ol>
+<p><a class="btn" href="projeto-promotor.html">Conheça o Projeto Promotor completo</a></p>
+<p class="meta">Registro: DOI <a href="https://doi.org/10.5281/zenodo.23966325">10.5281/zenodo.23966325</a>. Nota editorial: esta é a avaliação do QualiCX Brasil, baseada na linha que a revista defende; o modelo foi desenvolvido por profissionais ligados ao editor. Resultados de aplicação só são divulgados com autorização e evidência.</p>
+<h2>Indique uma boa prática</h2>
+<p>Conhece outra prática de Qualidade ou CX que merece destaque? <a href="publique.html">Envie para a redação</a>.</p>''', 'Article')
+
+# ---------- Publique ----------
+FORM = REPO + '/issues/new?template=submissao-artigo.yml'
+canal_email = (f'<p>Prefere e-mail? Escreva para <a href="mailto:{EMAIL_EDITORIAL}">{EMAIL_EDITORIAL}</a> com o assunto “Submissão de artigo”.</p>' if EMAIL_EDITORIAL else '')
+pagina('publique.html', 'Publique seu artigo no QualiCX Brasil',
+       'Envie seu artigo sobre Customer Experience, Qualidade, SAC ou Contact Center para avaliação editorial do QualiCX Brasil.',
+       f'''<span class="tag">Colabore</span>
+<h1>Publique seu artigo</h1>
+<p>O QualiCX Brasil recebe artigos de profissionais, pesquisadores e líderes de Customer Experience, Qualidade, SAC e Contact Center. Toda proposta passa por avaliação editorial antes da publicação.</p>
+<h2>O que publicamos</h2>
+<ul class="lista">
+<li>Artigos técnicos, estudos de caso e análises com dados sobre CX, Qualidade, Voz do Cliente, indicadores, tecnologia e gestão de operações.</li>
+<li>Relatos de boas práticas, desde que não exponham dados de clientes ou de empresas sem autorização.</li>
+<li>Textos inéditos ou com republicação autorizada, entre 800 e 2.500 palavras, em português.</li>
+</ul>
+<h2>Critérios editoriais</h2>
+<ul class="lista">
+<li>Números e estatísticas precisam de fonte, contexto e limitações.</li>
+<li>Opinião, experiência prática, hipótese e resultado medido devem estar claramente separados.</li>
+<li>Não publicamos conteúdo publicitário disfarçado, plágio ou texto sem contribuição original.</li>
+<li>O autor mantém os direitos do texto; a publicação no site segue a licença CC BY 4.0, salvo combinação diferente.</li>
+</ul>
+<h2>Como enviar</h2>
+<p>Preencha o formulário de submissão com título, resumo, tema e link para o texto completo (Google Docs, PDF ou similar). A redação responde em até 15 dias úteis.</p>
+<p><a class="btn" href="{FORM}" target="_blank" rel="noopener">Enviar proposta de artigo</a></p>
+<p class="meta">O formulário usa o GitHub (é preciso uma conta gratuita) e a proposta fica visível publicamente; não inclua dados pessoais sensíveis nem informações confidenciais.</p>
+{canal_email}''')
+
+# ---------- Início (revista) ----------
+idx = (B/'index.html').read_text()
+top = ''.join(li_noticia(i) for i in N['itens'][:5]) or '<li>A curadoria semanal começa na próxima segunda-feira.</li>'
+main = f'''<main class="wrap">
+<section class="hero">
+<span class="tag">Revista de Qualidade, CX e Contact Center</span>
+<h1>QualiCX Brasil</h1>
+<p>Notícias, artigos e boas práticas para quem transforma a Voz do Cliente em decisão.</p>
+<blockquote>“Não Só de Call Center Vive a Experiência do Cliente.” — André Luiz Maciel</blockquote>
+</section>
+<h2>Notícias da semana</h2>
+<p class="meta">Atualizado em {atual}</p>
+<ul class="lista">{top}</ul>
+<p><a href="noticias.html">Ver todas as notícias →</a></p>
+<h2>Boa prática em destaque</h2>
+<div class="card"><h3><a href="boas-praticas.html">Projeto Promotor: o modelo de atuação que o QualiCX Brasil recomenda</a></h3><p class="meta">Governança, monitoria inteligente, alertas preventivos e estatística aplicada para fazer da Qualidade uma alavanca de resultado.</p></div>
+<h2 id="artigos">Artigos recentes</h2>
+<ul class="lista">{"".join(li_art(a) for a in ART)}</ul>
+<h2>Explore</h2>
+<div class="cards">
+<div class="card"><h3><a href="publique.html">Publique seu artigo</a></h3><p class="meta">Envie sua proposta para a redação.</p></div>
+<div class="card"><h3><a href="frases.html">Frases e conceitos</a></h3><p class="meta">Frases autorais com data, fonte e DOI.</p></div>
+<div class="card"><h3><a href="autor.html">Editor</a></h3><p class="meta">André Luiz Maciel: trajetória, publicações e identificadores.</p></div>
+</div>
+</main>'''
+idx = re.sub(r'<header>.*?</header>\s*', '', idx, count=1, flags=re.S)
+idx = re.sub(r'<main class="wrap">.*?</main>', lambda m: main, idx, count=1, flags=re.S)
+if EXTRA not in idx: idx = idx.replace('</head>', EXTRA + '\n</head>', 1)
+(B/'index.html').write_text(idx)
+
+# ---------- Navegação em todas as páginas ----------
+for p in list(B.glob('*.html')):
+    if not p.name.startswith('google'): injeta(p)
+for p in B.glob('artigos/*.html'): injeta(p, '../')
+
+# ---------- Sitemap ----------
+urls = [''] + [p.name for p in sorted(B.glob('*.html')) if not p.name.startswith('google') and p.name != 'index.html'] + [f'artigos/{p.name}' for p in sorted(B.glob('artigos/*.html'))]
+(B/'sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
+    ''.join(f'  <url><loc>{SITE}{u}</loc><lastmod>{HOJE}</lastmod></url>\n' for u in urls) + '</urlset>\n')
+print('ok', len(urls), 'urls')

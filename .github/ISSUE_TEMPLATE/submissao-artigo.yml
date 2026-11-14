@@ -1,0 +1,45 @@
+name: Submissão de artigo
+description: Envie uma proposta de artigo para a redação do QualiCX Brasil
+title: "[Submissão] "
+labels: ["submissão"]
+body:
+  - type: markdown
+    attributes:
+      value: "Obrigado por colaborar! Leia os critérios em https://qualicx-brasil.github.io/publique.html. Esta proposta fica visível publicamente: não inclua dados pessoais sensíveis nem informações confidenciais."
+  - type: input
+    id: autor
+    attributes: {label: "Nome do autor ou autores", placeholder: "Nome completo"}
+    validations: {required: true}
+  - type: input
+    id: perfil
+    attributes: {label: "LinkedIn, ORCID ou site profissional", placeholder: "https://..."}
+    validations: {required: true}
+  - type: input
+    id: titulo
+    attributes: {label: "Título do artigo"}
+    validations: {required: true}
+  - type: dropdown
+    id: tema
+    attributes:
+      label: Tema principal
+      options: ["Customer Experience", "Qualidade e monitoria", "Contact Center e operações", "SAC, regulação e defesa do consumidor", "Dados, IA e tecnologia", "Customer Success", "Outro"]
+    validations: {required: true}
+  - type: textarea
+    id: resumo
+    attributes: {label: "Resumo (até 200 palavras)"}
+    validations: {required: true}
+  - type: input
+    id: link
+    attributes: {label: "Link para o texto completo", description: "Google Docs com acesso de leitura, PDF ou similar"}
+    validations: {required: true}
+  - type: checkboxes
+    id: termos
+    attributes:
+      label: Declarações
+      options:
+        - label: O texto é de minha autoria (ou tenho autorização dos coautores) e é inédito ou tem republicação autorizada.
+          required: true
+        - label: O texto não expõe dados de clientes ou de empresas sem autorização, e os números citados têm fonte.
+          required: true
+        - label: Concordo com a publicação sob licença CC BY 4.0, mantendo meus direitos de autor.
+          required: true
