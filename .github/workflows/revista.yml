@@ -383,6 +383,8 @@ jobs:
               if _p.exists() and (B/_img).exists():
                   _t = _p.read_text()
                   _t = re.sub(r'<meta property="og:image" content="[^"]*">', lambda m: f'<meta property="og:image" content="{SITE}{_img}">', _t)
+                  if 'og:image' not in _t:
+                      _t = _t.replace('</head>', f'<meta property="og:image" content="{SITE}{_img}"><meta property="og:type" content="article">\n</head>', 1)
                   if 'twitter:card' not in _t:
                       _t = _t.replace('</head>', '<meta name="twitter:card" content="summary_large_image">\n</head>', 1)
                   _p.write_text(_t)
