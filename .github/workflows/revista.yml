@@ -27,7 +27,7 @@ jobs:
               FEEDS.append(('Google Notícias', 'https://news.google.com/rss/search?' + urllib.parse.urlencode({'q': q + ' when:7d', 'hl': 'pt-BR', 'gl': 'BR', 'ceid': 'BR:pt-419'})))
           UA = {'User-Agent': 'QualiCX-Brasil-curadoria/1.0 (+https://qualicx-brasil.github.io/)'}
           KEY = re.compile(r'(atendimento|cliente|consumidor|CX|contact center|call center|SAC|experiência|customer|ouvidoria|NPS|chatbot|omnichannel)', re.I)
-          RUIDO = re.compile(r'(gasolina|combust|diesel|DNA|paternidade|vacina|eleiç|futebol|loteria|preço d[aoe]s? )', re.I)
+          RUIDO = re.compile(r'(gasolina|combust|diesel|DNA|paternidade|vacina|eleiç|futebol|loteria|preço d[aoe]s? |vaga|emprego|salário|contrata|concurso|currículo)', re.I)
           now = datetime.datetime.now(datetime.timezone.utc)
           items, seen = [], set()
           for nome, url in FEEDS:
@@ -45,7 +45,7 @@ jobs:
                   except Exception: d = now
                   if d.tzinfo is None: d = d.replace(tzinfo=datetime.timezone.utc)
                   if (now - d).days > 10 or not t or not l: continue
-                  if not KEY.search(t) or RUIDO.search(t): continue
+                  if not KEY.search(t) or RUIDO.search(t) or src.lower() in ('instagram','facebook','youtube','tiktok'): continue
                   k = re.sub(r'\W+', '', t.lower())[:80]
                   if k in seen: continue
                   seen.add(k); items.append({'titulo': t, 'fonte': src, 'data': d.strftime('%Y-%m-%d'), 'link': l})
@@ -57,24 +57,96 @@ jobs:
           mkdir -p $(dirname tools/revista.py)
           cat > tools/revista.py <<'QCXEOF'
           # QualiCX Brasil - gerador das paginas da revista (executado pelo GitHub Actions).
-          import json, html, re, pathlib, datetime
+          # Artes das noticias: ilustracoes abstratas geradas aqui (SVG proprio), sem usar imagens dos veiculos.
+          import json, html, re, pathlib, datetime, hashlib, random
           B = pathlib.Path('.')
           SITE = 'https://qualicx-brasil.github.io/'
           REPO = 'https://github.com/QualiCX-Brasil/qualicx-brasil.github.io'
           EMAIL_EDITORIAL = ''   # preencher quando a caixa editorial dedicada existir
           HOJE = datetime.date.today()
-          CSS = re.search(r'<style>.*?</style>', (B/'frases.html').read_text(), re.S).group(0)
-          EXTRA = '<style>ul.lista li{margin:12px 0}.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}.card h3{margin:0 0 6px;font-size:1rem}.tag{display:inline-block;font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);font-weight:700}.fases li{margin:10px 0}.btn{display:inline-block;background:var(--accent);color:#fff;padding:10px 18px;border-radius:10px;text-decoration:none;font-weight:700}.aviso{background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:14px 18px}</style>'
-          LINKS = [('./', 'Início'), ('noticias.html', 'Notícias'), ('artigos.html', 'Artigos'), ('boas-praticas.html', 'Boas práticas'),
+          E = html.escape
+
+          # ---------------- Estilo ----------------
+          CSS = """
+          :root{--bg:#07090d;--bg2:#0d1118;--card:#111722;--card2:#161e2c;--line:#222c3b;--fg:#e8edf4;--muted:#93a1b5;--accent:#8b5cf6;--accent2:#22d3ee;--warm:#f59e0b;--serif:'Fraunces',Georgia,serif;--sans:'Inter',system-ui,sans-serif}
+          *{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+          body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.65 var(--sans)}
+          a{color:inherit;text-decoration:none}
+          p a{color:var(--accent2);text-decoration:underline;text-underline-offset:3px}
+          img,svg{display:block;max-width:100%}
+          .wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+          .narrow{max-width:820px}
+          .masthead{padding:34px 0 22px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap}
+          .masthead .brand{font:800 clamp(2.4rem,7vw,4rem)/1 var(--serif);letter-spacing:-.02em;margin-top:8px}
+          .masthead .brand span{color:var(--accent)}
+          .masthead .tagline{color:var(--muted);font-size:.95rem;max-width:420px;margin:0}
+          .edition{font:600 .74rem var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+          .kicker{display:inline-block;font:700 .72rem var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+          h1,h2,h3{font-family:var(--serif);letter-spacing:-.01em;line-height:1.15}
+          h1{font-size:clamp(2rem,5vw,3.1rem);margin:.3em 0 .4em}
+          h2.sec{font-size:1.6rem;margin:56px 0 18px;display:flex;align-items:center;gap:14px}
+          h2.sec:after{content:"";flex:1;height:1px;background:var(--line);order:1}
+          h2.sec a{font:600 .85rem var(--sans);color:var(--accent2);order:2;white-space:nowrap}
+          .lead{font-size:1.15rem;color:#c8d1de;max-width:720px}
+          .meta{color:var(--muted);font-size:.88rem}
+          .chip{display:inline-block;font:700 .66rem var(--sans);letter-spacing:.1em;text-transform:uppercase;padding:5px 10px;border-radius:999px;background:rgba(0,0,0,.5);backdrop-filter:blur(6px);color:#fff;border:1px solid rgba(255,255,255,.2)}
+          .featured{display:grid;grid-template-columns:1.5fr 1fr;gap:22px;margin-top:28px}
+          .feat-main{position:relative;border-radius:18px;overflow:hidden;min-height:440px;display:flex;align-items:flex-end;border:1px solid var(--line);transition:border-color .2s}
+          .feat-main .art{position:absolute;inset:0}.feat-main .art svg{width:100%;height:100%}
+          .feat-main .ov{position:relative;padding:28px;background:linear-gradient(180deg,rgba(7,9,13,0) 0%,rgba(7,9,13,.8) 40%,rgba(7,9,13,.96) 100%);width:100%}
+          .feat-main h3{font-size:clamp(1.5rem,3vw,2.2rem);margin:12px 0 8px}
+          .feat-side{display:flex;flex-direction:column;gap:12px}
+          .mini{display:grid;grid-template-columns:118px 1fr;gap:14px;align-items:center;padding:10px;border-radius:14px;background:var(--card);border:1px solid var(--line);transition:border-color .2s}
+          .mini:hover,.ncard:hover,.feat-main:hover,.arow:hover{border-color:var(--accent)}
+          .mini .art{border-radius:10px;overflow:hidden;aspect-ratio:4/3}.mini .art svg{width:100%;height:100%}
+          .mini h4{margin:4px 0;font:600 .95rem/1.35 var(--sans)}
+          .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:20px}
+          .ncard{display:flex;flex-direction:column;border-radius:16px;overflow:hidden;background:var(--card);border:1px solid var(--line);transition:border-color .2s,transform .2s}
+          .ncard:hover{transform:translateY(-3px)}
+          .ncard .art{position:relative;aspect-ratio:16/9}.ncard .art svg{width:100%;height:100%}
+          .ncard .art .chip{position:absolute;left:12px;top:12px}
+          .ncard .body{padding:16px 18px 18px;display:flex;flex-direction:column;gap:8px;flex:1}
+          .ncard h3{font:600 1.03rem/1.4 var(--sans);margin:0}
+          .ncard .meta{margin-top:auto}
+          .filters{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 26px}
+          .filters button{font:600 .82rem var(--sans);padding:8px 14px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--fg);cursor:pointer}
+          .filters button.on{background:var(--accent);border-color:var(--accent)}
+          .band{margin-top:56px;border-radius:22px;overflow:hidden;display:grid;grid-template-columns:1fr 1.1fr;background:var(--card);border:1px solid var(--line)}
+          .band .art svg{width:100%;height:100%;min-height:280px}
+          .band .txt{padding:34px;align-self:center}
+          .band h3{font-size:1.9rem;margin:8px 0 12px}
+          .btn{display:inline-block;background:var(--accent);color:#fff;padding:12px 20px;border-radius:12px;font-weight:700;margin-top:10px;text-decoration:none!important}
+          .alist{display:grid;gap:14px}
+          .arow{display:grid;grid-template-columns:150px 1fr;gap:18px;align-items:center;padding:12px;border-radius:16px;background:var(--card);border:1px solid var(--line);transition:border-color .2s}
+          .arow .art{border-radius:12px;overflow:hidden;aspect-ratio:4/3}.arow .art svg{width:100%;height:100%}
+          .arow h3{font-size:1.2rem;margin:4px 0 6px}
+          .quote{font:500 clamp(1.4rem,3vw,2rem)/1.3 var(--serif);border-left:4px solid var(--accent);padding:6px 0 6px 22px;margin:48px 0}
+          .quote small{display:block;font:500 .9rem var(--sans);color:var(--muted);margin-top:8px}
+          .cols3{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px}
+          .box{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px}
+          .box h3{margin:0 0 8px;font-size:1.2rem}.box p{margin:0}
+          .steps{counter-reset:s;display:grid;gap:12px;padding:0;list-style:none}
+          .steps li{counter-increment:s;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px 16px 66px;position:relative}
+          .steps li:before{content:counter(s,decimal-leading-zero);position:absolute;left:18px;top:13px;font:800 1.3rem var(--serif);color:var(--accent)}
+          .hero-art{border-radius:20px;overflow:hidden;border:1px solid var(--line);margin:24px 0 10px}.hero-art svg{width:100%;height:auto}
+          footer{margin-top:80px;border-top:1px solid var(--line);padding:36px 0 50px;color:var(--muted);font-size:.9rem}
+          footer .brand{font:800 1.5rem var(--serif);color:var(--fg)}footer .brand span{color:var(--accent)}
+          footer nav{display:flex;gap:16px;flex-wrap:wrap;margin:12px 0}footer nav a{color:var(--fg)}
+          @media(max-width:860px){.featured,.band{grid-template-columns:1fr!important}.feat-main{min-height:360px}.band .art{order:-1}.band .art svg{min-height:180px}.arow{grid-template-columns:96px 1fr}.mini{grid-template-columns:96px 1fr}.band .txt{padding:24px}}
+          """
+          FONTS = '<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">'
+          (B/'assets').mkdir(exist_ok=True)
+          (B/'assets'/'qcx.css').write_text(CSS.strip() + '\n')
+
+          LINKS = [('', 'Início'), ('noticias.html', 'Notícias'), ('artigos.html', 'Artigos'), ('boas-praticas.html', 'Boas práticas'),
                    ('frases.html', 'Frases'), ('publique.html', 'Publique'), ('autor.html', 'Sobre')]
 
           def nav(prefix=''):
-              a = ''.join(f'<a href="{prefix}{h if h != "./" else ""}" style="color:#e1e7ef;text-decoration:none;white-space:nowrap;padding:0 10px">{t}</a>' for h, t in LINKS)
-              if prefix and a.count('href="../"') == 0:
-                  a = a.replace(f'href="{prefix}"', 'href="../"', 1)
-              return ('<!--qcx-nav--><nav aria-label="Seções da revista" style="background:#0d1117;border-bottom:1px solid #232b36;font:600 14px/1 Inter,system-ui,sans-serif">'
-                      '<div style="max-width:1100px;margin:0 auto;padding:12px 10px;display:flex;overflow-x:auto;gap:2px">'
-                      f'<a href="{prefix or "./"}" style="color:#e1e7ef;text-decoration:none;font-weight:800;padding:0 10px;white-space:nowrap">QUALICX <span style="color:#8b5cf6">BRASIL</span></a>{a}</div></nav><!--/qcx-nav-->')
+              home = prefix or './'
+              a = ''.join(f'<a href="{prefix + h}" style="color:#c9d3e0;text-decoration:none;white-space:nowrap;padding:6px 10px;border-radius:8px">{t}</a>' for h, t in LINKS[1:])
+              return ('<!--qcx-nav--><nav aria-label="Seções da revista" style="position:sticky;top:0;z-index:50;background:rgba(7,9,13,.9);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid #222c3b;font:600 14px/1 Inter,system-ui,sans-serif">'
+                      '<div style="max-width:1180px;margin:0 auto;padding:10px 14px;display:flex;align-items:center;overflow-x:auto;gap:2px">'
+                      f'<a href="{home}" style="color:#e8edf4;text-decoration:none;font:800 18px/1 Fraunces,Georgia,serif;padding:6px 14px 6px 6px;white-space:nowrap">QualiCX <span style="color:#8b5cf6">Brasil</span></a>{a}</div></nav><!--/qcx-nav-->')
 
           def injeta(p, prefix=''):
               t = p.read_text()
@@ -82,147 +154,224 @@ jobs:
               t = re.sub(r'(<body[^>]*>)', lambda m: m.group(1) + nav(prefix), t, count=1)
               p.write_text(t)
 
-          def pagina(arq, titulo, desc, corpo, tipo='WebPage'):
-              ld = json.dumps({'@context': 'https://schema.org', '@type': tipo, 'name': titulo, 'url': SITE + arq, 'inLanguage': 'pt-BR',
-                               'isPartOf': {'@id': SITE + '#site'}, 'publisher': {'@id': 'https://orcid.org/0009-0000-1747-1392'}}, ensure_ascii=False)
-              (B/arq).write_text(f'''<!DOCTYPE html>
+          # ---------------- Arte generativa ----------------
+          CATS = [  # nome, regex, cores (fundo1, fundo2, destaque)
+              ('Regulação e SAC', r'\b(SAC|decreto|procon|senacon|regras?|lei|consumidor\.gov|regula\w*|anatel|bacen|ans)\b', ('#1e1b4b', '#5b21b6', '#f59e0b')),
+              ('IA e tecnologia', r'\b(IA|AI|intelig[eê]ncia artificial|chatbots?|bots?|automa\w*|agentes?|plataformas?|digital|voz|dados|cloud|dynamics)\b', ('#042f2e', '#0e7490', '#a78bfa')),
+              ('Contact Center', r'(contact center|call center|central de atendimento|BPO|teleatendimento)', ('#0b1d3a', '#1d4ed8', '#22d3ee')),
+              ('Varejo e e-commerce', r'(varejo|e-?commerce|black friday|loja|compra|marketplace)', ('#3b0a1f', '#9d174d', '#fbbf24')),
+              ('Experiência do cliente', r'.', ('#111827', '#6d28d9', '#22d3ee')),
+          ]
+          def categoria(t):
+              for nome, rx, cores in CATS:
+                  if re.search(rx, t, re.I): return nome, cores
+              return CATS[-1][0], CATS[-1][2]
+
+          def arte(seed, cores, w=640, h=360, rotulo=''):
+              hx = hashlib.md5(seed.encode()).hexdigest()
+              r = random.Random(hx)
+              c1, c2, ac = cores
+              uid = 'g' + hx[:8] + str(w)
+              ang = r.randint(0, 360)
+              p = [f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {w} {h}" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Ilustração abstrata{(": " + E(rotulo)) if rotulo else ""}">',
+                   f'<defs><linearGradient id="{uid}a" gradientTransform="rotate({ang} .5 .5)"><stop offset="0" stop-color="{c1}"/><stop offset="1" stop-color="{c2}"/></linearGradient>',
+                   f'<radialGradient id="{uid}b"><stop offset="0" stop-color="{ac}" stop-opacity=".8"/><stop offset="1" stop-color="{ac}" stop-opacity="0"/></radialGradient>',
+                   f'<pattern id="{uid}d" width="18" height="18" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.1" fill="#fff" fill-opacity=".13"/></pattern></defs>',
+                   f'<rect width="{w}" height="{h}" fill="url(#{uid}a)"/>']
+              gx, gy = r.uniform(.2, .9) * w, r.uniform(.1, .6) * h
+              p.append(f'<circle cx="{gx:.0f}" cy="{gy:.0f}" r="{r.uniform(.35,.6)*max(w,h):.0f}" fill="url(#{uid}b)" opacity=".5"/>')
+              estilo = r.randint(0, 2)
+              s = min(w, h) / 360
+              if estilo == 0:   # aneis concentricos (sinal, voz)
+                  cx, cy = r.uniform(.55, .85) * w, r.uniform(.3, .65) * h
+                  for i in range(r.randint(5, 9)):
+                      p.append(f'<circle cx="{cx:.0f}" cy="{cy:.0f}" r="{(22 + i*r.uniform(20,30))*s:.0f}" fill="none" stroke="{ac if i==2 else "#fff"}" stroke-opacity="{.8 if i==2 else max(.06,.34 - i*.035):.2f}" stroke-width="{(2.5 if i==2 else 1.4)*s:.1f}"/>')
+              elif estilo == 1:  # ondas (jornada)
+                  n = r.randint(4, 7)
+                  for i in range(n):
+                      y0 = h * (.3 + i * .1); a = r.uniform(16, 42) * s; seg = r.randint(3, 5); step = w / seg
+                      d = f'M0 {y0:.0f} ' + ' '.join(f'Q {step*k + step/2:.0f} {y0 + (a if k%2==0 else -a):.0f} {step*(k+1):.0f} {y0:.0f}' for k in range(seg))
+                      p.append(f'<path d="{d}" fill="none" stroke="{ac if i==1 else "#fff"}" stroke-opacity="{.85 if i==1 else .18}" stroke-width="{(3 if i==1 else 1.4)*s:.1f}"/>')
+              else:              # barras (dados)
+                  n = r.randint(9, 14); x0 = w * .4; bw = (w * .55) / n; base = h * .84; hi = r.randint(n-5, n-2)
+                  for i in range(n):
+                      bh = h * r.uniform(.12, .55) * (1 + i / n * .5)
+                      p.append(f'<rect x="{x0 + i*bw:.0f}" y="{base-bh:.0f}" width="{bw*.6:.0f}" height="{bh:.0f}" rx="{3*s:.0f}" fill="{ac if i==hi else "#fff"}" fill-opacity="{.9 if i==hi else .15}"/>')
+                  p.append(f'<line x1="{x0-10:.0f}" y1="{base:.0f}" x2="{w*.97:.0f}" y2="{base:.0f}" stroke="#fff" stroke-opacity=".3"/>')
+              p.append(f'<rect width="{w}" height="{h}" fill="url(#{uid}d)"/>')
+              for _ in range(r.randint(3, 6)):
+                  p.append(f'<circle cx="{r.uniform(0,w):.0f}" cy="{r.uniform(0,h):.0f}" r="{r.uniform(2,5)*s:.1f}" fill="{ac}" fill-opacity=".9"/>')
+              p.append('</svg>')
+              return ''.join(p)
+
+          # ---------------- Estrutura de pagina ----------------
+          LD_SITE = ''
+          m = re.search(r'<script type="application/ld\+json">.*?</script>', (B/'index.html').read_text(), re.S)
+          if m and '"WebSite"' in m.group(0): LD_SITE = m.group(0)
+
+          def pagina(arq, titulo, desc, corpo, tipo='WebPage', ld=None, titulo_tag=None):
+              ldj = ld or ('<script type="application/ld+json">' + json.dumps({'@context': 'https://schema.org', '@type': tipo, 'name': titulo, 'url': SITE + arq, 'inLanguage': 'pt-BR',
+                           'isPartOf': {'@id': SITE + '#site'}, 'publisher': {'@id': 'https://orcid.org/0009-0000-1747-1392'}}, ensure_ascii=False) + '</script>')
+              rodape = ''.join(f'<a href="{h or "./"}">{t}</a>' for h, t in LINKS)
+              (B/(arq or 'index.html')).write_text(f'''<!DOCTYPE html>
           <html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-          <title>{html.escape(titulo)} | QualiCX Brasil</title>
-          <meta name="description" content="{html.escape(desc)}">
+          <title>{E(titulo_tag or (titulo + " | QualiCX Brasil"))}</title>
+          <meta name="description" content="{E(desc)}">
+          <meta name="author" content="André Luiz Maciel">
           <link rel="canonical" href="{SITE}{arq}">
-          <meta property="og:site_name" content="QualiCX Brasil"><meta property="og:title" content="{html.escape(titulo)}"><meta property="og:url" content="{SITE}{arq}">
-          <script type="application/ld+json">{ld}</script>
-          {CSS}{EXTRA}
+          <meta name="theme-color" content="#07090d">
+          <meta property="og:type" content="website"><meta property="og:site_name" content="QualiCX Brasil"><meta property="og:title" content="{E(titulo)}"><meta property="og:description" content="{E(desc)}"><meta property="og:url" content="{SITE}{arq}"><meta property="og:image" content="{SITE}img/andre-luiz-maciel.png">
+          {ldj}
+          {FONTS}
+          <link rel="stylesheet" href="assets/qcx.css">
           </head><body>
-          <main class="wrap">
+          <main>
           {corpo}
           </main>
-          <footer><div class="wrap">QualiCX Brasil · Revista independente de Qualidade, CX e Contact Center · Editor: <a href="autor.html">André Luiz Maciel</a> · Textos sob licença CC BY 4.0, salvo indicação</div></footer>
+          <footer><div class="wrap"><div class="brand">QualiCX <span>Brasil</span></div>
+          <p>Revista independente de Qualidade, Customer Experience e Contact Center.</p>
+          <nav>{rodape}</nav>
+          <p>Editor: <a href="autor.html">André Luiz Maciel</a> · ORCID <a href="https://orcid.org/0009-0000-1747-1392">0009-0000-1747-1392</a> · Textos sob licença CC BY 4.0, salvo indicação. Manchetes de terceiros pertencem aos respectivos veículos; as ilustrações são artes abstratas geradas pelo QualiCX Brasil.</p></div></footer>
           </body></html>
           ''')
 
-          # ---------- Notícias (dados gerados por noticias.py) ----------
+          # ---------------- Dados ----------------
           N = json.loads((B/'data'/'noticias.json').read_text()) if (B/'data'/'noticias.json').exists() else {'atualizado': '', 'itens': []}
-          def li_noticia(i):
-              d = datetime.date.fromisoformat(i['data']).strftime('%d/%m/%Y')
-              return f'<li><a href="{html.escape(i["link"])}" target="_blank" rel="noopener nofollow">{html.escape(i["titulo"])}</a><br><span class="meta">{html.escape(i["fonte"])} · {d}</span></li>'
+          IT = N['itens']
+          for i in IT:
+              i['cat'], i['cores'] = categoria(i['titulo'])
           atual = datetime.date.fromisoformat(N['atualizado']).strftime('%d/%m/%Y') if N['atualizado'] else '—'
+          def dbr(s): return datetime.date.fromisoformat(s).strftime('%d/%m/%Y')
+          def ext(i): return f'href="{E(i["link"])}" target="_blank" rel="noopener nofollow"'
+
+          def ncard(i):
+              return (f'<a class="ncard" data-cat="{E(i["cat"])}" {ext(i)}><div class="art">{arte(i["titulo"], i["cores"], rotulo=i["cat"])}<span class="chip">{E(i["cat"])}</span></div>'
+                      f'<div class="body"><h3>{E(i["titulo"])}</h3><span class="meta">{E(i["fonte"])} · {dbr(i["data"])}</span></div></a>')
+
+          ART = [('artigos/reclame-aqui-armadilha.html', 'O Reclame Aqui é uma armadilha para as empresas?', 'Reputação pública, resolução no primeiro contato e experiência do cliente.', '06/11/2026', '10.5281/zenodo.24025962', ('#3b0a1f', '#7c3aed', '#f59e0b')),
+                 ('artigos/nao-so-de-call-center.html', 'Não Só de Call Center Vive a Experiência do Cliente', 'Qualidade estratégica, Voz do Cliente e análise de dados para transformar jornadas em resultados.', '28/04/2026', '10.5281/zenodo.23898804', ('#0b1d3a', '#1d4ed8', '#22d3ee')),
+                 ('artigos/qualidade-nao-e-controle.html', 'Qualidade não é controle. É alavanca estratégica de resultado', 'Da monitoria à leitura estatística do NPS.', '06/04/2026', '10.5281/zenodo.23891605', ('#1e1b4b', '#6d28d9', '#22d3ee')),
+                 ('artigos/nps-com-rigor-estatistico.html', 'NPS com rigor estatístico', 'Como separar ruído de mudança real e descobrir o que move o indicador.', '02/11/2026', '', ('#042f2e', '#0f766e', '#a78bfa'))]
+          def arow(a):
+              doi = f' · DOI {a[4]}' if a[4] else ' · código aberto'
+              return (f'<a class="arow" href="{a[0]}"><div class="art">{arte(a[0], a[5], 400, 300, "artigo")}</div><div><span class="kicker">Artigo</span>'
+                      f'<h3>{E(a[1])}</h3><p class="meta" style="margin:0">{E(a[2])}<br>André Luiz Maciel · {a[3]}{doi}</p></div></a>')
+
+          PP_CORES = ('#1e1b4b', '#7c3aed', '#22d3ee')
+          PUB_CORES = ('#0b1d3a', '#0e7490', '#f59e0b')
+
+          # ---------------- Início ----------------
+          if IT:
+              f0 = IT[0]
+              destaque = (f'<section class="featured"><a class="feat-main" {ext(f0)}><div class="art">{arte(f0["titulo"], f0["cores"], 900, 620, f0["cat"])}</div>'
+                          f'<div class="ov"><span class="chip">{E(f0["cat"])}</span><h3>{E(f0["titulo"])}</h3><span class="meta">{E(f0["fonte"])} · {dbr(f0["data"])}</span></div></a>'
+                          '<div class="feat-side">' + ''.join(f'<a class="mini" {ext(i)}><div class="art">{arte(i["titulo"], i["cores"], 400, 300, i["cat"])}</div><div><span class="kicker" style="font-size:.62rem">{E(i["cat"])}</span><h4>{E(i["titulo"])}</h4><span class="meta">{E(i["fonte"])}</span></div></a>' for i in IT[1:5]) +
+                          '</div></section>')
+              mais = '<div class="grid">' + ''.join(ncard(i) for i in IT[5:13]) + '</div>'
+          else:
+              destaque, mais = '<p class="meta">A curadoria semanal começa na próxima segunda-feira.</p>', ''
+          inicio = f'''<div class="wrap">
+          <header class="masthead"><div><div class="edition">Edição de {atual} · Curadoria semanal</div><div class="brand">QualiCX <span>Brasil</span></div></div>
+          <p class="tagline">Revista de Qualidade, Customer Experience e Contact Center. Notícias, artigos e boas práticas para quem transforma a Voz do Cliente em decisão.</p></header>
+          {destaque}
+          <h2 class="sec">Mais notícias da semana <a href="noticias.html">Ver todas →</a></h2>
+          {mais}
+          <section class="band"><div class="art">{arte("projeto-promotor-banda", PP_CORES, 700, 460, "boa prática")}</div><div class="txt"><span class="kicker">Boa prática em destaque</span>
+          <h3>Projeto Promotor: o modelo de atuação que o QualiCX Brasil recomenda</h3>
+          <p class="meta" style="font-size:1rem">Governança, monitoria inteligente, alertas preventivos e estatística aplicada para fazer da Qualidade uma alavanca de resultado.</p>
+          <a class="btn" href="boas-praticas.html">Ler a boa prática</a></div></section>
+          <div class="quote">“Não Só de Call Center Vive a Experiência do Cliente.”<small>André Luiz Maciel, editor</small></div>
+          <h2 class="sec">Artigos <a href="artigos.html">Acervo →</a></h2>
+          <div class="alist">{"".join(arow(a) for a in ART[:3])}</div>
+          <section class="band" style="grid-template-columns:1.1fr 1fr"><div class="txt"><span class="kicker">Colabore</span><h3>Publique seu artigo no QualiCX Brasil</h3>
+          <p class="meta" style="font-size:1rem">Profissionais, pesquisadores e líderes de CX podem enviar textos para avaliação editorial.</p><a class="btn" href="publique.html">Enviar proposta</a></div>
+          <div class="art">{arte("publique-banda", PUB_CORES, 700, 460, "colabore")}</div></section>
+          </div>'''
+          pagina('', 'QualiCX Brasil — Revista de Qualidade, CX e Contact Center',
+                 'QualiCX Brasil: revista de Qualidade, Customer Experience e Contact Center, com notícias semanais, artigos, boas práticas e o Projeto Promotor. Editor: André Luiz Maciel.',
+                 inicio, ld=LD_SITE or None, titulo_tag='QualiCX Brasil — Revista de Qualidade, CX e Contact Center')
+
+          # ---------------- Notícias ----------------
+          presentes = [c[0] for c in CATS if any(i['cat'] == c[0] for i in IT)]
+          filtros = '<div class="filters" role="group" aria-label="Filtrar por tema"><button class="on" data-f="">Todas</button>' + ''.join(f'<button data-f="{E(c)}">{E(c)}</button>' for c in presentes) + '</div>'
+          js = '<script>document.querySelectorAll(".filters button").forEach(b=>b.onclick=()=>{document.querySelectorAll(".filters button").forEach(x=>x.classList.toggle("on",x===b));const f=b.dataset.f;document.querySelectorAll(".ncard").forEach(c=>c.style.display=!f||c.dataset.cat===f?"":"none")})</script>'
           pagina('noticias.html', 'Notícias da semana: CX, SAC e Contact Center',
                  'Curadoria semanal de manchetes sobre experiência do cliente, SAC e Contact Center no Brasil.',
-                 f'''<span class="tag">Curadoria semanal</span>
-          <h1>Notícias da semana</h1>
-          <p class="meta">Atualizado em {atual}. Toda segunda-feira o QualiCX Brasil reúne as manchetes mais recentes sobre experiência do cliente, SAC, Contact Center e defesa do consumidor. Mostramos apenas título, veículo e data; o conteúdo pertence aos veículos de origem e deve ser lido na fonte.</p>
-          <ul class="lista">{"".join(li_noticia(i) for i in N["itens"]) or "<li>A primeira curadoria será publicada na próxima atualização.</li>"}</ul>
-          <p class="aviso">Quer sugerir uma fonte para a curadoria? Use a página <a href="publique.html">Publique</a>.</p>''', 'CollectionPage')
+                 f'''<div class="wrap"><header style="padding:36px 0 6px"><span class="kicker">Curadoria semanal · {atual}</span><h1>Notícias da semana</h1>
+          <p class="lead">Toda segunda-feira reunimos as manchetes mais recentes sobre experiência do cliente, SAC, Contact Center e defesa do consumidor.</p>
+          <p class="meta">Mostramos título, veículo e data; o conteúdo pertence aos veículos de origem e abre na fonte. As ilustrações são artes abstratas do QualiCX Brasil, organizadas por tema.</p></header>
+          {filtros}
+          <div class="grid">{"".join(ncard(i) for i in IT) or "<p class='meta'>A primeira curadoria será publicada na próxima atualização.</p>"}</div>
+          <p class="meta" style="margin-top:30px">Quer sugerir uma fonte para a curadoria? Use a página <a href="publique.html">Publique</a>.</p></div>{js}''', 'CollectionPage')
 
-          # ---------- Artigos ----------
-          ART = [('artigos/reclame-aqui-armadilha.html', 'O Reclame Aqui é uma armadilha para as empresas? Reputação pública, resolução no primeiro contato e experiência do cliente', '06/11/2026', '10.5281/zenodo.24025962'),
-                 ('artigos/nao-so-de-call-center.html', 'Não Só de Call Center Vive a Experiência do Cliente: qualidade estratégica, Voz do Cliente e análise de dados para transformar jornadas em resultados', '28/04/2026', '10.5281/zenodo.23898804'),
-                 ('artigos/qualidade-nao-e-controle.html', 'Qualidade não é controle. É alavanca estratégica de resultado: da monitoria à leitura estatística do NPS', '06/04/2026', '10.5281/zenodo.23891605'),
-                 ('artigos/nps-com-rigor-estatistico.html', 'NPS com rigor estatístico: como separar ruído de mudança real e descobrir o que move o indicador', '02/11/2026', '')]
-          def li_art(a):
-              doi = f' · DOI <a href="https://doi.org/{a[3]}">{a[3]}</a>' if a[3] else ' · código aberto'
-              return f'<li><a href="{a[0]}">{html.escape(a[1])}</a><br><span class="meta">André Luiz Maciel · {a[2]}{doi}</span></li>'
+          # ---------------- Artigos ----------------
           pagina('artigos.html', 'Artigos', 'Artigos sobre Qualidade, Customer Experience e Contact Center publicados no QualiCX Brasil, com DOI.',
-                 f'''<span class="tag">Acervo</span><h1>Artigos</h1>
-          <p>Textos autorais e colaborações sobre Qualidade, Voz do Cliente, indicadores e gestão de Contact Center. Os artigos com DOI têm registro permanente no Zenodo.</p>
-          <ul class="lista">{"".join(li_art(a) for a in ART)}</ul>
-          <p class="aviso">Tem um artigo sobre CX ou Contact Center? <a href="publique.html">Envie sua proposta</a>.</p>''', 'CollectionPage')
+                 f'''<div class="wrap narrow"><header style="padding:36px 0 10px"><span class="kicker">Acervo</span><h1>Artigos</h1>
+          <p class="lead">Textos autorais e colaborações sobre Qualidade, Voz do Cliente, indicadores e gestão de Contact Center. Os artigos com DOI têm registro permanente no Zenodo.</p></header>
+          <div class="alist">{"".join(arow(a) for a in ART)}</div>
+          <p class="meta" style="margin-top:28px">Tem um artigo sobre CX ou Contact Center? <a href="publique.html">Envie sua proposta</a>.</p></div>''', 'CollectionPage')
 
-          # ---------- Boas práticas ----------
+          # ---------------- Boas práticas ----------------
           pagina('boas-praticas.html', 'Boas práticas: Projeto Promotor, um modelo de atuação para a Qualidade em Contact Center',
                  'Boa prática em destaque: o Projeto Promotor, modelo de atuação que posiciona a Qualidade como alavanca estratégica de resultado em Contact Centers.',
-                 '''<span class="tag">Boa prática em destaque</span>
+                 f'''<div class="wrap narrow"><header style="padding:36px 0 0"><span class="kicker">Boa prática em destaque</span>
           <h1>Projeto Promotor: o modelo de atuação que o QualiCX Brasil recomenda</h1>
-          <p>Entre as práticas que acompanhamos, o Projeto Promotor é a que melhor traduz a linha editorial desta revista: a Qualidade deixa de ser apenas fiscalização de atendimentos e passa a funcionar como inteligência que conecta operação, Voz do Cliente, dados e decisão.</p>
-          <blockquote>“Qualidade não é controle. É alavanca estratégica de resultado.” — André Luiz Maciel</blockquote>
-          <h2>Por que é uma boa prática</h2>
-          <ul class="lista">
-          <li><b>Começa pela governança.</b> Metas de Qualidade ligadas a objetivos do negócio, papéis definidos e acompanhamento executivo com cadência D-1.</li>
-          <li><b>Une números e escuta.</b> Indicadores como NPS, CSAT, FCR, rechamada e TMA são lidos junto com a jornada e a voz do cliente, em busca da causa raiz.</li>
-          <li><b>Alerta para prevenir, não para punir.</b> Desvios críticos geram acionamento imediato e plano de ação com dono, prazo e evidência.</li>
-          <li><b>Mede o efeito.</b> Toda ação é avaliada pelo antes e depois, e a camada estatística (NEXUS) verifica se a variação é real ou ruído.</li>
-          </ul>
-          <h2>As cinco fases do modelo</h2>
-          <ol class="fases">
-          <li><b>Zona qualitativa:</b> monitorias com mapeamento de jornada, leitura comportamental e análise multicanal.</li>
-          <li><b>Alertas de qualidade:</b> acionamento preventivo para desvios críticos e riscos operacionais.</li>
-          <li><b>Calibrações:</b> alinhamento técnico entre avaliadores, líderes e operação.</li>
-          <li><b>Controle de ações:</b> responsável, prazo, evidência e medição de impacto.</li>
-          <li><b>Ação estruturante de dados:</b> consolidação, limpeza e correlação dos dados para a decisão.</li>
+          <p class="lead">Entre as práticas que acompanhamos, o Projeto Promotor é a que melhor traduz a linha editorial desta revista: a Qualidade deixa de ser apenas fiscalização de atendimentos e passa a funcionar como inteligência que conecta operação, Voz do Cliente, dados e decisão.</p></header>
+          <div class="hero-art">{arte("boas-praticas-hero", PP_CORES, 1200, 460, "Projeto Promotor")}</div>
+          <div class="quote">“Qualidade não é controle. É alavanca estratégica de resultado.”<small>André Luiz Maciel</small></div>
+          <h2 class="sec">Por que é uma boa prática</h2>
+          <div class="cols3">
+          <div class="box"><h3>Começa pela governança</h3><p class="meta">Metas de Qualidade ligadas a objetivos do negócio, papéis definidos e acompanhamento executivo com cadência D-1.</p></div>
+          <div class="box"><h3>Une números e escuta</h3><p class="meta">NPS, CSAT, FCR, rechamada e TMA lidos junto com a jornada e a voz do cliente, em busca da causa raiz.</p></div>
+          <div class="box"><h3>Alerta para prevenir</h3><p class="meta">Desvios críticos geram acionamento imediato e plano de ação com dono, prazo e evidência, sem caráter punitivo.</p></div>
+          <div class="box"><h3>Mede o efeito</h3><p class="meta">Toda ação é avaliada pelo antes e depois, e a camada estatística (NEXUS) verifica se a variação é real ou ruído.</p></div>
+          </div>
+          <h2 class="sec">As cinco fases do modelo</h2>
+          <ol class="steps">
+          <li><b>Zona qualitativa.</b> Monitorias com mapeamento de jornada, leitura comportamental e análise multicanal.</li>
+          <li><b>Alertas de qualidade.</b> Acionamento preventivo para desvios críticos e riscos operacionais.</li>
+          <li><b>Calibrações.</b> Alinhamento técnico entre avaliadores, líderes e operação.</li>
+          <li><b>Controle de ações.</b> Responsável, prazo, evidência e medição de impacto.</li>
+          <li><b>Ação estruturante de dados.</b> Consolidação, limpeza e correlação dos dados para a decisão.</li>
           </ol>
           <p><a class="btn" href="projeto-promotor.html">Conheça o Projeto Promotor completo</a></p>
           <p class="meta">Registro: DOI <a href="https://doi.org/10.5281/zenodo.23966325">10.5281/zenodo.23966325</a>. Nota editorial: esta é a avaliação do QualiCX Brasil, baseada na linha que a revista defende; o modelo foi desenvolvido por profissionais ligados ao editor. Resultados de aplicação só são divulgados com autorização e evidência.</p>
-          <h2>Indique uma boa prática</h2>
-          <p>Conhece outra prática de Qualidade ou CX que merece destaque? <a href="publique.html">Envie para a redação</a>.</p>''', 'Article')
+          <h2 class="sec">Indique uma boa prática</h2>
+          <p>Conhece outra prática de Qualidade ou CX que merece destaque? <a href="publique.html">Envie para a redação</a>.</p></div>''', 'Article')
 
-          # ---------- Publique ----------
+          # ---------------- Publique ----------------
           FORM = REPO + '/issues/new?template=submissao-artigo.yml'
           canal_email = (f'<p>Prefere e-mail? Escreva para <a href="mailto:{EMAIL_EDITORIAL}">{EMAIL_EDITORIAL}</a> com o assunto “Submissão de artigo”.</p>' if EMAIL_EDITORIAL else '')
           pagina('publique.html', 'Publique seu artigo no QualiCX Brasil',
                  'Envie seu artigo sobre Customer Experience, Qualidade, SAC ou Contact Center para avaliação editorial do QualiCX Brasil.',
-                 f'''<span class="tag">Colabore</span>
-          <h1>Publique seu artigo</h1>
-          <p>O QualiCX Brasil recebe artigos de profissionais, pesquisadores e líderes de Customer Experience, Qualidade, SAC e Contact Center. Toda proposta passa por avaliação editorial antes da publicação.</p>
-          <h2>O que publicamos</h2>
-          <ul class="lista">
-          <li>Artigos técnicos, estudos de caso e análises com dados sobre CX, Qualidade, Voz do Cliente, indicadores, tecnologia e gestão de operações.</li>
-          <li>Relatos de boas práticas, desde que não exponham dados de clientes ou de empresas sem autorização.</li>
-          <li>Textos inéditos ou com republicação autorizada, entre 800 e 2.500 palavras, em português.</li>
-          </ul>
-          <h2>Critérios editoriais</h2>
-          <ul class="lista">
-          <li>Números e estatísticas precisam de fonte, contexto e limitações.</li>
-          <li>Opinião, experiência prática, hipótese e resultado medido devem estar claramente separados.</li>
-          <li>Não publicamos conteúdo publicitário disfarçado, plágio ou texto sem contribuição original.</li>
-          <li>O autor mantém os direitos do texto; a publicação no site segue a licença CC BY 4.0, salvo combinação diferente.</li>
-          </ul>
-          <h2>Como enviar</h2>
-          <p>Preencha o formulário de submissão com título, resumo, tema e link para o texto completo (Google Docs, PDF ou similar). A redação responde em até 15 dias úteis.</p>
+                 f'''<div class="wrap narrow"><header style="padding:36px 0 0"><span class="kicker">Colabore</span><h1>Publique seu artigo</h1>
+          <p class="lead">O QualiCX Brasil recebe artigos de profissionais, pesquisadores e líderes de Customer Experience, Qualidade, SAC e Contact Center. Toda proposta passa por avaliação editorial antes da publicação.</p></header>
+          <div class="hero-art">{arte("publique-hero", PUB_CORES, 1200, 400, "colabore")}</div>
+          <div class="cols3">
+          <div class="box"><h3>O que publicamos</h3><p class="meta">Artigos técnicos, estudos de caso e análises com dados sobre CX, Qualidade, Voz do Cliente, indicadores, tecnologia e gestão de operações. Inéditos ou com republicação autorizada, de 800 a 2.500 palavras, em português.</p></div>
+          <div class="box"><h3>Critérios editoriais</h3><p class="meta">Números com fonte, contexto e limitações. Opinião, experiência, hipótese e resultado medido claramente separados. Sem publicidade disfarçada nem plágio.</p></div>
+          <div class="box"><h3>Direitos</h3><p class="meta">O autor mantém os direitos do texto; a publicação no site segue a licença CC BY 4.0, salvo combinação diferente. Sem dados de clientes ou empresas sem autorização.</p></div>
+          </div>
+          <h2 class="sec">Como enviar</h2>
+          <ol class="steps">
+          <li>Prepare título, resumo de até 200 palavras e o texto completo num link (Google Docs, PDF ou similar).</li>
+          <li>Preencha o formulário de submissão.</li>
+          <li>A redação responde em até 15 dias úteis.</li>
+          </ol>
           <p><a class="btn" href="{FORM}" target="_blank" rel="noopener">Enviar proposta de artigo</a></p>
           <p class="meta">O formulário usa o GitHub (é preciso uma conta gratuita) e a proposta fica visível publicamente; não inclua dados pessoais sensíveis nem informações confidenciais.</p>
-          {canal_email}''')
+          {canal_email}</div>''')
 
-          # ---------- Início (revista) ----------
-          idx = (B/'index.html').read_text()
-          top = ''.join(li_noticia(i) for i in N['itens'][:5]) or '<li>A curadoria semanal começa na próxima segunda-feira.</li>'
-          main = f'''<main class="wrap">
-          <section class="hero">
-          <span class="tag">Revista de Qualidade, CX e Contact Center</span>
-          <h1>QualiCX Brasil</h1>
-          <p>Notícias, artigos e boas práticas para quem transforma a Voz do Cliente em decisão.</p>
-          <blockquote>“Não Só de Call Center Vive a Experiência do Cliente.” — André Luiz Maciel</blockquote>
-          </section>
-          <h2>Notícias da semana</h2>
-          <p class="meta">Atualizado em {atual}</p>
-          <ul class="lista">{top}</ul>
-          <p><a href="noticias.html">Ver todas as notícias →</a></p>
-          <h2>Boa prática em destaque</h2>
-          <div class="card"><h3><a href="boas-praticas.html">Projeto Promotor: o modelo de atuação que o QualiCX Brasil recomenda</a></h3><p class="meta">Governança, monitoria inteligente, alertas preventivos e estatística aplicada para fazer da Qualidade uma alavanca de resultado.</p></div>
-          <h2 id="artigos">Artigos recentes</h2>
-          <ul class="lista">{"".join(li_art(a) for a in ART)}</ul>
-          <h2>Explore</h2>
-          <div class="cards">
-          <div class="card"><h3><a href="publique.html">Publique seu artigo</a></h3><p class="meta">Envie sua proposta para a redação.</p></div>
-          <div class="card"><h3><a href="frases.html">Frases e conceitos</a></h3><p class="meta">Frases autorais com data, fonte e DOI.</p></div>
-          <div class="card"><h3><a href="autor.html">Editor</a></h3><p class="meta">André Luiz Maciel: trajetória, publicações e identificadores.</p></div>
-          </div>
-          </main>'''
-          idx = re.sub(r'<header>.*?</header>\s*', '', idx, count=1, flags=re.S)
-          idx = re.sub(r'<main class="wrap">.*?</main>', lambda m: main, idx, count=1, flags=re.S)
-          if EXTRA not in idx: idx = idx.replace('</head>', EXTRA + '\n</head>', 1)
-          (B/'index.html').write_text(idx)
-
-          # ---------- Navegação em todas as páginas ----------
+          # ---------------- Navegação nas demais páginas ----------------
           for p in list(B.glob('*.html')):
               if not p.name.startswith('google'): injeta(p)
           for p in B.glob('artigos/*.html'): injeta(p, '../')
 
-          # ---------- Sitemap ----------
+          # ---------------- Sitemap ----------------
           urls = [''] + [p.name for p in sorted(B.glob('*.html')) if not p.name.startswith('google') and p.name != 'index.html'] + [f'artigos/{p.name}' for p in sorted(B.glob('artigos/*.html'))]
           (B/'sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
               ''.join(f'  <url><loc>{SITE}{u}</loc><lastmod>{HOJE}</lastmod></url>\n' for u in urls) + '</urlset>\n')
-          print('ok', len(urls), 'urls')
+          print('ok', len(urls), 'urls', len(IT), 'noticias')
           QCXEOF
           mkdir -p $(dirname .github/ISSUE_TEMPLATE/submissao-artigo.yml)
           cat > .github/ISSUE_TEMPLATE/submissao-artigo.yml <<'QCXEOF'
