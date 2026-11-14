@@ -76,7 +76,7 @@ footer .brand{font:800 1.5rem var(--serif);color:var(--fg)}footer .brand span{co
 footer nav{display:flex;gap:16px;flex-wrap:wrap;margin:12px 0}footer nav a{color:var(--fg)}
 @media(max-width:860px){.featured,.band{grid-template-columns:1fr!important}.feat-main{min-height:360px}.band .art{order:-1}.band .art svg{min-height:180px}.arow{grid-template-columns:96px 1fr}.mini{grid-template-columns:96px 1fr}.band .txt{padding:24px}}
 """
-FONTS = '<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">'
+FONTS = '<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 64 64\'%3E%3Crect width=\'64\' height=\'64\' rx=\'14\' fill=\'%2307101d\'/%3E%3Ctext x=\'32\' y=\'44\' font-family=\'Georgia,serif\' font-size=\'38\' font-weight=\'700\' text-anchor=\'middle\' fill=\'%2338bdf8\'%3EQ%3C/text%3E%3C/svg%3E"><link rel="alternate" type="application/rss+xml" title="QualiCX Brasil" href="https://qualicx-brasil.github.io/feed.xml"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">'
 (B/'assets').mkdir(exist_ok=True)
 (B/'assets'/'qcx.css').write_text(CSS.strip() + '\n')
 
@@ -190,12 +190,13 @@ def ncard(i):
     return (f'<a class="ncard" data-cat="{E(i["cat"])}" {ext(i)}><div class="art">{arte(i["titulo"], i["cores"], rotulo=i["cat"])}<span class="chip">{E(i["cat"])}</span></div>'
             f'<div class="body"><h3>{E(i["titulo"])}</h3><span class="meta">{E(i["fonte"])} · {dbr(i["data"])}</span></div></a>')
 
-ART = [('artigos/reclame-aqui-armadilha.html', 'O Reclame Aqui é uma armadilha para as empresas?', 'Reputação pública, resolução no primeiro contato e experiência do cliente.', '06/11/2026', '10.5281/zenodo.24025962', ('#3b0a1f', '#7c3aed', '#f59e0b')),
+ART = [('artigos/expertise360-atendimento-protagonista.html', 'Expertise360: o que o atendimento protagonista ensina à área de Qualidade', 'Cobertura da palestra Atendimento Protagonista, de Gisele Paula, no evento da CSH.', '14/11/2026', '', ('#0b1d3a', '#1d4ed8', '#38bdf8')),
+       ('artigos/reclame-aqui-armadilha.html', 'O Reclame Aqui é uma armadilha para as empresas?', 'Reputação pública, resolução no primeiro contato e experiência do cliente.', '06/11/2026', '10.5281/zenodo.24025962', ('#3b0a1f', '#7c3aed', '#f59e0b')),
        ('artigos/nao-so-de-call-center.html', 'Não Só de Call Center Vive a Experiência do Cliente', 'Qualidade estratégica, Voz do Cliente e análise de dados para transformar jornadas em resultados.', '28/04/2026', '10.5281/zenodo.23898804', ('#0b1d3a', '#1d4ed8', '#22d3ee')),
        ('artigos/qualidade-nao-e-controle.html', 'Qualidade não é controle. É alavanca estratégica de resultado', 'Da monitoria à leitura estatística do NPS.', '06/04/2026', '10.5281/zenodo.23891605', ('#1e1b4b', '#6d28d9', '#22d3ee')),
        ('artigos/nps-com-rigor-estatistico.html', 'NPS com rigor estatístico', 'Como separar ruído de mudança real e descobrir o que move o indicador.', '02/11/2026', '', ('#042f2e', '#0f766e', '#a78bfa'))]
 def arow(a):
-    doi = f' · DOI {a[4]}' if a[4] else ' · código aberto'
+    doi = f' · DOI {a[4]}' if a[4] else (' · código aberto' if 'nps' in a[0] else '')
     return (f'<a class="arow" href="{a[0]}"><div class="art">{arte(a[0], a[5], 400, 300, "artigo")}</div><div><span class="kicker">Artigo</span>'
             f'<h3>{E(a[1])}</h3><p class="meta" style="margin:0">{E(a[2])}<br>André Luiz Maciel · {a[3]}{doi}</p></div></a>')
 
@@ -223,6 +224,7 @@ inicio = f'''<div class="wrap">
 <p class="meta" style="font-size:1rem">Governança, monitoria inteligente, alertas preventivos e estatística aplicada para fazer da Qualidade uma alavanca de resultado.</p>
 <a class="btn" href="boas-praticas.html">Ler a boa prática</a> <a class="btn" href="https://projetopromotor-nexus.base44.app/" style="background:transparent;border:1px solid var(--line);margin-left:6px">Site do Projeto Promotor</a></div></section>
 <div class="quote">“Não Só de Call Center Vive a Experiência do Cliente.”<small>André Luiz Maciel, editor</small></div>
+<section class="band" style="grid-template-columns:200px 1fr;align-items:center"><div style="padding:28px"><img src="img/andre-luiz-maciel.jpg" alt="Foto de André Luiz Maciel" style="width:150px;height:150px;border-radius:50%;object-fit:cover;border:3px solid var(--line)"></div><div class="txt" style="padding-left:0"><span class="kicker">Editor</span><h3 style="font-size:1.5rem">André Luiz Maciel</h3><p class="meta" style="font-size:1rem">Coordenador de Qualidade, com foco em Customer Experience e análise de dados em Contact Center. Autor de “Qualidade não é controle. É alavanca estratégica de resultado”.</p><a class="btn" href="autor.html">Sobre o editor</a></div></section>
 <h2 class="sec">Artigos <a href="artigos.html">Acervo →</a></h2>
 <div class="alist">{"".join(arow(a) for a in ART[:3])}</div>
 <section class="band" style="grid-template-columns:1.1fr 1fr"><div class="txt"><span class="kicker">Colabore</span><h3>Publique seu artigo no QualiCX Brasil</h3>
@@ -303,6 +305,15 @@ pagina('publique.html', 'Publique seu artigo no QualiCX Brasil',
 <p><a class="btn" href="{FORM}" target="_blank" rel="noopener">Enviar proposta de artigo</a></p>
 <p class="meta">O formulário usa o GitHub (é preciso uma conta gratuita) e a proposta fica visível publicamente; não inclua dados pessoais sensíveis nem informações confidenciais.</p>
 {canal_email}</div>''')
+
+# ---------------- Feed RSS e página 404 ----------------
+import email.utils as _eu
+def _rfc(d):
+    dd = datetime.datetime.strptime(d, '%d/%m/%Y').replace(hour=12, tzinfo=datetime.timezone.utc)
+    return _eu.format_datetime(dd)
+itens = ''.join(f'<item><title>{E(a[1])}</title><link>{SITE}{a[0]}</link><guid>{SITE}{a[0]}</guid><pubDate>{_rfc(a[3])}</pubDate><description>{E(a[2])}</description></item>' for a in ART)
+(B/'feed.xml').write_text('<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"><channel><title>QualiCX Brasil</title><link>' + SITE + '</link><description>Revista de Qualidade, Customer Experience e Contact Center</description><language>pt-BR</language>' + itens + '</channel></rss>')
+pagina('404.html', 'Página não encontrada', 'A página procurada não existe no QualiCX Brasil.', '<div class="wrap narrow"><header style="padding:60px 0 0"><span class="kicker">Erro 404</span><h1>Página não encontrada</h1><p class="lead">O endereço pode ter mudado. Veja as <a href="noticias.html">notícias da semana</a>, os <a href="artigos.html">artigos</a> ou volte ao <a href="./">início</a>.</p></header></div>')
 
 # ---------------- Navegação nas demais páginas ----------------
 for p in list(B.glob('*.html')):
