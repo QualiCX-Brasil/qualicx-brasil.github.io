@@ -10,7 +10,7 @@ E = html.escape
 
 # ---------------- Estilo ----------------
 CSS = """
-:root{--bg:#07090d;--bg2:#0d1118;--card:#111722;--card2:#161e2c;--line:#222c3b;--fg:#e8edf4;--muted:#93a1b5;--accent:#8b5cf6;--accent2:#22d3ee;--warm:#f59e0b;--serif:'Fraunces',Georgia,serif;--sans:'Inter',system-ui,sans-serif}
+:root{--bg:#07090d;--bg2:#0d1118;--card:#111722;--card2:#161e2c;--line:#222c3b;--fg:#e8edf4;--muted:#93a1b5;--accent:#3b82f6;--accent2:#22d3ee;--warm:#f59e0b;--serif:'Fraunces',Georgia,serif;--sans:'Inter',system-ui,sans-serif}
 *{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.65 var(--sans)}
 a{color:inherit;text-decoration:none}
@@ -82,28 +82,29 @@ FONTS = '<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.
 (B/'assets'/'qcx.css').write_text(CSS.strip() + '\n')
 
 LINKS = [('', 'Início'), ('noticias.html', 'Notícias'), ('artigos.html', 'Artigos'), ('boas-praticas.html', 'Boas práticas'),
-         ('frases.html', 'Frases'), ('publique.html', 'Publique'), ('autor.html', 'Sobre')]
+         ('frases.html', 'Frases'), ('indicadores.html', 'Indicadores'), ('publique.html', 'Publique'), ('autor.html', 'Sobre')]
 
 def nav(prefix=''):
     home = prefix or './'
     a = ''.join(f'<a href="{prefix + h}" style="color:#c9d3e0;text-decoration:none;white-space:nowrap;padding:6px 10px;border-radius:8px">{t}</a>' for h, t in LINKS[1:])
     return ('<!--qcx-nav--><nav aria-label="Seções da revista" style="position:sticky;top:0;z-index:50;background:rgba(7,9,13,.9);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid #222c3b;font:600 14px/1 Inter,system-ui,sans-serif">'
             '<div style="max-width:1180px;margin:0 auto;padding:10px 14px;display:flex;align-items:center;overflow-x:auto;gap:2px;scrollbar-width:none">'
-            f'<a href="{home}" style="color:#e8edf4;text-decoration:none;font:800 18px/1 Fraunces,Georgia,serif;padding:6px 14px 6px 6px;white-space:nowrap">QualiCX <span style="color:#8b5cf6">Brasil</span></a>{a}</div></nav><!--/qcx-nav-->')
+            f'<a href="{home}" style="color:#e8edf4;text-decoration:none;font:800 18px/1 Fraunces,Georgia,serif;padding:6px 14px 6px 6px;white-space:nowrap">QualiCX <span style="color:#3b82f6">Brasil</span></a>{a}</div></nav><!--/qcx-nav-->')
 
 def injeta(p, prefix=''):
     t = p.read_text()
     t = re.sub(r'<!--qcx-nav-->.*?<!--/qcx-nav-->', '', t, flags=re.S)
     t = re.sub(r'(<body[^>]*>)', lambda m: m.group(1) + nav(prefix), t, count=1)
+    for v, n in (('8b5c' + 'f6', '3b82f6'), ('a78b' + 'fa', '7dd3fc'), ('7c3a' + 'ed', '2563eb'), ('6d28' + 'd9', '1d4ed8'), ('c4b5' + 'fd', 'bae6fd')): t = t.replace('#' + v, '#' + n)
     p.write_text(t)
 
 # ---------------- Arte generativa ----------------
 CATS = [  # nome, regex, cores (fundo1, fundo2, destaque)
-    ('Regulação e SAC', r'\b(SAC|decreto|procon|senacon|regras?|lei|consumidor\.gov|regula\w*|anatel|bacen|ans)\b', ('#1e1b4b', '#5b21b6', '#f59e0b')),
-    ('IA e tecnologia', r'\b(IA|AI|intelig[eê]ncia artificial|chatbots?|bots?|automa\w*|agentes?|plataformas?|digital|voz|dados|cloud|dynamics)\b', ('#042f2e', '#0e7490', '#a78bfa')),
+    ('Regulação e SAC', r'\b(SAC|decreto|procon|senacon|regras?|lei|consumidor\.gov|regula\w*|anatel|bacen|ans)\b', ('#0b1d3a', '#1e40af', '#f59e0b')),
+    ('IA e tecnologia', r'\b(IA|AI|intelig[eê]ncia artificial|chatbots?|bots?|automa\w*|agentes?|plataformas?|digital|voz|dados|cloud|dynamics)\b', ('#042f2e', '#0e7490', '#7dd3fc')),
     ('Contact Center', r'(contact center|call center|central de atendimento|BPO|teleatendimento)', ('#0b1d3a', '#1d4ed8', '#22d3ee')),
-    ('Varejo e e-commerce', r'(varejo|e-?commerce|black friday|loja|compra|marketplace)', ('#3b0a1f', '#9d174d', '#fbbf24')),
-    ('Experiência do cliente', r'.', ('#111827', '#6d28d9', '#22d3ee')),
+    ('Varejo e e-commerce', r'(varejo|e-?commerce|black friday|loja|compra|marketplace)', ('#0c1e33', '#0369a1', '#fbbf24')),
+    ('Experiência do cliente', r'.', ('#111827', '#1d4ed8', '#22d3ee')),
 ]
 def categoria(t):
     for nome, rx, cores in CATS:
@@ -197,10 +198,10 @@ def ncard(i):
             f'<div class="body"><h3>{E(i["titulo"])}</h3><span class="meta">{E(i["fonte"])} · {dbr(i["data"])}</span></div></a>')
 
 ART = [('artigos/expertise360-atendimento-protagonista.html', 'Expertise360: o que o atendimento protagonista ensina à área de Qualidade', 'Cobertura da palestra Atendimento Protagonista, de Gisele Paula, no evento da CSH.', '14/11/2026', '', ('#0b1d3a', '#1d4ed8', '#38bdf8')),
-       ('artigos/reclame-aqui-armadilha.html', 'O Reclame Aqui é uma armadilha para as empresas?', 'Reputação pública, resolução no primeiro contato e experiência do cliente.', '06/11/2026', '10.5281/zenodo.24025962', ('#3b0a1f', '#7c3aed', '#f59e0b')),
+       ('artigos/reclame-aqui-armadilha.html', 'O Reclame Aqui é uma armadilha para as empresas?', 'Reputação pública, resolução no primeiro contato e experiência do cliente.', '06/11/2026', '10.5281/zenodo.24025962', ('#0c1e33', '#2563eb', '#f59e0b')),
        ('artigos/nao-so-de-call-center.html', 'Não Só de Call Center Vive a Experiência do Cliente', 'Qualidade estratégica, Voz do Cliente e análise de dados para transformar jornadas em resultados.', '28/04/2026', '10.5281/zenodo.23898804', ('#0b1d3a', '#1d4ed8', '#22d3ee')),
-       ('artigos/qualidade-nao-e-controle.html', 'Qualidade não é controle. É alavanca estratégica de resultado', 'Da monitoria à leitura estatística do NPS.', '06/04/2026', '10.5281/zenodo.23891605', ('#1e1b4b', '#6d28d9', '#22d3ee')),
-       ('artigos/nps-com-rigor-estatistico.html', 'NPS com rigor estatístico', 'Como separar ruído de mudança real e descobrir o que move o indicador.', '02/11/2026', '', ('#042f2e', '#0f766e', '#a78bfa'))]
+       ('artigos/qualidade-nao-e-controle.html', 'Qualidade não é controle. É alavanca estratégica de resultado', 'Da monitoria à leitura estatística do NPS.', '06/04/2026', '10.5281/zenodo.23891605', ('#0b1d3a', '#1d4ed8', '#22d3ee')),
+       ('artigos/nps-com-rigor-estatistico.html', 'NPS com rigor estatístico', 'Como separar ruído de mudança real e descobrir o que move o indicador.', '02/11/2026', '', ('#042f2e', '#0f766e', '#7dd3fc'))]
 CAPAS = {'artigos/qualidade-nao-e-controle.html': 'img/capas/qualidade-nao-e-controle.png', 'artigos/nao-so-de-call-center.html': 'img/capas/nao-so-de-call-center.png', 'artigos/expertise360-atendimento-protagonista.html': 'img/eventos/expertise360-andre-gisele.jpg'}
 def capa_html(pg):
     f = CAPAS.get(pg)
@@ -210,7 +211,7 @@ def arow(a):
     return (f'<a class="arow" href="{a[0]}"><div class="art">{capa_html(a[0]) or arte(a[0], a[5], 400, 300, "artigo")}</div><div><span class="kicker">Artigo</span>'
             f'<h3>{E(a[1])}</h3><p class="meta" style="margin:0">{E(a[2])}<br>André Luiz Maciel · {a[3]}{doi}</p></div></a>')
 
-PP_CORES = ('#1e1b4b', '#7c3aed', '#22d3ee')
+PP_CORES = ('#0b1d3a', '#2563eb', '#22d3ee')
 PUB_CORES = ('#0b1d3a', '#0e7490', '#f59e0b')
 
 # ---------------- Início ----------------
@@ -237,6 +238,8 @@ inicio = f'''<div class="wrap">
 <section class="band" style="grid-template-columns:200px 1fr;align-items:center"><div style="padding:28px"><img src="img/andre-luiz-maciel.jpg" alt="Foto de André Luiz Maciel" style="width:150px;height:150px;border-radius:50%;object-fit:cover;border:3px solid var(--line)"></div><div class="txt" style="padding-left:0"><span class="kicker">Editor</span><h3 style="font-size:1.5rem">André Luiz Maciel</h3><p class="meta" style="font-size:1rem">Coordenador de Qualidade, com foco em Customer Experience e análise de dados em Contact Center. Autor de “Qualidade não é controle. É alavanca estratégica de resultado”.</p><a class="btn" href="autor.html">Sobre o editor</a></div></section>
 <h2 class="sec">Artigos <a href="artigos.html">Acervo →</a></h2>
 <div class="alist">{"".join(arow(a) for a in ART[:3])}</div>
+<section class="band" style="grid-template-columns:1fr 1.1fr"><div style="padding:30px;display:grid;grid-template-columns:repeat(3,1fr);gap:10px;align-content:center;background:linear-gradient(135deg,#0b1d3a,#0c2a4a)"><a href="indicadores.html" style="display:grid;place-items:center;height:64px;border-radius:14px;background:rgba(56,189,248,.12);border:1px solid rgba(56,189,248,.35);color:#e8edf4;font-weight:800;text-decoration:none">NPS</a><a href="indicadores.html" style="display:grid;place-items:center;height:64px;border-radius:14px;background:rgba(56,189,248,.12);border:1px solid rgba(56,189,248,.35);color:#e8edf4;font-weight:800;text-decoration:none">CSAT</a><a href="indicadores.html" style="display:grid;place-items:center;height:64px;border-radius:14px;background:rgba(56,189,248,.12);border:1px solid rgba(56,189,248,.35);color:#e8edf4;font-weight:800;text-decoration:none">CES</a><a href="indicadores.html" style="display:grid;place-items:center;height:64px;border-radius:14px;background:rgba(56,189,248,.12);border:1px solid rgba(56,189,248,.35);color:#e8edf4;font-weight:800;text-decoration:none">FCR</a><a href="indicadores.html" style="display:grid;place-items:center;height:64px;border-radius:14px;background:rgba(56,189,248,.12);border:1px solid rgba(56,189,248,.35);color:#e8edf4;font-weight:800;text-decoration:none">TMA</a><a href="indicadores.html" style="display:grid;place-items:center;height:64px;border-radius:14px;background:rgba(56,189,248,.12);border:1px solid rgba(56,189,248,.35);color:#e8edf4;font-weight:800;text-decoration:none">TME</a><a href="indicadores.html" style="display:grid;place-items:center;height:64px;border-radius:14px;background:rgba(56,189,248,.12);border:1px solid rgba(56,189,248,.35);color:#e8edf4;font-weight:800;text-decoration:none">NS</a><a href="indicadores.html" style="display:grid;place-items:center;height:64px;border-radius:14px;background:rgba(56,189,248,.12);border:1px solid rgba(56,189,248,.35);color:#e8edf4;font-weight:800;text-decoration:none">Abandono</a><a href="indicadores.html" style="display:grid;place-items:center;height:64px;border-radius:14px;background:rgba(56,189,248,.12);border:1px solid rgba(56,189,248,.35);color:#e8edf4;font-weight:800;text-decoration:none">Erlang C</a></div><div class="txt"><span class="kicker">Guia prático · Calculadoras</span><h3>Indicadores de CX: calcule e pratique</h3>
+<p class="meta" style="font-size:1rem">Fórmulas, exemplos, dicas e armadilhas de NPS (com margem de erro), CSAT, CES, FCR, TMA, nível de serviço, abandono, ocupação e dimensionamento por Erlang C.</p><a class="btn" href="indicadores.html">Abrir as calculadoras</a></div></section>
 <section class="band" style="grid-template-columns:1.1fr 1fr"><div class="txt"><span class="kicker">Colabore</span><h3>Publique seu artigo no QualiCX Brasil</h3>
 <p class="meta" style="font-size:1rem">Profissionais, pesquisadores e líderes de CX podem enviar textos para avaliação editorial.</p><a class="btn" href="publique.html">Enviar proposta</a></div>
 <div class="art">{arte("publique-banda", PUB_CORES, 700, 460, "colabore")}</div></section>
