@@ -1,0 +1,109 @@
+name: Publicar site QualiCX Brasil
+on:
+  push:
+    paths:
+      - '.github/workflows/publicar-site.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Gerar site a partir do Projeto-Promotor
+        run: |
+          git clone --depth 1 https://github.com/AndreLuizMaciel/Projeto-Promotor /tmp/src
+          cat > /tmp/migr.py <<'PYEOF'
+          import os, re, shutil, sys, json, pathlib
+          SRC, DST = sys.argv[1], sys.argv[2]
+          OLD='https://andreluizmaciel.github.io/Projeto-Promotor/'
+          NEW='https://qualicx-brasil.github.io/'
+          ORC='https://orcid.org/0009-0000-1747-1392'
+          S=pathlib.Path(SRC); D=pathlib.Path(DST)
+          (D/'artigos').mkdir(parents=True, exist_ok=True); (D/'img').mkdir(exist_ok=True)
+          for f in (S/'img').iterdir(): shutil.copy(f, D/'img'/f.name)
+          key=[f for f in S.glob('*.txt')]
+          for k in key: shutil.copy(k, D/k.name)
+          def fix(s):
+              s=s.replace(OLD, NEW)
+              s=s.replace('PROJETO <span>PROMOTOR</span>','QUALICX <span>BRASIL</span>')
+              s=re.sub(r'\| Projeto Promotor</title>','| QualiCX Brasil</title>',s)
+              s=s.replace('André Luiz Maciel · Projeto Promotor</title>','André Luiz Maciel · QualiCX Brasil</title>')
+              s=s.replace('<footer><div class="wrap">Projeto Promotor ·','<footer><div class="wrap">QualiCX Brasil ·')
+              return s
+          # old index -> projeto-promotor.html
+          idx=(S/'index.html').read_text()
+          idx=idx.replace(OLD+'"', NEW+'projeto-promotor.html"')
+          idx=fix(idx)
+          (D/'projeto-promotor.html').write_text(idx)
+          for name in ['frases.html','autor.html']:
+              t=fix((S/name).read_text())
+              t=t.replace('<a href="./">Projeto Promotor</a>','<a href="projeto-promotor.html">Projeto Promotor</a>')
+              (D/name).write_text(t)
+          for f in (S/'artigos').glob('*.html'):
+              (D/'artigos'/f.name).write_text(fix(f.read_text()))
+          # home
+          fr=(S/'frases.html').read_text()
+          style=re.search(r'<style>.*?</style>',fr,re.S).group(0)
+          SAME=[ORC,"https://www.linkedin.com/in/andr%C3%A9-luiz-maciel-622a52119/","https://lattes.cnpq.br/5732518784001009","https://openalex.org/A5160373798","https://scholar.google.com/citations?user=NGNsjaMAAAAJ","https://github.com/AndreLuizMaciel"]
+          ld={"@context":"https://schema.org","@graph":[
+           {"@type":"WebSite","@id":NEW+"#site","url":NEW,"name":"QualiCX Brasil","inLanguage":"pt-BR","description":"Qualidade, Customer Experience e Contact Center: artigos, métodos e frases de André Luiz Maciel.","author":{"@id":ORC},"publisher":{"@id":ORC}},
+           {"@type":"Person","@id":ORC,"name":"André Luiz Maciel","url":NEW+"autor.html","image":NEW+"img/andre-luiz-maciel.png","jobTitle":"Coordenador de Qualidade (CX e Analytics)","sameAs":SAME}]}
+          arts=[("O Reclame Aqui é uma armadilha para as empresas? Reputação pública, resolução no primeiro contato e experiência do cliente","06/11/2026","10.5281/zenodo.24025962","artigos/reclame-aqui-armadilha.html"),
+          ("Não Só de Call Center Vive a Experiência do Cliente: qualidade estratégica, Voz do Cliente e análise de dados para transformar jornadas em resultados","28/04/2026","10.5281/zenodo.23898804","artigos/nao-so-de-call-center.html"),
+          ("Qualidade não é controle. É alavanca estratégica de resultado: da monitoria à leitura estatística do NPS","06/04/2026","10.5281/zenodo.23891605","artigos/qualidade-nao-e-controle.html"),
+          ("NPS com rigor estatístico: como separar ruído de mudança real e descobrir o que move o indicador","02/11/2026",None,"artigos/nps-com-rigor-estatistico.html")]
+          lis=''.join(f'<li><a href="{u}">{t}</a><br><span class="meta">{d}'+(f' · DOI <a href="https://doi.org/{doi}">{doi}</a>' if doi else ' · código aberto')+'</span></li>\n' for t,d,doi,u in arts)
+          home=f'''<!DOCTYPE html>
+          <html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+          <title>QualiCX Brasil — Qualidade e Customer Experience | André Luiz Maciel</title>
+          <meta name="description" content="QualiCX Brasil: artigos, métodos e frases de André Luiz Maciel sobre Qualidade, Customer Experience e Contact Center. “Qualidade não é controle. É alavanca estratégica de resultado.”">
+          <meta name="author" content="André Luiz Maciel">
+          <link rel="canonical" href="{NEW}">
+          <meta property="og:type" content="website"><meta property="og:site_name" content="QualiCX Brasil">
+          <meta property="og:title" content="QualiCX Brasil — Qualidade e Customer Experience">
+          <meta property="og:url" content="{NEW}"><meta property="og:image" content="{NEW}img/andre-luiz-maciel.png">
+          <script type="application/ld+json">
+          {json.dumps(ld,ensure_ascii=False,indent=1)}
+          </script>
+          {style}
+          <style>.hero{{padding:24px 0 8px}}.perfil{{display:flex;gap:20px;align-items:center;flex-wrap:wrap;margin:16px 0}}.perfil img{{width:120px;height:120px;border-radius:50%;object-fit:cover;border:2px solid var(--line)}}ul.lista li{{margin:12px 0}}.cards{{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}}.card{{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}}.card h3{{margin:0 0 6px;font-size:1rem}}</style>
+          </head><body>
+          <header><div class="wrap bar"><a class="logo" href="./">QUALICX <span>BRASIL</span></a><a href="#artigos">Artigos</a></div></header>
+          <main class="wrap">
+          <section class="hero">
+          <h1>QualiCX Brasil</h1>
+          <p>Qualidade, Customer Experience e Contact Center: artigos, métodos e ideias para transformar a Voz do Cliente em decisão.</p>
+          <blockquote>“Qualidade não é controle. É alavanca estratégica de resultado.” — André Luiz Maciel</blockquote>
+          <blockquote>“Não Só de Call Center Vive a Experiência do Cliente.” — André Luiz Maciel</blockquote>
+          </section>
+          <div class="perfil">
+          <img src="img/andre-luiz-maciel.png" alt="Foto de André Luiz Maciel, autor do QualiCX Brasil" width="120" height="120">
+          <div><p><b>Por <a href="autor.html">André Luiz Maciel</a></b> — profissional de Qualidade, Customer Experience e Analytics em operações de Contact Center, Campina Grande (PB).</p>
+          <p class="meta">ORCID <a href="{ORC}">0009-0000-1747-1392</a></p></div>
+          </div>
+          <h2 id="artigos">Artigos</h2>
+          <ul class="lista">
+          {lis}</ul>
+          <h2>Explore</h2>
+          <div class="cards">
+          <div class="card"><h3><a href="frases.html">Frases e conceitos</a></h3><p class="meta">Frases autorais com data, fonte e DOI.</p></div>
+          <div class="card"><h3><a href="projeto-promotor.html">Projeto Promotor</a></h3><p class="meta">Modelo de gestão que posiciona a Qualidade como alavanca estratégica de resultado (DOI 10.5281/zenodo.23966325).</p></div>
+          <div class="card"><h3><a href="autor.html">Sobre o autor</a></h3><p class="meta">Trajetória, publicações e identificadores.</p></div>
+          </div>
+          </main>
+          <footer><div class="wrap">QualiCX Brasil · Conteúdo de André Luiz Maciel · Textos sob licença CC BY 4.0, salvo indicação</div></footer>
+          </body></html>
+          '''
+          (D/'index.html').write_text(home)
+          pages=['','autor.html','frases.html','projeto-promotor.html']+['artigos/'+f.name for f in sorted((S/'artigos').glob('*.html'))]
+          (D/'sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'+''.join(f'  <url><loc>{NEW}{p}</loc><lastmod>2026-11-14</lastmod></url>\n' for p in pages)+'</urlset>\n')
+          (D/'robots.txt').write_text(f'User-agent: *\nAllow: /\n\nSitemap: {NEW}sitemap.xml\n')
+          print('ok', len(pages))
+          PYEOF
+          python3 /tmp/migr.py /tmp/src .
+      - name: Commit
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Site QualiCX Brasil: migração do Projeto-Promotor"
