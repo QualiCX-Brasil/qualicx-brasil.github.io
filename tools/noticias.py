@@ -9,7 +9,7 @@ for q in Q:
     FEEDS.append(('Google Notícias', 'https://news.google.com/rss/search?' + urllib.parse.urlencode({'q': q + ' when:7d', 'hl': 'pt-BR', 'gl': 'BR', 'ceid': 'BR:pt-419'})))
 UA = {'User-Agent': 'QualiCX-Brasil-curadoria/1.0 (+https://qualicx-brasil.github.io/)'}
 KEY = re.compile(r'(atendimento|cliente|consumidor|CX|contact center|call center|SAC|experiência|customer|ouvidoria|NPS|chatbot|omnichannel)', re.I)
-RUIDO = re.compile(r'(gasolina|combust|diesel|DNA|paternidade|vacina|eleiç|futebol|loteria|preço d[aoe]s? )', re.I)
+RUIDO = re.compile(r'(gasolina|combust|diesel|DNA|paternidade|vacina|eleiç|futebol|loteria|preço d[aoe]s? |vaga|emprego|salário|contrata|concurso|currículo)', re.I)
 now = datetime.datetime.now(datetime.timezone.utc)
 items, seen = [], set()
 for nome, url in FEEDS:
@@ -27,7 +27,7 @@ for nome, url in FEEDS:
         except Exception: d = now
         if d.tzinfo is None: d = d.replace(tzinfo=datetime.timezone.utc)
         if (now - d).days > 10 or not t or not l: continue
-        if not KEY.search(t) or RUIDO.search(t): continue
+        if not KEY.search(t) or RUIDO.search(t) or src.lower() in ('instagram','facebook','youtube','tiktok'): continue
         k = re.sub(r'\W+', '', t.lower())[:80]
         if k in seen: continue
         seen.add(k); items.append({'titulo': t, 'fonte': src, 'data': d.strftime('%Y-%m-%d'), 'link': l})
