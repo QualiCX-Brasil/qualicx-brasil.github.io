@@ -221,7 +221,7 @@ inicio = f'''<div class="wrap">
 <section class="band"><div class="art">{arte("projeto-promotor-banda", PP_CORES, 700, 460, "boa prática")}</div><div class="txt"><span class="kicker">Boa prática em destaque</span>
 <h3>Projeto Promotor: o modelo de atuação que o QualiCX Brasil recomenda</h3>
 <p class="meta" style="font-size:1rem">Governança, monitoria inteligente, alertas preventivos e estatística aplicada para fazer da Qualidade uma alavanca de resultado.</p>
-<a class="btn" href="boas-praticas.html">Ler a boa prática</a></div></section>
+<a class="btn" href="boas-praticas.html">Ler a boa prática</a> <a class="btn" href="https://projetopromotor-nexus.base44.app/" style="background:transparent;border:1px solid var(--line);margin-left:6px">Site do Projeto Promotor</a></div></section>
 <div class="quote">“Não Só de Call Center Vive a Experiência do Cliente.”<small>André Luiz Maciel, editor</small></div>
 <h2 class="sec">Artigos <a href="artigos.html">Acervo →</a></h2>
 <div class="alist">{"".join(arow(a) for a in ART[:3])}</div>
@@ -276,7 +276,7 @@ pagina('boas-praticas.html', 'Boas práticas: Projeto Promotor, um modelo de atu
 <li><b>Controle de ações.</b> Responsável, prazo, evidência e medição de impacto.</li>
 <li><b>Ação estruturante de dados.</b> Consolidação, limpeza e correlação dos dados para a decisão.</li>
 </ol>
-<p><a class="btn" href="projeto-promotor.html">Conheça o Projeto Promotor completo</a></p>
+<p><a class="btn" href="https://projetopromotor-nexus.base44.app/">Visitar o site do Projeto Promotor</a></p>
 <p class="meta">Registro: DOI <a href="https://doi.org/10.5281/zenodo.23966325">10.5281/zenodo.23966325</a>. Nota editorial: esta é a avaliação do QualiCX Brasil, baseada na linha que a revista defende; o modelo foi desenvolvido por profissionais ligados ao editor. Resultados de aplicação só são divulgados com autorização e evidência.</p>
 <h2 class="sec">Indique uma boa prática</h2>
 <p>Conhece outra prática de Qualidade ou CX que merece destaque? <a href="publique.html">Envie para a redação</a>.</p></div>''', 'Article')
@@ -310,7 +310,7 @@ for p in list(B.glob('*.html')):
 for p in B.glob('artigos/*.html'): injeta(p, '../')
 
 # ---------------- Sitemap ----------------
-urls = [''] + [p.name for p in sorted(B.glob('*.html')) if not p.name.startswith('google') and p.name != 'index.html'] + [f'artigos/{p.name}' for p in sorted(B.glob('artigos/*.html'))]
+urls = [''] + [p.name for p in sorted(B.glob('*.html')) if not p.name.startswith('google') and p.name not in ('index.html', 'projeto-promotor.html')] + [f'artigos/{p.name}' for p in sorted(B.glob('artigos/*.html'))]
 (B/'sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
     ''.join(f'  <url><loc>{SITE}{u}</loc><lastmod>{HOJE}</lastmod></url>\n' for u in urls) + '</urlset>\n')
 print('ok', len(urls), 'urls', len(IT), 'noticias')
