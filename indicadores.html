@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Indicadores de CX e Contact Center: como calcular, interpretar e praticar | QualiCX Brasil</title>
+<meta name="description" content="Guia prático com fórmulas, exemplos, dicas e calculadoras de NPS (com margem de erro), CSAT, CES, FCR, recontato, TMA, TME, nível de serviço, abandono, ocupação e dimensionamento (Erlang C).">
+<meta name="author" content="André Luiz Maciel">
+<link rel="canonical" href="https://qualicx-brasil.github.io/indicadores.html">
+<meta property="og:type" content="article"><meta property="og:site_name" content="QualiCX Brasil"><meta property="og:title" content="Indicadores de CX e Contact Center: como calcular, interpretar e praticar"><meta property="og:description" content="Guia prático com fórmulas, exemplos, dicas e calculadoras de NPS (com margem de erro), CSAT, CES, FCR, recontato, TMA, TME, nível de serviço, abandono, ocupação e dimensionamento (Erlang C)."><meta property="og:url" content="https://qualicx-brasil.github.io/indicadores.html"><meta property="og:image" content="https://qualicx-brasil.github.io/img/og-qualicx.png"><meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Indicadores de CX e Contact Center: como calcular, interpretar e praticar", "description": "Guia prático com fórmulas, exemplos, dicas e calculadoras de NPS (com margem de erro), CSAT, CES, FCR, recontato, TMA, TME, nível de serviço, abandono, ocupação e dimensionamento (Erlang C).", "url": "https://qualicx-brasil.github.io/indicadores.html", "inLanguage": "pt-BR", "author": {"@type": "Person", "@id": "https://orcid.org/0009-0000-1747-1392", "name": "André Luiz Maciel", "url": "https://qualicx-brasil.github.io/autor.html"}, "publisher": {"@id": "https://qualicx-brasil.github.io/#site"}, "datePublished": "2026-11-14", "keywords": "NPS, CSAT, CES, FCR, TMA, TME, nível de serviço, abandono, ocupação, Erlang C, indicadores de call center, KPIs de CX"}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/qcx.css">
+<style>
+.toc{display:flex;gap:8px;flex-wrap:wrap;margin:22px 0 10px}
+.toc a{font:700 .82rem var(--sans);padding:8px 14px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--fg);text-decoration:none}
+.toc a:hover{border-color:var(--accent2)}
+.ind{margin-top:44px;padding:28px;border-radius:22px;background:var(--card);border:1px solid var(--line);scroll-margin-top:70px}
+.ind-head{display:flex;gap:18px;align-items:center}
+.sigla{flex:none;min-width:78px;height:78px;padding:0 10px;border-radius:18px;display:grid;place-items:center;font:800 1.15rem var(--sans);color:#fff;background:linear-gradient(135deg,#1d4ed8,#38bdf8)}
+.ind h2{margin:4px 0 0;font-size:1.7rem}
+.lead2{color:#c8d1de;font-size:1.08rem;margin:16px 0 4px}
+.two{display:grid;grid-template-columns:1.25fr 1fr;gap:26px;margin-top:10px}
+.ind h3{font:700 .8rem var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:22px 0 8px}
+.formula{white-space:pre-wrap;font:600 .95rem/1.6 ui-monospace,Menlo,Consolas,monospace;background:#0a1322;border:1px solid var(--line);border-left:4px solid #38bdf8;border-radius:12px;padding:14px 16px;color:#e8edf4;margin:0}
+.tip,.warn{margin-top:16px;padding:14px 16px;border-radius:14px}
+.tip{background:rgba(56,189,248,.08);border:1px solid rgba(56,189,248,.35)}
+.warn{background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.35)}
+.tip b{color:#7dd3fc}.warn b{color:#fbbf24}.tip p,.warn p{margin:6px 0 0}
+.calc{background:#0a1322;border:1px solid var(--line);border-radius:18px;padding:6px 20px 20px;align-self:start;position:sticky;top:70px}
+.calc label{display:block;font:600 .85rem var(--sans);color:var(--muted);margin-top:12px}
+.calc input{display:block;width:100%;margin-top:6px;padding:11px 12px;border-radius:10px;border:1px solid #2a3a55;background:#0d1a2e;color:#fff;font:600 1rem var(--sans)}
+.calc input:focus{outline:2px solid #38bdf8;border-color:transparent}
+.out{margin-top:16px;display:grid;gap:10px}
+.res{padding:12px 14px;border-radius:12px;background:linear-gradient(135deg,rgba(29,78,216,.25),rgba(56,189,248,.12));border:1px solid rgba(56,189,248,.3)}
+.res span{display:block;font:600 .78rem var(--sans);color:#a9c3e6;text-transform:uppercase;letter-spacing:.08em}
+.res strong{display:block;font:800 1.7rem var(--sans);color:#fff;margin-top:2px}
+.res small{display:block;color:#a9b6c8;margin-top:2px}
+.note{font-size:.88rem;color:var(--muted);margin:4px 0 0}
+.cx-tips{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-top:18px}
+.cx-tips div{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px}
+.cx-tips b{display:block;font:700 1.02rem var(--sans);margin-bottom:6px}
+.cx-tips p{margin:0;color:#aebbd0;font-size:.95rem}
+@media(max-width:860px){.two{grid-template-columns:1fr}.calc{position:static}.ind{padding:20px}}
+</style>
+</head><body>
+<main><div class="wrap">
+<header style="padding:36px 0 0;max-width:820px"><span class="kicker">Guia prático · Calculadoras</span>
+<h1>Indicadores de CX e Contact Center</h1>
+<p class="lead">Como calcular, como interpretar e onde estão as armadilhas dos principais indicadores de atendimento. Cada um tem uma calculadora para você praticar com os seus números.</p>
+<p class="meta">Por <a href="autor.html">André Luiz Maciel</a> · Os cálculos rodam no seu navegador; nenhum dado é enviado.</p></header>
+<nav class="toc" aria-label="Indicadores"><a href="#nps">NPS</a><a href="#csat">CSAT</a><a href="#ces">CES</a><a href="#fcr">FCR</a><a href="#tma">TMA</a><a href="#ns">NS</a><a href="#ocup">OCP</a><a href="#erlang">Erlang C</a><a href="#dicas">Dicas de CX</a></nav>
+<section class="ind" id="nps">
+<div class="ind-head"><span class="sigla">NPS</span><div><span class="kicker">Percepção</span><h2>Net Promoter Score</h2></div></div>
+<p class="lead2">A disposição do cliente em recomendar a empresa, numa escala de 0 a 10.</p>
+<div class="two">
+<div>
+<h3>Como calcular</h3><pre class="formula">NPS = % promotores (9 e 10) − % detratores (0 a 6)
+Margem de erro (95%) = 1,96 × √[(p+ + p− − (p+ − p−)²) / n] × 100</pre>
+<h3>Exemplo</h3><p>300 respostas: 180 promotores (60%), 75 neutros e 45 detratores (15%). NPS = 60 − 15 = 45, com margem de erro de cerca de ±8,4 pontos.</p>
+<div class="tip"><b>Dica prática</b><p>Antes de explicar uma queda, veja se ela é maior que a margem de erro. Uma variação de 45 para 40 com 300 respostas pode ser só ruído da amostra.</p></div>
+<div class="warn"><b>Armadilha comum</b><p>Comparar NPS de equipes ou atendentes com poucas respostas. Com 30 respostas, a margem passa de ±25 pontos.</p></div>
+</div>
+<div class="calc" data-ind="nps"><h3>Calculadora</h3><label>Promotores (9 e 10)<input type="number" min="0" step="any" id="nps-p" value="180"></label><label>Neutros (7 e 8)<input type="number" min="0" step="any" id="nps-n" value="75"></label><label>Detratores (0 a 6)<input type="number" min="0" step="any" id="nps-d" value="45"></label><div class="out" id="nps-out" aria-live="polite"></div></div>
+</div>
+</section><section class="ind" id="csat">
+<div class="ind-head"><span class="sigla">CSAT</span><div><span class="kicker">Percepção</span><h2>Customer Satisfaction Score</h2></div></div>
+<p class="lead2">A satisfação com uma interação específica, geralmente numa escala de 1 a 5.</p>
+<div class="two">
+<div>
+<h3>Como calcular</h3><pre class="formula">CSAT = respostas 4 e 5 ÷ total de respostas × 100</pre>
+<h3>Exemplo</h3><p>500 respostas, 410 com nota 4 ou 5. CSAT = 410 ÷ 500 × 100 = 82%.</p>
+<div class="tip"><b>Dica prática</b><p>Pergunte logo após o contato e sobre aquele contato. CSAT mede a interação; NPS mede a relação com a marca.</p></div>
+<div class="warn"><b>Armadilha comum</b><p>Misturar escalas (1 a 5 com 1 a 10) ou trocar o critério de “satisfeito” no meio da série histórica.</p></div>
+</div>
+<div class="calc" data-ind="csat"><h3>Calculadora</h3><label>Respostas 4 e 5<input type="number" min="0" step="any" id="csat-s" value="410"></label><label>Total de respostas<input type="number" min="0" step="any" id="csat-t" value="500"></label><div class="out" id="csat-out" aria-live="polite"></div></div>
+</div>
+</section><section class="ind" id="ces">
+<div class="ind-head"><span class="sigla">CES</span><div><span class="kicker">Esforço</span><h2>Customer Effort Score</h2></div></div>
+<p class="lead2">Quanto esforço o cliente precisou fazer para resolver o que queria.</p>
+<div class="two">
+<div>
+<h3>Como calcular</h3><pre class="formula">CES = % de clientes que concordam (5 a 7) que foi fácil resolver
+(escala de 1 “discordo totalmente” a 7 “concordo totalmente”)</pre>
+<h3>Exemplo</h3><p>400 respostas, 300 entre 5 e 7. CES = 300 ÷ 400 × 100 = 75% de baixo esforço.</p>
+<div class="tip"><b>Dica prática</b><p>Esforço costuma explicar a lealdade melhor do que o encantamento. Cruce o CES com recontato e troca de canal.</p></div>
+<div class="warn"><b>Armadilha comum</b><p>Usar escalas diferentes entre canais e comparar os resultados como se fossem iguais.</p></div>
+</div>
+<div class="calc" data-ind="ces"><h3>Calculadora</h3><label>Respostas 5 a 7 (fácil)<input type="number" min="0" step="any" id="ces-f" value="300"></label><label>Total de respostas<input type="number" min="0" step="any" id="ces-t" value="400"></label><div class="out" id="ces-out" aria-live="polite"></div></div>
+</div>
+</section><section class="ind" id="fcr">
+<div class="ind-head"><span class="sigla">FCR</span><div><span class="kicker">Resolução</span><h2>Resolução no Primeiro Contato</h2></div></div>
+<p class="lead2">A parcela das demandas resolvidas sem que o cliente precise voltar.</p>
+<div class="two">
+<div>
+<h3>Como calcular</h3><pre class="formula">FCR = demandas resolvidas no 1º contato ÷ total de demandas × 100
+Recontato (7 dias) = clientes que voltaram pelo mesmo motivo em 7 dias ÷ total × 100</pre>
+<h3>Exemplo</h3><p>2.000 demandas, 260 clientes voltaram pelo mesmo motivo em 7 dias. Recontato = 13%; FCR estimado = 87%.</p>
+<div class="tip"><b>Dica prática</b><p>Meça o FCR pela jornada do cliente (voltou ou não, em qualquer canal), não pela marcação do atendente.</p></div>
+<div class="warn"><b>Armadilha comum</b><p>Contar como “resolvido” o que foi apenas registrado. O novo Decreto do SAC proíbe pedir que o cliente repita a demanda.</p></div>
+</div>
+<div class="calc" data-ind="fcr"><h3>Calculadora</h3><label>Total de demandas<input type="number" min="0" step="any" id="fcr-t" value="2000"></label><label>Voltaram pelo mesmo motivo (7 dias)<input type="number" min="0" step="any" id="fcr-r" value="260"></label><div class="out" id="fcr-out" aria-live="polite"></div></div>
+</div>
+</section><section class="ind" id="tma">
+<div class="ind-head"><span class="sigla">TMA</span><div><span class="kicker">Eficiência</span><h2>Tempo Médio de Atendimento</h2></div></div>
+<p class="lead2">A duração média de um atendimento, somando conversa, espera em linha e pós-atendimento.</p>
+<div class="two">
+<div>
+<h3>Como calcular</h3><pre class="formula">TMA = (tempo falado + tempo em espera + pós-atendimento) ÷ nº de atendimentos</pre>
+<h3>Exemplo</h3><p>1.000 atendimentos com 250.000 s de conversa, 30.000 s de espera e 40.000 s de pós-atendimento. TMA = 320 s (5min20s).</p>
+<div class="tip"><b>Dica prática</b><p>Toda meta de TMA deve vir acompanhada de uma meta de resolução (FCR ou recontato).</p></div>
+<div class="warn"><b>Armadilha comum</b><p>Reduzir o TMA encurtando a solução: a operação ganha segundos e o cliente liga de novo.</p></div>
+</div>
+<div class="calc" data-ind="tma"><h3>Calculadora</h3><label>Atendimentos<input type="number" min="0" step="any" id="tma-c" value="1000"></label><label>Tempo falado (s)<input type="number" min="0" step="any" id="tma-f" value="250000"></label><label>Tempo em espera na linha (s)<input type="number" min="0" step="any" id="tma-h" value="30000"></label><label>Pós-atendimento (s)<input type="number" min="0" step="any" id="tma-a" value="40000"></label><div class="out" id="tma-out" aria-live="polite"></div></div>
+</div>
+</section><section class="ind" id="ns">
+<div class="ind-head"><span class="sigla">NS</span><div><span class="kicker">Acesso</span><h2>Nível de Serviço, TME e Abandono</h2></div></div>
+<p class="lead2">Quão rápido o cliente é atendido e quantos desistem na fila.</p>
+<div class="two">
+<div>
+<h3>Como calcular</h3><pre class="formula">NS = chamadas atendidas em até X segundos ÷ chamadas oferecidas × 100
+TME = tempo total em fila ÷ chamadas atendidas
+Abandono = chamadas abandonadas ÷ chamadas oferecidas × 100</pre>
+<h3>Exemplo</h3><p>1.200 oferecidas, 1.130 atendidas, 970 atendidas em até 20 s, 70 abandonadas. NS = 80,8%; abandono = 5,8%.</p>
+<div class="tip"><b>Dica prática</b><p>O Decreto nº 13.135/2026 fixa, para o SAC telefônico, espera de até 20 segundos em pelo menos 80% das chamadas (art. 15).</p></div>
+<div class="warn"><b>Armadilha comum</b><p>Algumas operações excluem abandonos curtos (até 5 s) do cálculo. Escolha uma regra, deixe-a escrita e não mude no meio do mês.</p></div>
+</div>
+<div class="calc" data-ind="ns"><h3>Calculadora</h3><label>Chamadas oferecidas<input type="number" min="0" step="any" id="ns-o" value="1200"></label><label>Chamadas atendidas<input type="number" min="0" step="any" id="ns-a" value="1130"></label><label>Atendidas em até X s<input type="number" min="0" step="any" id="ns-x" value="970"></label><label>Abandonadas<input type="number" min="0" step="any" id="ns-b" value="70"></label><label>Tempo total em fila (s)<input type="number" min="0" step="any" id="ns-q" value="22600"></label><div class="out" id="ns-out" aria-live="polite"></div></div>
+</div>
+</section><section class="ind" id="ocup">
+<div class="ind-head"><span class="sigla">OCP</span><div><span class="kicker">Eficiência</span><h2>Ocupação</h2></div></div>
+<p class="lead2">A parcela do tempo disponível em que o atendente está de fato atendendo.</p>
+<div class="two">
+<div>
+<h3>Como calcular</h3><pre class="formula">Ocupação = (tempo falado + pós-atendimento) ÷ tempo logado disponível × 100</pre>
+<h3>Exemplo</h3><p>Em 6 horas logadas (21.600 s), 15.120 s em atendimento e 2.160 s de pós. Ocupação = 80%.</p>
+<div class="tip"><b>Dica prática</b><p>Faixas muito altas por longos períodos tendem a desgastar a equipe e piorar a qualidade.</p></div>
+<div class="warn"><b>Armadilha comum</b><p>Usar ocupação alta como meta isolada: ela sobe quando falta gente e a fila cresce.</p></div>
+</div>
+<div class="calc" data-ind="ocup"><h3>Calculadora</h3><label>Tempo falado (s)<input type="number" min="0" step="any" id="ocup-f" value="15120"></label><label>Pós-atendimento (s)<input type="number" min="0" step="any" id="ocup-a" value="2160"></label><label>Tempo logado disponível (s)<input type="number" min="0" step="any" id="ocup-l" value="21600"></label><div class="out" id="ocup-out" aria-live="polite"></div></div>
+</div>
+</section><section class="ind" id="erlang">
+<div class="ind-head"><span class="sigla">Erlang C</span><div><span class="kicker">Planejamento</span><h2>Dimensionamento (Erlang C)</h2></div></div>
+<p class="lead2">Quantos atendentes são necessários num intervalo para atingir a meta de nível de serviço.</p>
+<div class="two">
+<div>
+<h3>Como calcular</h3><pre class="formula">Tráfego (A) = chamadas no intervalo × TMA ÷ duração do intervalo
+NS(N) = 1 − P(espera) × e^(−(N − A) × X ÷ TMA)</pre>
+<h3>Exemplo</h3><p>300 chamadas em 30 min, TMA de 240 s, meta 80% em 20 s: cerca de 46 atendentes em posição (sem contar pausas e absenteísmo).</p>
+<div class="tip"><b>Dica prática</b><p>Some depois o shrinkage (pausas, treinamento, faltas) para chegar à escala real.</p></div>
+<div class="warn"><b>Armadilha comum</b><p>Usar a média do dia: o dimensionamento deve ser feito por intervalo, porque a demanda muda ao longo das horas.</p></div>
+</div>
+<div class="calc" data-ind="erlang"><h3>Calculadora</h3><label>Chamadas no intervalo<input type="number" min="0" step="any" id="erlang-c" value="300"></label><label>Duração do intervalo (min)<input type="number" min="0" step="any" id="erlang-i" value="30"></label><label>TMA (s)<input type="number" min="0" step="any" id="erlang-t" value="240"></label><label>Tempo-alvo X (s)<input type="number" min="0" step="any" id="erlang-x" value="20"></label><label>Meta de NS (%)<input type="number" min="0" step="any" id="erlang-m" value="80"></label><div class="out" id="erlang-out" aria-live="polite"></div></div>
+</div>
+</section>
+<section id="dicas" style="margin-top:56px;scroll-margin-top:70px"><span class="kicker">Para levar para a operação</span><h2 style="font-size:1.8rem;margin:.3em 0 0">Seis dicas práticas de CX</h2>
+<div class="cx-tips"><div><b>Leia indicadores em par</b><p>Velocidade sozinha engana. TMA e nível de serviço sempre ao lado de FCR e recontato.</p></div><div><b>Respeite a margem de erro</b><p>Pesquisas são amostras. Antes de cobrar a equipe, confira se a variação supera o ruído.</p></div><div><b>Separe mix de desempenho</b><p>Se o perfil dos casos mudou (mais casos lentos, um canal novo), o indicador cai sem que a operação piore.</p></div><div><b>Meça pela jornada</b><p>O cliente avalia a solução, não só a ligação. Cruze dados de canais diferentes pelo mesmo cliente.</p></div><div><b>Monitoria por causa-raiz</b><p>Classifique cada falha por pilar (conhecimento, operacional, sistema, processo, atitude) para achar o dono certo.</p></div><div><b>Escreva a regra do cálculo</b><p>Definições estáveis (o que é abandono, o que é resolvido) valem mais que qualquer meta.</p></div></div>
+<p class="meta" style="margin-top:22px">Quer se aprofundar na leitura estatística do NPS? Leia <a href="artigos/nps-com-rigor-estatistico.html">NPS com rigor estatístico</a> e <a href="artigos/qualidade-nao-e-controle.html">Qualidade não é controle</a>.</p></section>
+</div></main>
+<footer><div class="wrap"><div class="brand">QualiCX <span>Brasil</span></div><p>Conteúdo © André Luiz Maciel, licença CC BY 4.0. Definições variam entre empresas e reguladores: use estas fórmulas como referência e registre a regra adotada na sua operação.</p></div></footer>
+<script>
+const v=(id)=>{const x=parseFloat(document.getElementById(id).value);return isFinite(x)?x:0};
+const pct=(x)=>(x).toLocaleString('pt-BR',{maximumFractionDigits:1})+'%';
+const num=(x,d=1)=>x.toLocaleString('pt-BR',{maximumFractionDigits:d});
+const big=(lbl,val,sub='')=>`<div class="res"><span>${lbl}</span><strong>${val}</strong>${sub?`<small>${sub}</small>`:''}</div>`;
+const mmss=(s)=>{s=Math.round(s);return Math.floor(s/60)+'min'+String(s%60).padStart(2,'0')+'s'};
+const F={
+ nps(){const p=v('nps-p'),n=v('nps-n'),d=v('nps-d'),t=p+n+d;if(!t)return'Informe as respostas.';const pp=p/t,pd=d/t,nps=(pp-pd)*100,va=pp+pd-(pp-pd)**2,me=1.96*Math.sqrt(va/t)*100;
+  const leitura=me>10?'Amostra pequena: trate variações menores que a margem como ruído.':'Variações menores que a margem podem ser só ruído da amostra.';
+  return big('NPS',num(nps,1))+big('Margem de erro (95%)','±'+num(me,1),`Intervalo provável: ${num(nps-me,1)} a ${num(nps+me,1)}`)+big('Composição',`${pct(pp*100)} promotores · ${pct(pd*100)} detratores`,`${t} respostas`)+`<p class="note">${leitura}</p>`},
+ csat(){const s=v('csat-s'),t=v('csat-t');if(!t)return'Informe o total.';return big('CSAT',pct(s/t*100))},
+ ces(){const f=v('ces-f'),t=v('ces-t');if(!t)return'Informe o total.';return big('Baixo esforço',pct(f/t*100))},
+ fcr(){const t=v('fcr-t'),r=v('fcr-r');if(!t)return'Informe o total.';return big('Recontato em 7 dias',pct(r/t*100))+big('FCR estimado',pct((t-r)/t*100))},
+ tma(){const c=v('tma-c');if(!c)return'Informe os atendimentos.';const s=(v('tma-f')+v('tma-h')+v('tma-a'))/c;return big('TMA',mmss(s),num(s,0)+' segundos')},
+ ns(){const o=v('ns-o'),a=v('ns-a');if(!o)return'Informe as oferecidas.';let h=big('Nível de serviço',pct(v('ns-x')/o*100))+big('Abandono',pct(v('ns-b')/o*100));if(a)h+=big('TME',mmss(v('ns-q')/a));return h},
+ ocup(){const l=v('ocup-l');if(!l)return'Informe o tempo logado.';return big('Ocupação',pct((v('ocup-f')+v('ocup-a'))/l*100))},
+ erlang(){const c=v('erlang-c'),I=v('erlang-i')*60,t=v('erlang-t'),X=v('erlang-x'),m=v('erlang-m')/100;if(!c||!I||!t)return'Preencha chamadas, intervalo e TMA.';const A=c*t/I;
+  let N=Math.max(1,Math.floor(A)+1),res=null;
+  for(;N<A+500;N++){let B=1;for(let k=1;k<=N;k++)B=A*B/(k+A*B);const Pw=N*B/(N-A*(1-B));const sl=1-Pw*Math.exp(-(N-A)*X/t);const asa=Pw*t/(N-A);if(sl>=m){res={N,sl,asa,Pw};break}}
+  if(!res)return'Não foi possível calcular com esses valores.';
+  return big('Atendentes em posição',res.N,`Tráfego de ${num(A,1)} erlangs`)+big('Nível de serviço previsto',pct(res.sl*100),`em até ${X} s`)+big('Espera média prevista',mmss(res.asa))+`<p class="note">Ocupação prevista: ${pct(A/res.N*100)}. Some o shrinkage (pausas, treinamentos, faltas) para chegar à escala real.</p>`}
+};
+document.querySelectorAll('.calc').forEach(el=>{const id=el.dataset.ind;const run=()=>{document.getElementById(id+'-out').innerHTML=F[id]()};el.querySelectorAll('input').forEach(i=>i.addEventListener('input',run));run()});
+</script>
+</body></html>
