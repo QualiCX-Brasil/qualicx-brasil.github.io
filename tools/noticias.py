@@ -1,7 +1,7 @@
 # Curadoria semanal de manchetes de CX e Contact Center (somente titulo, veiculo, data e link).
 import urllib.request, urllib.parse, xml.etree.ElementTree as ET, json, html, datetime, email.utils, pathlib, re
 BASE = pathlib.Path('.')
-Q = ['"contact center" OR "call center" OR "central de atendimento"',
+Q = ['"contact center" OR "call center"',
      '"experiência do cliente" OR "customer experience" OR "customer success"',
      'SAC atendimento consumidor Senacon OR Procon OR "Reclame Aqui"']
 FEEDS = [('Consumidor Moderno', 'https://consumidormoderno.com.br/feed/')]
@@ -9,6 +9,7 @@ for q in Q:
     FEEDS.append(('Google Notícias', 'https://news.google.com/rss/search?' + urllib.parse.urlencode({'q': q + ' when:7d', 'hl': 'pt-BR', 'gl': 'BR', 'ceid': 'BR:pt-419'})))
 UA = {'User-Agent': 'QualiCX-Brasil-curadoria/1.0 (+https://qualicx-brasil.github.io/)'}
 KEY = re.compile(r'(atendimento|cliente|consumidor|CX|contact center|call center|SAC|experiência|customer|ouvidoria|NPS|chatbot|omnichannel)', re.I)
+RUIDO = re.compile(r'(gasolina|combust|diesel|DNA|paternidade|vacina|eleiç|futebol|loteria|preço d[aoe]s? )', re.I)
 now = datetime.datetime.now(datetime.timezone.utc)
 items, seen = [], set()
 for nome, url in FEEDS:
@@ -26,7 +27,7 @@ for nome, url in FEEDS:
         except Exception: d = now
         if d.tzinfo is None: d = d.replace(tzinfo=datetime.timezone.utc)
         if (now - d).days > 10 or not t or not l: continue
-        if nome == 'Consumidor Moderno' and not KEY.search(t): continue
+        if not KEY.search(t) or RUIDO.search(t): continue
         k = re.sub(r'\W+', '', t.lower())[:80]
         if k in seen: continue
         seen.add(k); items.append({'titulo': t, 'fonte': src, 'data': d.strftime('%Y-%m-%d'), 'link': l})
