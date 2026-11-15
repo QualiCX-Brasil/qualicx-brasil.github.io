@@ -25,7 +25,7 @@ jobs:
           FEEDS = [('Consumidor Moderno', 'https://consumidormoderno.com.br/feed/')]
           for q in Q:
               FEEDS.append(('Google Notícias', 'https://news.google.com/rss/search?' + urllib.parse.urlencode({'q': q + ' when:7d', 'hl': 'pt-BR', 'gl': 'BR', 'ceid': 'BR:pt-419'})))
-          UA = {'User-Agent': 'QualiCX-Brasil-curadoria/1.0 (+https://qualicx-brasil.github.io/)'}
+          UA = {'User-Agent': 'QualiCX-Brasil-curadoria/1.0 (+https://qualicx.com.br/)'}
           KEY = re.compile(r'(atendimento|cliente|consumidor|CX|contact center|call center|SAC|experiência|customer|ouvidoria|NPS|chatbot|omnichannel)', re.I)
           RUIDO = re.compile(r'(gasolina|combust|diesel|DNA|paternidade|vacina|eleiç|futebol|loteria|preço d[aoe]s? |vaga|emprego|salário|contrata|concurso|currículo)', re.I)
           now = datetime.datetime.now(datetime.timezone.utc)
@@ -62,9 +62,9 @@ jobs:
           # Artes das noticias: ilustracoes abstratas geradas aqui (SVG proprio), sem usar imagens dos veiculos.
           import json, html, re, pathlib, datetime, hashlib, random
           B = pathlib.Path('.')
-          SITE = 'https://qualicx-brasil.github.io/'
+          SITE = 'https://qualicx.com.br/'
           REPO = 'https://github.com/QualiCX-Brasil/qualicx-brasil.github.io'
-          EMAIL_EDITORIAL = ''   # preencher quando a caixa editorial dedicada existir
+          EMAIL_EDITORIAL = 'editorial' + chr(64) + 'qualicx.com.br'
           HOJE = datetime.date.today()
           E = html.escape
 
@@ -137,7 +137,7 @@ jobs:
           footer nav{display:flex;gap:16px;flex-wrap:wrap;margin:12px 0}footer nav a{color:var(--fg)}
           @media(max-width:860px){.featured,.band{grid-template-columns:1fr!important}.feat-main{min-height:360px}.band .art{order:-1}.band .art svg{min-height:180px}.arow{grid-template-columns:96px 1fr}.mini{grid-template-columns:96px 1fr}.band .txt{padding:24px}}
           """
-          FONTS = '<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 64 64\'%3E%3Crect width=\'64\' height=\'64\' rx=\'14\' fill=\'%2307101d\'/%3E%3Ctext x=\'32\' y=\'44\' font-family=\'Georgia,serif\' font-size=\'38\' font-weight=\'700\' text-anchor=\'middle\' fill=\'%2338bdf8\'%3EQ%3C/text%3E%3C/svg%3E"><link rel="alternate" type="application/rss+xml" title="QualiCX Brasil" href="https://qualicx-brasil.github.io/feed.xml"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">'
+          FONTS = '<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 64 64\'%3E%3Crect width=\'64\' height=\'64\' rx=\'14\' fill=\'%2307101d\'/%3E%3Ctext x=\'32\' y=\'44\' font-family=\'Georgia,serif\' font-size=\'38\' font-weight=\'700\' text-anchor=\'middle\' fill=\'%2338bdf8\'%3EQ%3C/text%3E%3C/svg%3E"><link rel="alternate" type="application/rss+xml" title="QualiCX Brasil" href="https://qualicx.com.br/feed.xml"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">'
           (B/'assets').mkdir(exist_ok=True)
           (B/'assets'/'qcx.css').write_text(CSS.strip() + '\n')
 
@@ -155,6 +155,7 @@ jobs:
               t = p.read_text()
               t = re.sub(r'<!--qcx-nav-->.*?<!--/qcx-nav-->', '', t, flags=re.S)
               t = re.sub(r'(<body[^>]*>)', lambda m: m.group(1) + nav(prefix), t, count=1)
+              t = t.replace('https://qualicx-brasil' + '.github.io', 'https://qualicx.com.br')
               for v, n in (('8b5c' + 'f6', '3b82f6'), ('a78b' + 'fa', '7dd3fc'), ('7c3a' + 'ed', '2563eb'), ('6d28' + 'd9', '1d4ed8'), ('c4b5' + 'fd', 'bae6fd')): t = t.replace('#' + v, '#' + n)
               p.write_text(t)
 
@@ -405,6 +406,11 @@ jobs:
               if not p.name.startswith('google'): injeta(p)
           for p in B.glob('artigos/*.html'): injeta(p, '../')
 
+          # ---------------- Dominio proprio ----------------
+          (B/'CNAME').write_text('qualicx.com.br\n')
+          rb = B/'robots.txt'
+          if rb.exists(): rb.write_text(rb.read_text().replace('https://qualicx-brasil' + '.github.io', 'https://qualicx.com.br'))
+
           # ---------------- Sitemap ----------------
           urls = [''] + [p.name for p in sorted(B.glob('*.html')) if not p.name.startswith('google') and p.name not in ('index.html', 'projeto-promotor.html')] + [f'artigos/{p.name}' for p in sorted(B.glob('artigos/*.html'))]
           (B/'sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
@@ -420,7 +426,7 @@ jobs:
           body:
             - type: markdown
               attributes:
-                value: "Obrigado por colaborar! Leia os critérios em https://qualicx-brasil.github.io/publique.html. Esta proposta fica visível publicamente: não inclua dados pessoais sensíveis nem informações confidenciais."
+                value: "Obrigado por colaborar! Leia os critérios em https://qualicx.com.br/publique.html. Esta proposta fica visível publicamente: não inclua dados pessoais sensíveis nem informações confidenciais."
             - type: input
               id: autor
               attributes: {label: "Nome do autor ou autores", placeholder: "Nome completo"}
