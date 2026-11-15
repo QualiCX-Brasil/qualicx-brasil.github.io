@@ -7,7 +7,7 @@ Q = ['"contact center" OR "call center"',
 FEEDS = [('Consumidor Moderno', 'https://consumidormoderno.com.br/feed/')]
 for q in Q:
     FEEDS.append(('Google Notícias', 'https://news.google.com/rss/search?' + urllib.parse.urlencode({'q': q + ' when:7d', 'hl': 'pt-BR', 'gl': 'BR', 'ceid': 'BR:pt-419'})))
-UA = {'User-Agent': 'QualiCX-Brasil-curadoria/1.0 (+https://qualicx-brasil.github.io/)'}
+UA = {'User-Agent': 'QualiCX-Brasil-curadoria/1.0 (+https://qualicx.com.br/)'}
 KEY = re.compile(r'(atendimento|cliente|consumidor|CX|contact center|call center|SAC|experiência|customer|ouvidoria|NPS|chatbot|omnichannel)', re.I)
 RUIDO = re.compile(r'(gasolina|combust|diesel|DNA|paternidade|vacina|eleiç|futebol|loteria|preço d[aoe]s? |vaga|emprego|salário|contrata|concurso|currículo)', re.I)
 now = datetime.datetime.now(datetime.timezone.utc)

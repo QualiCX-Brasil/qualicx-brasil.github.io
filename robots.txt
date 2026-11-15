@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://qualicx-brasil.github.io/sitemap.xml
+Sitemap: https://qualicx.com.br/sitemap.xml

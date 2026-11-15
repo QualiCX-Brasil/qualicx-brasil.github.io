@@ -2,9 +2,9 @@
 # Artes das noticias: ilustracoes abstratas geradas aqui (SVG proprio), sem usar imagens dos veiculos.
 import json, html, re, pathlib, datetime, hashlib, random
 B = pathlib.Path('.')
-SITE = 'https://qualicx-brasil.github.io/'
+SITE = 'https://qualicx.com.br/'
 REPO = 'https://github.com/QualiCX-Brasil/qualicx-brasil.github.io'
-EMAIL_EDITORIAL = ''   # preencher quando a caixa editorial dedicada existir
+EMAIL_EDITORIAL = 'editorial' + chr(64) + 'qualicx.com.br'
 HOJE = datetime.date.today()
 E = html.escape
 
@@ -77,7 +77,7 @@ footer .brand{font:800 1.5rem var(--serif);color:var(--fg)}footer .brand span{co
 footer nav{display:flex;gap:16px;flex-wrap:wrap;margin:12px 0}footer nav a{color:var(--fg)}
 @media(max-width:860px){.featured,.band{grid-template-columns:1fr!important}.feat-main{min-height:360px}.band .art{order:-1}.band .art svg{min-height:180px}.arow{grid-template-columns:96px 1fr}.mini{grid-template-columns:96px 1fr}.band .txt{padding:24px}}
 """
-FONTS = '<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 64 64\'%3E%3Crect width=\'64\' height=\'64\' rx=\'14\' fill=\'%2307101d\'/%3E%3Ctext x=\'32\' y=\'44\' font-family=\'Georgia,serif\' font-size=\'38\' font-weight=\'700\' text-anchor=\'middle\' fill=\'%2338bdf8\'%3EQ%3C/text%3E%3C/svg%3E"><link rel="alternate" type="application/rss+xml" title="QualiCX Brasil" href="https://qualicx-brasil.github.io/feed.xml"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">'
+FONTS = '<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 64 64\'%3E%3Crect width=\'64\' height=\'64\' rx=\'14\' fill=\'%2307101d\'/%3E%3Ctext x=\'32\' y=\'44\' font-family=\'Georgia,serif\' font-size=\'38\' font-weight=\'700\' text-anchor=\'middle\' fill=\'%2338bdf8\'%3EQ%3C/text%3E%3C/svg%3E"><link rel="alternate" type="application/rss+xml" title="QualiCX Brasil" href="https://qualicx.com.br/feed.xml"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">'
 (B/'assets').mkdir(exist_ok=True)
 (B/'assets'/'qcx.css').write_text(CSS.strip() + '\n')
 
@@ -95,6 +95,7 @@ def injeta(p, prefix=''):
     t = p.read_text()
     t = re.sub(r'<!--qcx-nav-->.*?<!--/qcx-nav-->', '', t, flags=re.S)
     t = re.sub(r'(<body[^>]*>)', lambda m: m.group(1) + nav(prefix), t, count=1)
+    t = t.replace('https://qualicx-brasil' + '.github.io', 'https://qualicx.com.br')
     for v, n in (('8b5c' + 'f6', '3b82f6'), ('a78b' + 'fa', '7dd3fc'), ('7c3a' + 'ed', '2563eb'), ('6d28' + 'd9', '1d4ed8'), ('c4b5' + 'fd', 'bae6fd')): t = t.replace('#' + v, '#' + n)
     p.write_text(t)
 
@@ -344,6 +345,11 @@ for _pg, _img in CAPAS.items():
 for p in list(B.glob('*.html')):
     if not p.name.startswith('google'): injeta(p)
 for p in B.glob('artigos/*.html'): injeta(p, '../')
+
+# ---------------- Dominio proprio ----------------
+(B/'CNAME').write_text('qualicx.com.br\n')
+rb = B/'robots.txt'
+if rb.exists(): rb.write_text(rb.read_text().replace('https://qualicx-brasil' + '.github.io', 'https://qualicx.com.br'))
 
 # ---------------- Sitemap ----------------
 urls = [''] + [p.name for p in sorted(B.glob('*.html')) if not p.name.startswith('google') and p.name not in ('index.html', 'projeto-promotor.html')] + [f'artigos/{p.name}' for p in sorted(B.glob('artigos/*.html'))]

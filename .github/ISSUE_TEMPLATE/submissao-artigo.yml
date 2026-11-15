@@ -5,7 +5,7 @@ labels: ["submissão"]
 body:
   - type: markdown
     attributes:
-      value: "Obrigado por colaborar! Leia os critérios em https://qualicx-brasil.github.io/publique.html. Esta proposta fica visível publicamente: não inclua dados pessoais sensíveis nem informações confidenciais."
+      value: "Obrigado por colaborar! Leia os critérios em https://qualicx.com.br/publique.html. Esta proposta fica visível publicamente: não inclua dados pessoais sensíveis nem informações confidenciais."
   - type: input
     id: autor
     attributes: {label: "Nome do autor ou autores", placeholder: "Nome completo"}
