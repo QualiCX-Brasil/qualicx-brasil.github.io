@@ -81,7 +81,7 @@ FONTS = '<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.
 (B/'assets').mkdir(exist_ok=True)
 (B/'assets'/'qcx.css').write_text(CSS.strip() + '\n')
 
-LINKS = [('', 'Início'), ('noticias.html', 'Notícias'), ('artigos.html', 'Artigos'), ('boas-praticas.html', 'Boas práticas'),
+LINKS = [('', 'Início'), ('noticias.html', 'Notícias'), ('artigos.html', 'Artigos'), ('boas-praticas.html', 'Colaborações'),
          ('frases.html', 'Frases'), ('indicadores.html', 'Indicadores'), ('palestras.html', 'Palestras'), ('publique.html', 'Publique'), ('autor.html', 'Sobre')]
 
 def nav(prefix=''):
@@ -231,10 +231,10 @@ inicio = f'''<div class="wrap">
 {destaque}
 <h2 class="sec">Mais notícias da semana <a href="noticias.html">Ver todas →</a></h2>
 {mais}
-<section class="band"><div class="art">{arte("projeto-promotor-banda", PP_CORES, 700, 460, "boa prática")}</div><div class="txt"><span class="kicker">Boa prática em destaque</span>
-<h3>Projeto Promotor: o modelo de atuação que o QualiCX Brasil recomenda</h3>
-<p class="meta" style="font-size:1rem">Governança, monitoria inteligente, alertas preventivos e estatística aplicada para fazer da Qualidade uma alavanca de resultado.</p>
-<a class="btn" href="boas-praticas.html">Ler a boa prática</a> <a class="btn" href="https://projetopromotor-nexus.base44.app/" style="background:transparent;border:1px solid var(--line);margin-left:6px">Site do Projeto Promotor</a></div></section>
+<section class="band"><div class="art">{arte("projeto-promotor-banda", PP_CORES, 700, 460, "boa prática")}</div><div class="txt"><span class="kicker">Colaboração</span>
+<h3>Projeto Promotor, uma iniciativa de qualidade da qual participei</h3>
+<p class="meta" style="font-size:1rem">Projeto desenvolvido em equipe, com governança, monitoria por causa-raiz e estatística aplicada. André Luiz Maciel foi um dos colaboradores.</p>
+<a class="btn" href="https://projetopromotor-nexus.base44.app/">Conhecer o projeto</a> <a class="btn" href="boas-praticas.html" style="background:transparent;border:1px solid var(--line);margin-left:6px">Saiba mais</a></div></section>
 <div class="quote">“Não Só de Call Center Vive a Experiência do Cliente.”<small>André Luiz Maciel, editor</small></div>
 <section class="band" style="grid-template-columns:200px 1fr;align-items:center"><div style="padding:28px"><img src="img/andre-luiz-maciel.jpg" alt="Foto de André Luiz Maciel" style="width:150px;height:150px;border-radius:50%;object-fit:cover;border:3px solid var(--line)"></div><div class="txt" style="padding-left:0"><span class="kicker">Editor</span><h3 style="font-size:1.5rem">André Luiz Maciel</h3><p class="meta" style="font-size:1rem">Coordenador de Qualidade, com foco em Customer Experience e análise de dados em Contact Center. Autor de “Qualidade não é controle. É alavanca estratégica de resultado”.</p><a class="btn" href="autor.html">Sobre o editor</a> <a class="btn" href="palestras.html" style="background:transparent;border:1px solid var(--line)">Palestras e eventos</a></div></section>
 <h2 class="sec">Artigos <a href="artigos.html">Acervo →</a></h2>
@@ -270,21 +270,21 @@ pagina('artigos.html', 'Artigos', 'Artigos sobre Qualidade, Customer Experience 
 <p class="meta" style="margin-top:28px">Tem um artigo sobre CX ou Contact Center? <a href="publique.html">Envie sua proposta</a>.</p></div>''', 'CollectionPage')
 
 # ---------------- Boas práticas ----------------
-pagina('boas-praticas.html', 'Boas práticas: Projeto Promotor, um modelo de atuação para a Qualidade em Contact Center',
-       'Boa prática em destaque: o Projeto Promotor, modelo de atuação que posiciona a Qualidade como alavanca estratégica de resultado em Contact Centers.',
-       f'''<div class="wrap narrow"><header style="padding:36px 0 0"><span class="kicker">Boa prática em destaque</span>
-<h1>Projeto Promotor: o modelo de atuação que o QualiCX Brasil recomenda</h1>
-<p class="lead">Entre as práticas que acompanhamos, o Projeto Promotor é a que melhor traduz a linha editorial desta revista: a Qualidade deixa de ser apenas fiscalização de atendimentos e passa a funcionar como inteligência que conecta operação, Voz do Cliente, dados e decisão.</p></header>
+pagina('boas-praticas.html', 'Colaborações: Projeto Promotor, iniciativa de qualidade em Contact Center',
+       'O Projeto Promotor é uma iniciativa de qualidade em Contact Center desenvolvida em equipe, da qual André Luiz Maciel foi um dos colaboradores.',
+       f'''<div class="wrap narrow"><header style="padding:36px 0 0"><span class="kicker">Projetos em que colaborei</span>
+<h1>Projeto Promotor</h1>
+<p class="lead">O Projeto Promotor é uma iniciativa de qualidade em Contact Center construída em equipe, da qual fui um dos colaboradores. Trabalhar nele ajudou a amadurecer o olhar crítico que defendo nesta revista: ir além da nota, investigar a causa e sustentar cada conclusão com dados.</p></header>
 <div class="hero-art">{arte("boas-praticas-hero", PP_CORES, 1200, 460, "Projeto Promotor")}</div>
 <div class="quote">“Qualidade não é controle. É alavanca estratégica de resultado.”<small>André Luiz Maciel</small></div>
-<h2 class="sec">Por que é uma boa prática</h2>
+<h2 class="sec">O que o projeto reúne</h2>
 <div class="cols3">
 <div class="box"><h3>Começa pela governança</h3><p class="meta">Metas de Qualidade ligadas a objetivos do negócio, papéis definidos e acompanhamento executivo com cadência D-1.</p></div>
 <div class="box"><h3>Une números e escuta</h3><p class="meta">NPS, CSAT, FCR, rechamada e TMA lidos junto com a jornada e a voz do cliente, em busca da causa raiz.</p></div>
 <div class="box"><h3>Alerta para prevenir</h3><p class="meta">Desvios críticos geram acionamento imediato e plano de ação com dono, prazo e evidência, sem caráter punitivo.</p></div>
 <div class="box"><h3>Mede o efeito</h3><p class="meta">Toda ação é avaliada pelo antes e depois, e a camada estatística (NEXUS) verifica se a variação é real ou ruído.</p></div>
 </div>
-<h2 class="sec">As cinco fases do modelo</h2>
+<h2 class="sec">As cinco fases do projeto</h2>
 <ol class="steps">
 <li><b>Zona qualitativa.</b> Monitorias com mapeamento de jornada, leitura comportamental e análise multicanal.</li>
 <li><b>Alertas de qualidade.</b> Acionamento preventivo para desvios críticos e riscos operacionais.</li>
@@ -293,8 +293,8 @@ pagina('boas-praticas.html', 'Boas práticas: Projeto Promotor, um modelo de atu
 <li><b>Ação estruturante de dados.</b> Consolidação, limpeza e correlação dos dados para a decisão.</li>
 </ol>
 <p><a class="btn" href="https://projetopromotor-nexus.base44.app/">Visitar o site do Projeto Promotor</a></p>
-<p class="meta">Registro: DOI <a href="https://doi.org/10.5281/zenodo.23966325">10.5281/zenodo.23966325</a>. Nota editorial: esta é a avaliação do QualiCX Brasil, baseada na linha que a revista defende; o modelo foi desenvolvido por profissionais ligados ao editor. Resultados de aplicação só são divulgados com autorização e evidência.</p>
-<h2 class="sec">Indique uma boa prática</h2>
+<p class="meta">Registro: DOI <a href="https://doi.org/10.5281/zenodo.23966325">10.5281/zenodo.23966325</a>. O projeto foi desenvolvido em equipe; os autores constam no registro. Esta página apresenta o projeto e a minha participação nele, e não constitui recomendação comercial. Resultados de aplicação só são divulgados com autorização e evidência.</p>
+<h2 class="sec">Indique uma prática</h2>
 <p>Conhece outra prática de Qualidade ou CX que merece destaque? <a href="publique.html">Envie para a redação</a>.</p></div>''', 'Article')
 
 # ---------------- Publique ----------------
