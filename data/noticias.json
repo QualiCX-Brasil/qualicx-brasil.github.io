@@ -1,6 +1,209 @@
 {
- "atualizado": "2026-11-16",
+ "atualizado": "2026-11-21",
  "itens": [
+  {
+   "titulo": "O cliente saiu sem avisar: por que empresas perdem consumidores?",
+   "fonte": "Estado de Minas",
+   "data": "2026-11-21",
+   "link": "https://news.google.com/rss/articles/CBMizgFBVV95cUxQUG45Mk1sVHZCVWFQOS13XzVaM0dpQ0pWMWhnTDluQVJ2a1oxU21Eb1FlWWdwT1lJMEtlX2k4OEoxUnQ2Nm1Vb013Yk5aOFI5YUhucEZ2SzhCR3ZhTndmZEdhSEIzQURvSTQ3Z1NBNDZ3bWktMEs0X0E2WDBwRDZfRENORHJ0bVdQY1NNVVZwVGhYZkZCcjZ3aUlERGRtQ3p4S2NXVWdnaDJHYlU0OGhRQTk1MkZzVGtjeGw1bDBUM3hNRWU0cE1EVllDWmk1QdIB0wFBVV95cUxPcHBJZDAtcGFxMWpRZDA4OWdlTHFYSzN5UnNLenFCQURzR2pqU3I5ZjB1Sm5xZEZacnU0MzJud0FNazdzLXRiYVF0RXEzTndNMTZlRWZuRE9mMlVNWXdybVFDd19rNlQ3LVJwSFIwMWg3aDF4am0tOVpYRHQwdHBOZnBWRUZxNkRkT2d1a1dLSmtlLWVQMTlKZVZQZ1ppdWFuaGlMOFh6VnZxd0x5YzZmUVZDQ09TQW1KMEFEOHo3ZVZmbkxyeEJvY19aYWVsSk5uZ2FZ?oc=5",
+   "dominio": "em.com.br"
+  },
+  {
+   "titulo": "Na era da inteligência artificial, especialista fala sobre o impacto da experiência do cliente na competitividade do turismo",
+   "fonte": "Consumidor RS",
+   "data": "2026-11-20",
+   "link": "https://news.google.com/rss/articles/CBMibkFVX3lxTE9KS0I4RS1aQS11SkpvUjlsN3NzTElKTGhLTHFhUnBKMVd3ZmxGOEV1TEtZTVJ6NzBKYjhLNEVHTGJuV1ZibU5WOGdNRXNLRHNhSzV3YlF4cDRTcXU0VEVLdWJuNFdISFpGYWRqMll3?oc=5",
+   "dominio": "consumidorrs.com.br"
+  },
+  {
+   "titulo": "Jefferies reitera classificação da United Airlines com foco na experiência do cliente - Investing.com Brasil",
+   "fonte": "Investing.com Brasil - Finanças, Câmbio e Investimentos",
+   "data": "2026-11-20",
+   "link": "https://news.google.com/rss/articles/CBMi3AFBVV95cUxPR2U3TXVDTWdXRVJmV2FzX21pYXdoby1ReEdQX1NVTnpPQmFjTXpNRDVfeTFQa1MyUEU1OW9ObUsxZjhGZFdsOHVLYjVENkY2SVBjSWo1Y3VWX0JqbGJoWkRQRU5FNHJrdDRJWERWdzlxLXNidS1Yc3hOZk5SVzRGb3lSVnhqYVVtbW9lNGtNWDFNb0JBNFJ2emJuZHR0eDVycWtOWVBEOWM4c2pTT1kzc3pZQkNadVl2eVNjWDFYZDJ2VTRqMFdmYUxBeDBsaXl6ekVPblQ5YkpnMS0y?oc=5",
+   "dominio": "br.investing.com"
+  },
+  {
+   "titulo": "Black Friday: vender mais não garante lucro nem fidelidade do consumidor",
+   "fonte": "Consumidor Moderno",
+   "data": "2026-11-19",
+   "link": "https://consumidormoderno.com.br/black-friday-favelas-marcas-fidelidade/",
+   "dominio": "consumidormoderno.com.br"
+  },
+  {
+   "titulo": "Velox Contact Center completa 15 anos de operação 24 horas sem nenhum dia parado",
+   "fonte": "Sala da Notícia",
+   "data": "2026-11-19",
+   "link": "https://news.google.com/rss/articles/CBMiygFBVV95cUxNZVh6N1lESFdGOGJWbDN6OUwtS1NLazdydW5CRTlNM19YamFSU1ZTQkNrdXNlWl8wbmItMFRIUDl2SXBPa1VTVXAwT3pvUklMOUNOSWc0LVBrLWZwQjJzWU5JRFBmXzM5SzJ5dDlmV3hJcWxvc3VCeHpueTdxZ2dTQXBhTXliWlozMURKQkhQdmF4WWxYRDRiVC1OYVV3ZnFVRVM5SG5DV2lXX2JGRVNpSUtLZU9lSFFwMXMwbmNLV0U1VGptM2FnX0VB?oc=5",
+   "dominio": "portal.saladanoticia.com.br"
+  },
+  {
+   "titulo": "Black Friday: O que você pode exigir do atendimento das empresas",
+   "fonte": "Congresso em Foco",
+   "data": "2026-11-19",
+   "link": "https://news.google.com/rss/articles/CBMitwFBVV95cUxOV0NSaFRtMjZxT1ZweHVUQmZhenpJanFka090c0VjYWF1dUJxd0lYUWJudGl4WlkydEhhbG1MQi1STTR4STVpbHFSMVJiSEY5Qk0zOVJKa2RUMlhGOE1VQjFoNm9wS2l0c2FvRUtjQXhyY29uUEpqeGEtUlBka0ZobXpxSmo4b1UtdnA0UEEyWWdWTm5rR1lndzdJZ0lsZFlNaWp4c0RTTkg5U1F6WXprdkVMZ0l0c0E?oc=5",
+   "dominio": "congressoemfoco.com.br"
+  },
+  {
+   "titulo": "MP na Fonte: ação realiza mais de 4 mil atendimentos em apenas dois dias e marca golaço de cidadania na Arena Fonte Nova",
+   "fonte": "Ministério Público do Estado da Bahia. |",
+   "data": "2026-11-19",
+   "link": "https://news.google.com/rss/articles/CBMiTEFVX3lxTFBKTklIX0xHWmFWTG0zUjlhMFJEMV96dVBVeVlqWDE4cWxoUFZrcHVOVE5VcUV3QWRkTWhxY3Nnek1BeTdHX3hGVkl4TTg?oc=5",
+   "dominio": "mpba.mp.br"
+  },
+  {
+   "titulo": "Procon informa novas regras para o atendimento em Três Lagoas; confira",
+   "fonte": "diariodigital.com.br",
+   "data": "2026-11-19",
+   "link": "https://news.google.com/rss/articles/CBMirAFBVV95cUxOUTVnQWJlVlQtZUtlZTNCTHpqWXRRSmZUWHpfLVd2WTJ1ZlF3MGp4NlBqZWVtQVB2SHRsOWhwc2R1ZEpqN2g2WUpHQzFDMlVNNzU4RTQzajM5ZjExZVJRTlRsekdITFdEZW44U081M05GZHhDVWh0TjZBMURJOUs0RlJSVTExWWlINnkwNWNGTko3WEswUy1CX2ZxdlBZOVRYeXZvd1hXQ3F5Nklw0gGsAUFVX3lxTE5RNWdBYmVWVC1lS2VlM0JMempZdFFKZlRYel8tV3ZZMnVmUXcwang2UGplZW1BUHZIdGw5aHBzZHVkSmo3aDZZSkdDMUMyVU03NThFNDNqMzlmMTFlUlFOVGx6R0hMV0RlbjhTTzUzTkZkeENVaHRONkExREk5SzRGUlJVMTFZaUg2eTA1Y0ZOSjdYSzBTLUJfZnF2UFk5VFh5dm93WFdDcXk2SXA?oc=5",
+   "dominio": "amp.diariodigital.com.br"
+  },
+  {
+   "titulo": "Brasil — Reclamações dobram no Consumidor.gov.br e nota média cai para 2,37 de 5",
+   "fonte": "Prensa Mercosur",
+   "data": "2026-11-19",
+   "link": "https://news.google.com/rss/articles/CBMitwFBVV95cUxNSU1VLWxRaVlUbl82LUxtV1ZORmxKNHRSNWhzbFlJWm1jNFNsd0ZaNWFBWFdJd2I1THJ0N1ZUUHQ5UzBzNUpVUHFlOEVxdkpWZjBEZE9RbXI1TzRJSlM3eFVGZkpZSUU3bjUtODhFZjVtN01EY1lFa1JVa0FUUUVsbW4zYWxSNlBNSVZkLWJqSnRtVm0wM1p2SGxZQ203NDlERFh5X1BvNEI5Y1RKdjBvRDNnMmc5R3M?oc=5",
+   "dominio": "prensamercosur.org"
+  },
+  {
+   "titulo": "Procon de Lages terá atendimento exclusivo no Feirão Limpa Nome",
+   "fonte": "SCC10",
+   "data": "2026-11-19",
+   "link": "https://news.google.com/rss/articles/CBMikAFBVV95cUxNMzEtRE9mazdLRUlwc2dSU1BaWmVxazVfX1l3bjkwUW1qel9jcmhxOW41RkxrNDJHZE5aaU1iTjkyNlJ4ajdTYl92bFg2YzZCT2dQRTR1d3NKOUxNTENaMXFlTFd5VjlSWEYzMWFjRG13TkV6bVRsZXV5eUVELTdwWjV1NkdSNjIybXE1QUNGaGc?oc=5",
+   "dominio": "scc10.com.br"
+  },
+  {
+   "titulo": "O regime 6×1 e o SAC: uma tempestade perfeita para os call centers",
+   "fonte": "TeleSíntese",
+   "data": "2026-11-18",
+   "link": "https://news.google.com/rss/articles/CBMimAFBVV95cUxQY2RPQTJZTHBYMzFvYjJLcGdnZGxSNnhmOWxJckZTNTZYdkpFbC0xTlNnVGhqc2M2bXNqMGlkanpOdmhEZ3BqMU45YnFLOG1mME1nR1VtVHhKQ1oydUZDUGRsOFlEUm1JaGJrSmc2S2FkQnpVUllQVkJmZ3BnRHN2bGN5ZDJjbG5kbU5YZm5fX3NJb1p2TjVaZA?oc=5",
+   "dominio": "telesintese.com.br"
+  },
+  {
+   "titulo": "Allianz Partners aposta em inteligência artificial e assistência preditiva para transformar a experiência do cliente",
+   "fonte": "CQCS",
+   "data": "2026-11-18",
+   "link": "https://news.google.com/rss/articles/CBMi3gFBVV95cUxOdGFqemNhS3ZJbDc4NXhmY2IwdTdwLXdweHpjTHFHU3NkdENZc3lqYlZKQm9nTmJKR1JYMEhVbzZteUpueFlsaVVfSUg0NVlIcjIyOXNBSkNVOXF0Y2pobUlUWE1KdmFQdEZhQ0VHR3M4M0V0dlRaQlNGekVjUkNyZ3c4TDJkRGZjT1lCb0hhSzZKR1A1RW5ZVW84WGtfS09ha284djMzcE5HS0twUVF2RUNGbUlIS3ZIZHJFSU1oVkU0V0IwOFl6SDc0ZG9HM0pBQ1FQNlB3RFNDd0xFSFE?oc=5",
+   "dominio": "cqcs.com.br"
+  },
+  {
+   "titulo": "Agentes de IA da TIM reduzem em 86% tempo de resolução no atendimento",
+   "fonte": "ANSA Brasil",
+   "data": "2026-11-18",
+   "link": "https://news.google.com/rss/articles/CBMihwJBVV95cUxOZEs2TkVOc2NLLTl6aWJxMDZQY3VFeFVTNkhmb3RuN0JQbUxuOXlhZEhsZHFFZlYwZ29zalppa2VlXzcwLXJONjVMWS1HYXg3aFhZemlZel9CcExLYzZuVzFCTTdTeG14cEQwOFB3YkU5aXUzSGFQNjY1azJXWlViVW1NeWtQMFB5Vk1kOGRWV0ZNekNERTIyU2ZyOElJR01MR1pUeldpei1JMUNhQWdvTTlVZ01PUURKekVheUQ5TGo2WHgzQ3kzbVh0RG95dk1UbUUwaWtKc0t5UFhOTG01N3BEdGk1YTI3RXlSM3NjQWdobWYwVTNCcXkxbk5jZm5nSVpUWU45d9IBhwJBVV95cUxOZEs2TkVOc2NLLTl6aWJxMDZQY3VFeFVTNkhmb3RuN0JQbUxuOXlhZEhsZHFFZlYwZ29zalppa2VlXzcwLXJONjVMWS1HYXg3aFhZemlZel9CcExLYzZuVzFCTTdTeG14cEQwOFB3YkU5aXUzSGFQNjY1azJXWlViVW1NeWtQMFB5Vk1kOGRWV0ZNekNERTIyU2ZyOElJR01MR1pUeldpei1JMUNhQWdvTTlVZ01PUURKekVheUQ5TGo2WHgzQ3kzbVh0RG95dk1UbUUwaWtKc0t5UFhOTG01N3BEdGk1YTI3RXlSM3NjQWdobWYwVTNCcXkxbk5jZm5nSVpUWU45dw?oc=5",
+   "dominio": "ansabrasil.com.br"
+  },
+  {
+   "titulo": "Procon Ceará destaca fortalecimento da defesa do consumidor durante congresso nacional em Fortaleza",
+   "fonte": "Governo do Estado do Ceará",
+   "data": "2026-11-18",
+   "link": "https://news.google.com/rss/articles/CBMi3gFBVV95cUxNTy1DNVE3SjNBbC1JV0hMT3o2VlBQZGZaN1BwOUJwSGlVbVJWWXFpQjRaNVRUaXJ5LWFpZ0NiOGxZeWhvNHFKX1VLazNXT2FNYU1SeGNhZ083UmJVZjI5bUFuRlBvZlo1Ri1HSldiZnNYTTA1WHgyRjhTX2RTU21mbC1jQndfck1fSzM4MlVzVVd5by1qWF9Bd1lFUnFmZEtmcWl2Rl9ncHlaRTJfRzlGd2Jtdmx5eUVCQXlFRVZjY3RIWTdfNHk1NmtjLUF2bEgwSjFFR2NfeXpTN1VQenc?oc=5",
+   "dominio": "ce.gov.br"
+  },
+  {
+   "titulo": "Senacon cobra medidas de proteção ao consumidor para a Black Friday",
+   "fonte": "Portal Viu",
+   "data": "2026-11-18",
+   "link": "https://news.google.com/rss/articles/CBMipAFBVV95cUxOdTRmNUhJbk9DRXgwXzZmREJ3bEhKSm9BaXZFcjNSX185eWVnWC0xeEUxSWdBc3N3MndmcjFQZlA5SC1Pa1JjWFRmaGNrYS1aQkNjSWdDM09td0tTbWpid29aS005S0stSWw2OG54VGVlU01IYl9IY05qcHhsX1ZpWlVxWFdwVl8ybXBrZ0NlcVh4Q2RzWnJvTjdFRl90ZTZ3cUtreA?oc=5",
+   "dominio": "portalviu.com.br"
+  },
+  {
+   "titulo": "Franquia de call center é a maior tendência de 2027",
+   "fonte": "Terra",
+   "data": "2026-11-17",
+   "link": "https://news.google.com/rss/articles/CBMiywFBVV95cUxOOHRuSm9ZZFhwRkpDSzdjUno3d0NTUVZHMUdEQkJ1ZHJDSjJmUVZaaHM5Y1FLYnVLYnJNNUVfUTdHTF9GNUswQldTal9YVkR3LXRCbVN4ZnRpNGtyVENZT3pzTmgxdlRuTTJubWlCU3F1MFh3S01ZWDgtYXlzOUxXd0V3VWpKSlFMV0VCUnV2dXdnM0hXejZwdHM3dGJrTXRrRXdWcTBYMUZYdXU4elhRQmtQQ3RVdjZScm53czZ1MzFQbDFjOHlPOGlLcw?oc=5",
+   "dominio": "terra.com.br"
+  },
+  {
+   "titulo": "Call center no Paraguai captava investidores para plataforma apontada como fraudulenta pela Justiça",
+   "fonte": "Gazeta do Paraná",
+   "data": "2026-11-17",
+   "link": "https://news.google.com/rss/articles/CBMipgFBVV95cUxOZWxGUGk1ZjJjbjBvZUZROUl6cU9xNmE4aThsYVllYy1uRnBrLU1ob3hDN1BaY2dLSzduMndIYlA4WG9VRjZpR1l1TG53RU1XTW10eU9jZXJDRjRzVGIzY1hIcHdqNXkwdnlrenFhWmZTT2dzNHhRdWxLODhtbERqd0trN2pydHItM0ZrMGJvSVo1R0ZFeVZIZFdoS0FHZ3BYTF9iZEFB?oc=5",
+   "dominio": "gazetadoparana.com.br"
+  },
+  {
+   "titulo": "Five9 Inc aposta em IA para ampliar vantagem no mercado de contact center - Investing.com Brasil",
+   "fonte": "Investing.com Brasil - Finanças, Câmbio e Investimentos",
+   "data": "2026-11-17",
+   "link": "https://news.google.com/rss/articles/CBMixwFBVV95cUxPMnFEQUM5bWhVZFJOY2tQTU96R3Nuc0dMemFiTm43LVl0TEhqWEpkZzhLeHp2ZUVweV9BbUg2NlEwUldiUzlBV1VxYS1pUkF0d1IwNUF5LXBlOHFKc2xxYVdTdW9aNWZZckFLQjNwZUdwZEdiOTFPUWhsdzZLOElQb0hENWN2S01TYUYxOHZvOGJzcW1BaWRwNGZrdjZmSzJ5VUFOTGdQRG5rWWFJRmxiNEIyNFpsWlFKYUs0eWg2OW1ueUNGU2Q4?oc=5",
+   "dominio": "br.investing.com"
+  },
+  {
+   "titulo": "Para quem vende planos e assinaturas, a Black Friday continua no atendimento depois da sexta-feira",
+   "fonte": "Sala da Notícia",
+   "data": "2026-11-17",
+   "link": "https://news.google.com/rss/articles/CBMi5gFBVV95cUxOUHdMdFAxR3RsSGVxQVV6QW1jdE44VUhEOGo2M3I5UElpWURjdzI4Q0pxNGhPZEdab0xmNzlhc19uNDhzLTZYWVpOZnZZMDI4UTZMWHptMWZpb3N4dmVLQS12azFiQ2RUalVLSER3NURlN1hIbTFWcWhFdm51QTBEdlpXMnZsU0tmai1mcldFd0k0MHlnS2JidjZPUHRXVzZnMUkzOEdUNmRldDhzSUpWbUJHelgtWUpwVkZKQjh0Y3hoZk9PRkp5TDh6YnNVdF9BbWpqOWQyVURua21qMHZiV2hhNkhkdw?oc=5",
+   "dominio": "portal.saladanoticia.com.br"
+  },
+  {
+   "titulo": "Comunidades de Customer Experience: por que ninguém evolui sozinho em CX?",
+   "fonte": "Portal ClienteSA",
+   "data": "2026-11-17",
+   "link": "https://news.google.com/rss/articles/CBMipwFBVV95cUxPcm51OVJaZldlSWw4UHhDUm04TXhXTDRSVmZwTE5kcEtGcnNsTGRmaWYtb21jdEk2c3c3QXlnT051eXZGNjBLVnpsRlpIRU02ZGZ4RUUyOEFydXF3WFo1YWZMUXMwTldFUnh3V24zaXpmand2VjlUbnQ3TktjMHVndjlYYmxtV25zMHVzZ2FkV2VYY2RzVzJYa2RVeEZsQk80WDdLbzhuYw?oc=5",
+   "dominio": "portal.clientesa.com.br"
+  },
+  {
+   "titulo": "Acias e Sebrae oferecem palestra sobre método de atendimento da Disney",
+   "fonte": "TODODIA",
+   "data": "2026-11-17",
+   "link": "https://news.google.com/rss/articles/CBMirgFBVV95cUxNTXU1cE1sSmVLRVpDYjNad3lfbkVlaVRpVlZ5clBwMFRpUUota1lnT1I1dTk3cVh0YnBFcFJ5RWoyS0Y4cHdlVE5NVnFCYTYxc0RLME1MX1EtdzVqMTN6dk9tdnpSdXhDS05xMUktWTBKZW52QU54VVFqMkVUVnlhdDFCbkFqcGI3RGtFTkZwOHhEeVc3cGhqeXFWdEdWWklBbzE0UGZOTVpDMVdHRkE?oc=5",
+   "dominio": "tododia.com.br"
+  },
+  {
+   "titulo": "Tecban integra dados e aprimora experiência de clientes",
+   "fonte": "Notícias em Rede",
+   "data": "2026-11-17",
+   "link": "https://news.google.com/rss/articles/CBMipgFBVV95cUxNdkJEWkl0ZlZMYU16OTBXdy01N2JWRzV3bWh4bFB3LVB0SnVPeGU4bjlFWW5LTG02VUdLaGFVbnF6OHY3LUdCQjZMV2JWRm53SHE4U3lRWnFHUmlYcVdlLXRtYzJ1Sno5UjN4S0l2M1Q4OWlEUDRIay1odWdObzVVVERSWUdnc3pMMWZsbTBlSml6Z2NvUGJOZ3o2RVA1RE9rdjdrbFFB?oc=5",
+   "dominio": "noticiasemrede.com.br"
+  },
+  {
+   "titulo": "O cliente foi embora. Alguém perguntou o motivo?",
+   "fonte": "Paraíba Business",
+   "data": "2026-11-17",
+   "link": "https://news.google.com/rss/articles/CBMijwFBVV95cUxPaVB0R05TWEh1OWpmX1NIZEpYcjJWdHJ4NWxaTHB1cjNld2h4MmVDQURuRjVTdlhrLWV4R1hiYVc4a29hSHN5TWlCNmExSVM5ZXBYNTViSjdmc0Y0TUhiRTh1VWhiSzVJV2FidEk1bWFQN0QxVHY1RzBEcTVSN2tkNk9xbTFwcEZFTWNPVXlGdw?oc=5",
+   "dominio": "paraibabusiness.com.br"
+  },
+  {
+   "titulo": "Black Friday 2026: como transformar o atendimento com IA, estratégia omnicanal e comunicação eficiente",
+   "fonte": "Gazeta da Semana",
+   "data": "2026-11-17",
+   "link": "https://news.google.com/rss/articles/CBMi3gFBVV95cUxQVXFjTHF2NE05ZElBWTR5VXFXbzBnZ19sQkdlSzRVUDAyTy1BbFJra1VEU3JYdkxMdmlBZHFoSW1TQVFxZS16Uzh0UFBiUk5IbHJjNGJ4NlcwX0E3Z3RPMFBSb3JyRnVUVXRGRGJIdVdMQkp1QklfQ0FzeEdvRDVrTXpucHNzTlAxdElweGQzZ0Znd3psNXJkb0FHYVVtNHo1SHVINW1DYVJzeXhJaFZFRnZzNGV4X3ViNldSYUFNWmdya3FSWXFvTmtqUWJSc2JrMVVXUGVReHVyb3NIeVE?oc=5",
+   "dominio": "gazetadasemana.com.br"
+  },
+  {
+   "titulo": "De produtos a serviços: a Huawei expande a experiência do usuário no Vietnã.",
+   "fonte": "Vietnam.vn",
+   "data": "2026-11-17",
+   "link": "https://news.google.com/rss/articles/CBMiogFBVV95cUxQWTE3cGdDMmcwYTBwOEFSUWJLbUVlZzRsSS1hNHJQVFhFaTRiRF8wdmJKQ2dncHhUMDNZYWhybkZvcnBOcVA4eTlmMnRxdHUyQV83NTc0Q1ZET1FUb1VKNTFQcXBWdXdjWkF5MkZrY05jUS1LYmtqTldHaGNPb3NUV3RseXFhTGtFNXNJd1RqaGM5R3RfVXJwcW1xcWd0V0JQMVE?oc=5",
+   "dominio": "vietnam.vn"
+  },
+  {
+   "titulo": "Rede Bom Lugar reinaugura loja em São Miguel Arcanjo com ampliação da área e foco na experiência do cliente",
+   "fonte": "São Roque Notícias",
+   "data": "2026-11-17",
+   "link": "https://news.google.com/rss/articles/CBMi3AFBVV95cUxPdUxxZUVmbnk4UjZMS3ZLNF9JSnFoWmsxbEpQajZHczZhNkFwSk00U0JHZWRtZE9OcU5ZRGstQ0FCUW1sVUg5QVlIQlRwUENfVVIzR1VkVXlfVFNqVGhJYWZvODByMVJaQ1ZNVTRDalpPb1c0VWlvNmZSSHFrVlk5TkozN3ZVcXhkTEM3YV9rTkNMclBaVzVLdUo4WUdOYjdBU2lqUE9oQmlNSkxEb3JfU1pQZWtEbGJDckNuQ0c0ZU5HYjNXRU9UNTB1T21tZWgtOGRGelNjcXRHNFJl0gHiAUFVX3lxTE1EUEFYS29DWlZYNm1ULVRxS3M1dFY4ejJRM1JnMFFZcXhWNzF5bHFtT1lVTzhuUm1wcjJYc1ZLNnBQVUVNNnpmV2MtdWF2WGIwZFJMSVlWY3BtMGFkSWptNTg1eEJiYTJuby1aTjhrY0hUekZkbEVhVmJUSm9XVldpZ0s2VmxORkpCZ3Mza1B2LTNLUEJDT2ZpQ0p5cVhheVlCaFBsOXB1c0Y2bEVLOVp2Zm1WamJONXpta0dSTWtJOTF3SF9wcXgzVzdhMjZxaVRMTmZ2RG1BMm1ndUNVRXE0QlE?oc=5",
+   "dominio": "saoroquenoticias.com.br"
+  },
+  {
+   "titulo": "Black Friday pressiona atendimento e expõe limites da IA",
+   "fonte": "Portal UAI",
+   "data": "2026-11-17",
+   "link": "https://news.google.com/rss/articles/CBMi8AFBVV95cUxPaHFCMXEwQXJKYXRUd0FtanZxdTEwc0xObWRFWkRtNzY0QmdfR0M3d2d4S0ktS2ItX21nVmQwd3VYdGxOYVB0VWJIS29ncXRJRnltaFExbXlYTjF4MmhaYWh1dGE1OW45SkF5SEtiZGxnakxfVi1QUzlkZnF4aEpmU3FYVFZlM1k3aW5naWVKeHhsbjlQZnFyMVljaktYUzRCX05jdnBhTllwV2V3c1NNMUhBWC1RYTYwZmZIaVRoRGExUUd6VVNrTkNHdFcyLURKRXBvOHNyY3NoYnpfR0Noc2F1cG12Q1BHTFRvYjF5Sm4?oc=5",
+   "dominio": "uai.com.br"
+  },
+  {
+   "titulo": "Atendimento fortalece reputação das marcas",
+   "fonte": "Terra",
+   "data": "2026-11-17",
+   "link": "https://news.google.com/rss/articles/CBMivwFBVV95cUxNNzYtNHVneThPbEUzd05IckJuZkljU2Y1YzM1eHJNYUdZTDl4ZG9YbHBId3JLdzMzNG8zUDVHRVNnSWJxbnkxUnNVTXg3ak9ES0JCRTR3WjB4dDdjVlJpRFBlclJiQUkxMDItWHVJdWo5YldsSURud0ZyR3Z4LWVJSHN5cEpMdll3NlFOZFptakFoNG1CMXpJNzM5RUtneUFBWUpVbmo3RW45VEk3SWJTSE1xZHNaNEY5aVdfRUhUQQ?oc=5",
+   "dominio": "terra.com.br"
+  },
+  {
+   "titulo": "Procon Manaus verifica preços, ofertas e regras de atendimento em shoppings antes da Black Friday",
+   "fonte": "Informe Manaus",
+   "data": "2026-11-17",
+   "link": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxPalhISndHUUltSmxWel9Hc2RxNFE5NWJCOXNyRW1FWEk0RDhvTXF2RFVEWEd5WnBFREZGZ0VHYjZHeUlfdVBpY2pXQXJJM1NNdnIwN1AzWkFTOWhSUFBfazlFRDRBQ25rMzdYYzdZckkzbXlnSlEzMzUtREQtbnBZUFZyVGdKN20wY1lKTVR5NTNFSkw2UXZzRGs2YktuOW5IUGhCSl8xVVpFelFtbFNNMW95Yl8tUWVuc1RkVzUxelZUMi1vN3dlbQ?oc=5",
+   "dominio": "informemanaus.com.br"
+  },
   {
    "titulo": "EXCLUSIVO: Empresa recrutava brasileiros em Cascavel para call center investigado no Paraguai",
    "fonte": "Gazeta do Paraná",
@@ -19,15 +222,36 @@
    "titulo": "Black Friday 2026: quatro cuidados com a experiência do cliente para vender mais e não perder oportunidades",
    "fonte": "Imirante.com",
    "data": "2026-11-16",
-   "link": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxOaGJSajByT2RYY3pQN2pEZE50Z3pjSTFUTzlwSUhEblFKZGxweU56a2xlSDBnd3Ffb0V4Vk9Fa3lJN3p5bVVUY1o0U1dWN1RHMlVXTXh1VXBTRmM1emx3RzZPa2sxaGQtaVg4S3VoRUlRR1l3R0FnMF9OeDZKbDBtUkxDcms4TFlRbmFCR0luaER3ZmNrN281WjgtUHVPdEw1RFVzV29ISm9KR1I5enJkUVpaSGZFc0F4ZkdiQ2VPSjVOSFXSAcMBQVVfeXFMTmhiUmowck9kWGN6UDdqRGROdGd6Y0kxVE85cElIRG5RSmRscHlOemtsZUgwZ3dxX29FeFZPRWt5STd6eW1VVGNaNFNXVjdURzJVV014dVVwU0ZjNXpsd0c2T2trMWhkLWlYOEt1aEVJUUdZd0dBZzBfTng2SmwwbVJMQ3JrOExZUW5hQkdJbmhEd2ZjazdvNVo4LVB1T3RMNURVc1dvSEpvSkdSOXpyZFFaWkhmRXNBeGZHYkNlT0o1TkhV?oc=5",
+   "link": "https://news.google.com/rss/articles/CBMivgFBVV95cUxQTFdaWExpV3g2b0tFUl9zMGo0WXlrSnFBM0RmVUZHaGpyUVB1NXRQNVVBUDdVQ2NKcFU3NzZIRThZdEZqU1l4UGQ0OGhlXzBfd0xSSjY1dUdXNVlJajBJSTQ2SGNnaHhyZVJoV2xnQVMySkZFOWU5eEtCR09WRWFYajJEWm5JVWd1YlBwZTVRb1JHdHJKUzdmaEgweFh6MzlhLXY1OGMyeUdNUkxyOXZ0blRJOGpRTWx5V09rN3FR0gHDAUFVX3lxTE5oYlJqMHJPZFhjelA3akRkTnRnemNJMVRPOXBJSERuUUpkbHB5TnprbGVIMGd3cV9vRXhWT0VreUk3enltVVRjWjRTV1Y3VEcyVVdNeHVVcFNGYzV6bHdHNk9razFoZC1pWDhLdWhFSVFHWXdHQWcwX054NkpsMG1STENyazhMWVFuYUJHSW5oRHdmY2s3bzVaOC1QdU90TDVEVXNXb0hKb0pHUjl6cmRRWlpIZkVzQXhmR2JDZU9KNU5IVQ?oc=5",
    "dominio": "imirante.com"
   },
   {
-   "titulo": "Procon alerta para novas regras de atendimento ao consumidor em Ilhéus",
-   "fonte": "Ilhéus Eventos",
+   "titulo": "O conselho que não ouve o cliente decide no escuro",
+   "fonte": "ABC da Comunicação",
    "data": "2026-11-16",
-   "link": "https://news.google.com/rss/articles/CBMitwFBVV95cUxQNldleWFJNkxRV2hiaEhHVFVEOFBDNHN5a1hkUWxtX3B2OHBrT0RFb0tXQV9sUmloYUdrOUxoTk0wWl80dVZPc1RvV1dIUlVVN2xXb0dMS24xUnNvVzRwMk5jeXpvLThZazNTU2N1Yll6aWVJNTBJcW9vVFBCdUFWTmYyZlpEanJsaHhhS2dxSlZaZlVHNlRVcm5fN0NOSnZZLUE0aTFsQmlfZE1kVnpfNWtHRFB4LWs?oc=5",
-   "dominio": "ilheuseventos.com.br"
+   "link": "https://news.google.com/rss/articles/CBMikAFBVV95cUxObnJDa3MtX2xNYlJjZ2pwbmxfd3ZkTWZNeGd0TlJlR1B0Ylhyc0F6WEJtTkdPck4xQVFhMm1GVFRFUWVTYUFoU2hwVVgtM1hqWnY4ZG4xUnVzVi13aW1YeUx4amdsMnhmLU56SVVfOXJ1ZGZNRjRLUGdVbHBVdWQwOUJ6WHZCZUdXc1NQVEtTX1Y?oc=5",
+   "dominio": "abcdacomunicacao.com.br"
+  },
+  {
+   "titulo": "Black Friday é a data em que o cliente de bares e restaurantes sai mais satisfeito, aponta estudo",
+   "fonte": "Abrasel",
+   "data": "2026-11-16",
+   "link": "https://news.google.com/rss/articles/CBMitwFBVV95cUxNUEtPaldOTjljT1NidnRmYmdEUTZiN1o4Wk02YWdMeGRfMllBSXVNMW9DV1diQWtyT0RlSVYxYjhqWVp0TFROdlh2Tl8wRm5HRFB5NlhqN0JZVjBpcmdQOXJ3TUVzbFZDR3JKblk0UjJtQmFETkxrOFQ2Y2pqMGlFbmNLeUJzV1ZnN3diUHNoRXlWTnhkSmhtWDd0dEN0ZTRuemtGUWl3Y2M0dm96eUp4LWRYNHRyME0?oc=5",
+   "dominio": "abrasel.com.br"
+  },
+  {
+   "titulo": "O Lexus ES 2026 coloca a experiência do cliente no centro de tudo.",
+   "fonte": "Vietnam.vn",
+   "data": "2026-11-16",
+   "link": "https://news.google.com/rss/articles/CBMijAFBVV95cUxOV1dRVjZEUWJsRTBpTGItWmY5U0dORTNqbGFJNTlva2s2MHd5WUY0a3Q5YUI1RXh3MTRqa1d3RUlMdHk2c0FGbEpFMWF3TDhiXzV0RW45bnUtUWt5Wk93Q1NIZGN5dmZrU01lTjFMS0M0MjM1TTI4WHRkOENUaUtnLVBMTTcydU9hVFJuSA?oc=5",
+   "dominio": "vietnam.vn"
+  },
+  {
+   "titulo": "Crédito pessoal: Cofidis lidera satisfação em termos de satisfação dos consumidores",
+   "fonte": "Distribuição Hoje",
+   "data": "2026-11-16",
+   "link": "https://news.google.com/rss/articles/CBMibEFVX3lxTE1NUDZGSHJjQW9RY2Z3NjJlMkFMMUlab2FPN0VqR1hrZG4tU2JoVHZoMzk0cmpwMjcxNWpoNVE0RllXVThWTnVqbnMxZHdCT3RRUkdKNlBVNUlxOFRLRnliblNYT3VTaWFndTZWdQ?oc=5",
+   "dominio": "distribuicaohoje.com"
   },
   {
    "titulo": "Procon passa a oferecer atendimento permanente no GanhaTempo",
@@ -37,249 +261,25 @@
    "dominio": "capivari.sp.gov.br"
   },
   {
+   "titulo": "Black Friday: Procon orienta consumidores sobre compras seguras e direitos durante período de promoções - Prefeitura Municipal de Vitória da Conquista",
+   "fonte": "Prefeitura Municipal de Vitória da Conquista - PMVC",
+   "data": "2026-11-16",
+   "link": "https://news.google.com/rss/articles/CBMiygFBVV95cUxNRUF2eV9oTHdkRnhwSnlUS0lVWVhhcHhkYWpkbnVGOEZlYmdaRElKa2x2MlVTUGxrQ0k1N0pVTTVqNTZpbXBGZWVuNEs3UHl6NGlQNkRZaHJpNllramhtbzgxRFZic1U0R3U0Q2JlaEI3cHQ1Znp2WllkRU84SGs1Zm1oeFIzSzQwY3FiNV9LczhEXzZzbGp4dlRYX25LcHotTHE2M0RJREVlSnFpRkhNTEdkbk9FS0I3cTFvY0pnR25NdGdLTGJmQlJn?oc=5",
+   "dominio": "pmvc.ba.gov.br"
+  },
+  {
+   "titulo": "Procon Campinas terá atendimento no CIC Vida Nova nesta quarta-feira, das 10h às 15h",
+   "fonte": "Prefeitura de Campinas",
+   "data": "2026-11-16",
+   "link": "https://news.google.com/rss/articles/CBMiygFBVV95cUxPVFctNzlsNFZBSU9RUDNnU0FuMnYwNkFWYWc5bHdzY1VtYVlkVFBkUGlrbk5ma2JuZEZzcDBjanVxNmdmSXc3WXJVMWp6VU9RUXZOLUVKOFltbUF2NmRiQzE0Q2NGdzJtQUR2R0loZ1hxWHlFSnJDQ0FIUFp1eFN5U19WRVBETHhVcXVZRlQwcWhMMUtKVHVhbXJDazlUQmNUUlgxZjdOTHVIQkxMZ29teWEzRGRjSG9Ja2gxejM2VjBQVUFtZm5KSk9n?oc=5",
+   "dominio": "campinas.sp.gov.br"
+  },
+  {
    "titulo": "A Nova Lei do SAC: O que mudou e o que você precisa exigir no atendimento",
    "fonte": "Jornal Metas",
    "data": "2026-11-16",
    "link": "https://news.google.com/rss/articles/CBMi6gFBVV95cUxPOVg0bEdQWng3dmNicXMtb3lJbFNfTEpYMXhGWW1VeUV3WlViMk91a1dUSkpuaTMzUUFMT2N3b3U3ekJIc2N0ZEJ1UUxuS1VWSlZIMWNPYlFHLWJNWlpQWk1CZ1AzczE1SXZWRVZJc3habEZDR3drUzZ1UFRxTzBUME82Sm5rWDQ4WDluYUFUZWIwN0VOTnZsTklld0VPdnNqX2g3Qnh1OHhseHVZRmVzYmw4OEgyUG1JdFg4QjRJM2NIdVAtN012dVJiRGRiUWxYQzJTRVpubndGRXFDXzZLcndxZzM2YlRuMEHSAe8BQVVfeXFMTUZNODBOeFg2ZHppWE1wQTFsYmw1czhDSHdEMlVhT05PTklINDFCcGxvQk1neU9Tdzl1V1ZDeDkzWFktbWozMTE0MS1nRjJIcFBvUnRJZkpNSlVqVkhCRVlFM1BWRmpubFFxR3JFTkd3ZDVzUldHcUF1dkVFaTUzTWlCeHBUSTVIUS1CYUlnVTNCNGxlUlpqbGZsbkk0UWFSdXVoZEZHeXVLMUdTY3h5aHRIZFVSN3JJb2xQNnZmTmRSYmJIdzB2YmU2U2VVb0tUcFljSURzUUJNVGgzN09UWFVyM1htSmlfUHRSMHZwdFk?oc=5",
    "dominio": "jornalmetas.com.br"
-  },
-  {
-   "titulo": "Procon de Ilhéus orienta consumidores sobre novas regras de atendimento",
-   "fonte": "Jornal do Radialista",
-   "data": "2026-11-16",
-   "link": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxPVXBXTU1UWWRnQ21XRzA1MVhiRS14QUlNaGp3ODZsYmM3Rm01N21OaUViNnhmUm5FbDJxejM0TVkwRzBMdG82NjFqMFB2QTk3MWVOWERWOW5KbHhDdmxJUjFBblowRDZOUHhvWl8wN3d1US1HTU9RV1hUdTJYYk1ZMnVDeDRGSkkzcElORHM4ZlcxTjVjNEJBcG1FdHpwcDRkQkdDNG5VSENnQQ?oc=5",
-   "dominio": "jornaldoradialista.com.br"
-  },
-  {
-   "titulo": "Procon Itinerante leva atendimento gratuito a cinco pontos de Votuporanga entre os dias 23 e 27 de novembro",
-   "fonte": "A Cidade de Votuporanga",
-   "data": "2026-11-16",
-   "link": "https://news.google.com/rss/articles/CBMi9gFBVV95cUxPUnJ5VVNYdjczbkVLcjFUeWl0bC11RW12OF9RdkV2czFHY2Fpa0dKX1V5U1gtODd5czd6dFpBTG96UVN6Vnd5dkFNLVkwa3NROEt6aFgwLVVORlN3T3h2Q2FHNzdudG1uNGhDbGRmYzNJNWVacm1HaHF5WXRfWHZQSW4xVTI2ZWpha1RBd1k2YjFRaE1xWGlSWVF6SEIybDhfZzBNOXpRQ19nRVczT1ZfT0FtWWFNS3pROGFza0U5ZnoyOFZacm52MWliSWNfX0VOQndjTlliTnpxMEZDSTllZklFZEwyMGlLYVNTTXNkZ3JrR3BESEE?oc=5",
-   "dominio": "acidadevotuporanga.com.br"
-  },
-  {
-   "titulo": "Experiência do cliente determina a fidelização",
-   "fonte": "Jornal de Angola",
-   "data": "2026-11-15",
-   "link": "https://news.google.com/rss/articles/CBMiugFBVV95cUxPV1F5cGVjV1BxRG5jeHhMWUthNWhadVBQWkxYRWd6NzNVZmFmN1Y5UnJUM0lzR2Q4M2FvOS1reGJIRmVEaERFYXd6Si1BQkVvcmZja0d2OTFoQkZ2Si10Z0xvM1hpbXpDLVl2c2J3ZHZaWkszVlE1NmIwWlY4Mk5xaFowYXYyV05ncm1Dc21IZG53MHh4cGhfUUFiZ0FDTnQtUEVWeW9TUExVU3RjOU5maHhvcGluaXhOZ0E?oc=5",
-   "dominio": "jornaldeangola.ao"
-  },
-  {
-   "titulo": "Jornadas espelhadas: por que a experiência do cliente começa no RH",
-   "fonte": "Startupi",
-   "data": "2026-11-13",
-   "link": "https://news.google.com/rss/articles/CBMilAFBVV95cUxOUjRnZHZWaGlPUzdqOUVXZlNFcTd3Nk93VGVnYTIxSFBtak5zamlmaXhkLWhJYWtmRDB2U2hNQzBURVRPbEJMMG45TmMwdTEwWU02ZkR4NWhrLWpWc2ZBN0VmY1JHbmhtOXIyQVJHR2J1a2pWMWpTb1lqb1JGR28xdmUtNG5jek1HZkJ0d25FRGc1b2hW?oc=5",
-   "dominio": "startupi.com.br"
-  },
-  {
-   "titulo": "Hapvida evolui modelo operacional para fortalecer eficiência, rentabilidade e experiência do cliente",
-   "fonte": "Gazeta da Semana",
-   "data": "2026-11-13",
-   "link": "https://news.google.com/rss/articles/CBMi4gFBVV95cUxNUTFsVkZ2dVp0OGFwMG56RURfcGpUbXVpQUwtdFdzSDJjUmYyTnFUUnRPbTY4a2huWWlDczhYR0Q1M3htcUxTeVJaa2ZwOG1ZMU1RMmtmWTFWSy1aYnhYZndrYXg5cmluREh5YVJUZE8wQkdrTEFQNFhoVXM1TWxVQ3hwNW12MnQ3a2tkUlFKZEFqb19tenFCN2NwSVEtQkVLRDdQTGg0RWgtT19pekJxbXlsX1JHTmx1RHM3T3FZZC1KSGttNnhQbGZPUW8ta1pCXzJzbnBGUGI1YUE0YkhUYTZR?oc=5",
-   "dominio": "gazetadasemana.com.br"
-  },
-  {
-   "titulo": "Quasa: análise do Fin — IA autónoma para a experiência do cliente",
-   "fonte": "quasa.io",
-   "data": "2026-11-13",
-   "link": "https://news.google.com/rss/articles/CBMilgFBVV95cUxPZFZaYnF5SFFHcHFWVDlLOHhlbzlEUjZ0NE4wNVlzdldUeXJNeWhtVjRUdC1ra2VzTjY4THI1ZGxIVVVoSWE2c281Y1lpUnJBa3A2OXZISHN6V2EyQ091VjhmTXFhTFRIQUJZTThfRTZ2S3M2VURIVU1jYnZQWi1heXZ2M3NjZlhrSHN4b1ZPcnprQU53UGc?oc=5",
-   "dominio": "quasa.io"
-  },
-  {
-   "titulo": "Procon de Três Lagoas informa novas regras do SAC, em vigor desde 2 de novembro",
-   "fonte": "A Crítica de Campo Grande",
-   "data": "2026-11-13",
-   "link": "https://news.google.com/rss/articles/CBMihwFBVV95cUxNNENmYlMxSDEySXlHLUY4MmlyOUQzYXFIbFpMNFhHR2I3S3FMMUFqS2xaeFcwQ0tLODVuT0s4d2FqSWRXSlRZM09KRDhUTmZlaEZmM1kyalM0b3NOeHNoeXNKQk1RWmg5ZzlGWVVVNGJ0c2pJMHhrV1BoejVkTFN5QTFnUVF5c2c?oc=5",
-   "dominio": "acritica.net"
-  },
-  {
-   "titulo": "Crise hídrica: Procon Aracaju realiza levantamento de preços para orientar consumidores",
-   "fonte": "Prefeitura de Aracaju",
-   "data": "2026-11-13",
-   "link": "https://news.google.com/rss/articles/CBMizAFBVV95cUxQU3VkMlhpWEhOd1BIemF4MjI5WF9fekhMQ0ZVMmtQSW1MbUZ2VVJMSmlaZEtUSGo3ckdXLTI0R0xOU3ludnlYUURkdVRYUERrTllpVDZlODloWVpEMWVjZEIwQTBMX2U2VDJTd2lkc0JNU3FrVHhZd2p0SkU0TVFFdDBVcEs1Z3V2MFZ6UFdlTUdnODRJNEZ4UjJQamtuTmdSdnpNNUNYbnc4VTlZYzJrV3d4eW4wR3p6Zjh5X2s3cHBaMFJ2dDFuUjlxZ2w?oc=5",
-   "dominio": "aracaju.se.gov.br"
-  },
-  {
-   "titulo": "Novas regras do SAC podem inviabilizar fintechs de pequeno porte, diz Blip",
-   "fonte": "Mobile Time",
-   "data": "2026-11-13",
-   "link": "https://news.google.com/rss/articles/CBMigAFBVV95cUxNbWtoamtBR2xoZjMzWlAwMk9jcFhqcGlxOEpTQnRzN2hqOV9tSjJEajJvX0ZqeUYzV3NsQmFOMUNBSHhyRnEzSWhwTll3S2steERsMy1EM1JSMFhSRFpEV192a1F6Z3U1VV9GbmFoLU1sU0VrTTlhVndrSGxJRDNoRg?oc=5",
-   "dominio": "mobiletime.com.br"
-  },
-  {
-   "titulo": "Atendimento fortalece reputação das marcas",
-   "fonte": "Terra",
-   "data": "2026-11-13",
-   "link": "https://news.google.com/rss/articles/CBMivwFBVV95cUxNNzYtNHVneThPbEUzd05IckJuZkljU2Y1YzM1eHJNYUdZTDl4ZG9YbHBId3JLdzMzNG8zUDVHRVNnSWJxbnkxUnNVTXg3ak9ES0JCRTR3WjB4dDdjVlJpRFBlclJiQUkxMDItWHVJdWo5YldsSURud0ZyR3Z4LWVJSHN5cEpMdll3NlFOZFptakFoNG1CMXpJNzM5RUtneUFBWUpVbmo3RW45VEk3SWJTSE1xZHNaNEY5aVdfRUhUQQ?oc=5",
-   "dominio": "terra.com.br"
-  },
-  {
-   "titulo": "Procon de Itaquaquecetuba alerta sobre golpes na Black Friday e orienta consumidores sobre seus direitos",
-   "fonte": "Hoje Diário",
-   "data": "2026-11-13",
-   "link": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxOckxRZTdOYm5qWm5UVjZMNUpDaGdqYnhzQWdvUFpPRVFCRmkyVVduOGtVRG5SUW5IamZyd3dPX0VwY3k0N2dRNXRiZnVMYW1FTjlFYzBpTnZxZ0t5emo4QmNpYU5CQ2J0MlAtRWlnZnI3akxtMmdVTUNsYV9fenNiZ0dkZjdHclVjd05fM09hWGlWWkpVYlYyYWpVR0xIWUpzc2x1Z1lEdDdpTHlLaHZPSXFCckFIaGJVdXQ4THNxamhWY3d6UGU1dXUydmx0OGFlWUNJc29R?oc=5",
-   "dominio": "hojediario.com"
-  },
-  {
-   "titulo": "Franquia de call center é a maior tendência de 2027",
-   "fonte": "Valor Econômico",
-   "data": "2026-11-12",
-   "link": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxNbVhmSFJIVWxsMXlVd1hEalJPcEJoYkN3V3NVTDNQWU9iS1pnR1JrckNlTnRFYmhnV2I2VmVEOUkwVGtGdXg0V2lYZDkwb2VhVWFPWlFwYkxaZ1BNbU45WVRLQWJiY0c4UFBmRFZJc1haRVhMa05ydFBCaEduem9abkVEZHk2WnVtekpId2FIWjczZ3NwZGZabzBkb1ZMWUJ1SEF1WWtLMmVvejUteXYxUWNNZVRRVEg0YXNr0gHKAUFVX3lxTE9ZakZ4U19mczU5YUxtTUhhUTNtel9UUC1SZ2pYaXRKQV8yQm1PbVRzSHZrbl9qQVB5R3Eyc1JKRHEwNmV6WXU2Tjd6aXhiSG43NWhqd2YwRmstLUsxVjBYQU55cG1mRnhKMUd0dXc2X2taWlpCck9WUlpVVnpwcjNsUFNNNUwzV3pjNTlzUzM5MDBfMHc5WXJNNGtPeXlVeVdyLVhVQVBPMER1Mmh2SDl3NTQwYWlqdElSSk5Ybm9rdWswck1yU0NLd3c?oc=5",
-   "dominio": "valor.globo.com"
-  },
-  {
-   "titulo": "Quiq lança integração de IA de voz para o Zoom Contact Center",
-   "fonte": "Unite.AI",
-   "data": "2026-11-12",
-   "link": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxQRXlYLXQ3OTZnV3ZwbC1jNzRDTjk0MjAzeWxPN2Q3VlZiaTgxdEJLQ2pQbkplNXZsMVJUWVZoYVZlS2VubEVVLUVwNWpxYzktd1dQZzJFUC1LM2dyTDdpRUF0cGtRb2c3X0dDNmFnVlpPaUwzcnZqOExZUkgxRmZTTW1wMndveVFBaHNR?oc=5",
-   "dominio": "unite.ai"
-  },
-  {
-   "titulo": "Experiência do cliente, criação e consolidação de marcas foram temas de debates no Espaço Sebrae na Rua",
-   "fonte": "Agência Sebrae de Notícias",
-   "data": "2026-11-12",
-   "link": "https://news.google.com/rss/articles/CBMi7gFBVV95cUxObXktd0xjTmllclpyb2FRR2NmNzFpVE15MVRpc3VyT2picEZUTXgyX1RZTzhwNW1QRHd3dXBWdDJwTklmRzd0TGJ6ajh1SjlOQko0cTd0SURmZG9rM0hQcnFSYUM5YkMyWERtLUJLRkdDRXFxS1VwVHZxQzRBdDVjcDB3VGhCRnk1eE9oYjVvRWdRbEstbmIxeVZZZXZPWGpXT3ZKUW9Ic0hCMUNUbnoyR0tFdGZOOXhIV202U19ER2VHdXI3TGJXQ3ZVMGpZM25IU2lBSWhtSWNGMUxmejhmYlRuMWxnWWU1VUMyUTBn?oc=5",
-   "dominio": "pe.agenciasebrae.com.br"
-  },
-  {
-   "titulo": "Inovação e experiência do cliente no mercado marcam abertura do Sebrae na Rua no REC’n’Play 2026",
-   "fonte": "Agência Sebrae de Notícias",
-   "data": "2026-11-12",
-   "link": "https://news.google.com/rss/articles/CBMi4wFBVV95cUxOQ0lQS1hNaXlYQzU0Wk5odGpLT0RySDlZT24zUzI5YXVRT1pUSHZqY2lxcEdxMS15ZnRleG0tU0pOYVJrdUZ5bkxsbEJIYUwxMXJ1TC1KSzAwZWIxTHFPcldPblFpNWtnNVBzSXFYNERPRjFnckdEUlNpQmN3WVh5NlVvVFFYZURuVVFTZUF3Q1d0ZmFBU3VHQlp1NnJucFNLRlZYaUJscC1nLXBNVnowVTM2Z2gxd01xTVNkb1duSV96M3RnSC1fd2FveHVXQWhNOWxFWW1YXy1yNVdmSmZhN3ptRQ?oc=5",
-   "dominio": "pe.agenciasebrae.com.br"
-  },
-  {
-   "titulo": "Experiência do cliente no e-commerce: os detalhes que fazem o comprador voltar",
-   "fonte": "PPNews",
-   "data": "2026-11-12",
-   "link": "https://news.google.com/rss/articles/CBMipAFBVV95cUxOVEFBYWdSUkdIQnIwNFZDVTNQajg2UUtVbVRyZ05IVEtIWnJDdHpPNEdkMVJldk1OZGhSQU8tMTV3NHA4RTU2Z3NwWmhpYmxnblB2Yk0zRUw4RGdZWUVmdUgwdnN3ck1KSGppdDRTR3RheEpRRmlZUVV5N215SmFLYUFQTUVobHFkZVpEbGFGeFNwSE4taUZla1ZVQnM3VkZQbXF0ZQ?oc=5",
-   "dominio": "ppnewsfb.com.br"
-  },
-  {
-   "titulo": "PROCON informa novas regras para o atendimento do SAC; CONFIRA",
-   "fonte": "Prefeitura Três Lagoas",
-   "data": "2026-11-12",
-   "link": "https://news.google.com/rss/articles/CBMimwFBVV95cUxPejBwSGRVWFRRa3BzMldscGt2VHYxLWoxalRxTGlyS1VFcUo3WUdjMTZMcFpickYxNHcxTEY2TTFHNmtjQnU0UmJjaDN0bkljbC1wWTVtXzJrcnlybHFHekRFN0w3LTJPNS11eHJaUWwxb3VMVjZ2S3BTdnpzeGxjcTVDTW5DQlR6cW5iWG1LaFN6N1JiSEZ3UmNoNA?oc=5",
-   "dominio": "treslagoas.ms.gov.br"
-  },
-  {
-   "titulo": "Novo decreto do SAC: proteção ao consumidor e os impactos que as empresas precisam calcular",
-   "fonte": "Grupo Portal de Notícias",
-   "data": "2026-11-12",
-   "link": "https://news.google.com/rss/articles/CBMixwFBVV95cUxPQ3U1T2kxNFZrdmh5dDc0OVpGYnJ2SU1nTnNuN0xqTzBJbWJPdndmLWp0THdJUTJ4S203OVN4bFpWMEw5bndubFVrTUx5UG5rQjVORnJ3aHZCUllheXdFd1ZiTFhTend4enlvSm4zdk5Mb0NreEN0V0FzcUt5STFWUDlXWk5UdFBWZHJkNDRLdFZ3eW1iMTJCS09TLUF6RTJRdUJNakt5TnlScWhIZVhfdFpVSmVJSnl3R0JSZ1ZKN0dYeDQ0NkZB?oc=5",
-   "dominio": "grupoportaldenoticias.com.br"
-  },
-  {
-   "titulo": "Black Friday: como o varejo pode reduzir a inadimplência sem prejudicar a experiência do cliente",
-   "fonte": "E-Commerce Brasil",
-   "data": "2026-11-11",
-   "link": "https://news.google.com/rss/articles/CBMi1AFBVV95cUxQd3RUcWdLblZ0a0JpZC1OVjBKamZaVzBJUXN1M1g4VnRxS1hJUDlPNHFWZ0theUZrdUw3UUhrS3l4STNmN1NfYzV2NFpHaDdlb1hnZW01VV9LQnU5ZFVVM3BRUkRoU0VjY09ESjlSQTJJUjk1dlBrWjBacEUyNVQ2X2R0NXNCeDV0OUdNV3Z6MUlLZk9vbGtUWmFYY21uZUtRVE1NZHpOQ1dTNnJCM2g3TW9JV19XREQ4SlNyc1RMckdkaGkxRmdFT1RzT2Q4ZHpYN010LQ?oc=5",
-   "dominio": "ecommercebrasil.com.br"
-  },
-  {
-   "titulo": "'Nosso foco é proposta de valor diferenciada e experiência do cliente,' diz presidente da Vivo sobre balanço do 3º tri com lucro de R$ 2,5 bilhões",
-   "fonte": "Terra",
-   "data": "2026-11-11",
-   "link": "https://news.google.com/rss/articles/CBMiwgJBVV95cUxQUjNrQmh2TlVqOFo3Ni00UkdGckgybTRzY2hwamIxT2tFMmNfbnplZldfeW9oOWdWeEp0QmVIdGxwckhOTFBFdlpwZXpMbHhrbU8xNE1uREtncFFMMTdKWUFWYTNYQ041YWZlalVmWVBrVHZQeUYzWm9mRjVpcGs4R1JrS0l3ZzRsdXkxNDJJOXIyenRWSzYzdk96NEd3S2dZbVVyRlRzYVlsTXctZGZMd0tzd01pcldZX2dTSmZCM0lQamJsX3I3MWJzMVlaTTBHRndaakY1Y19SSjRTRVVzbFltVUdpeVdTdVFRNWdPVVhXV2toWG9wUUFPbmQtc3Q5aDZiVngxTHQtcUd3S3JIc0tfOU5jcktyVWpIa1A0XzRaZUdpZ3BGaERGZy1PYWlmRmpfYmhMTWstSzdUOU9iX293?oc=5",
-   "dominio": "terra.com.br"
-  },
-  {
-   "titulo": "XBTFX faz maior reformulação da história com nova identidade de marca e experiência do cliente redesenhada",
-   "fonte": "Yellow.com",
-   "data": "2026-11-11",
-   "link": "https://news.google.com/rss/articles/CBMi-gFBVV95cUxQWXFYeWZFa3NKWXZDbE5DQWhlMzZGVWRmRF9MUU9OcTdpOF9IQmRxX2Q4ZkpZSU9uVWNrZ0ZFSHd1Z2F5bWlIUWM0b2tDaTRUdzZEaDBFS0NPRTJENG9qWmsyRnBOTkJQOG1ONmxQMDl0cWk1TE5uQTRRNUVqWGFRbHplenpLc0NHMDBrSzg4T2MxZDNlQVhlUjFCTXRwY0hMTDE4dm1PMEJ3RFQxNkFnTkljNHBENlViTHNjQ1RNdkdlQWlwQmVTaGU0NGxla09ubEZJZFZ1dTR0bExQcDNCTkVUMDZ5SUpQdVRJc2N3ZmJUdV9KS0RreXlR?oc=5",
-   "dominio": "yellow.com"
-  },
-  {
-   "titulo": "Recuperação judicial não é desculpa: Procon de Anápolis vai à Novo Mundo em defesa do consumidor",
-   "fonte": "Prefeitura de Anápolis",
-   "data": "2026-11-11",
-   "link": "https://news.google.com/rss/articles/CBMixgFBVV95cUxNcWoxRjhQcmd3WEp1aWdTM2QtOVhUOTdZbEZtOTl1RGo5RGl4MXdmVEl1dDJjS0dzb0xZTl9RNFBZOTAwa1NzT2xrWmpYM0hyX0RHMkVid2tZVjdlVWpfaHBMQzFZME5obFJ5ZV91Zm5tSUxwUlltV0RBSUZVZFZPeURHNGpDS29LemRHbk5xVWZVRjlROElVdU5aeloxVTRHdWRhcjdMZ2ROa1hQX2I5dzRReEFrQ0RzalhMTUU2VUNLNXE5WlE?oc=5",
-   "dominio": "anapolis.go.gov.br"
-  },
-  {
-   "titulo": "Agência de Comunicação - Regulamentação do SAC estabelece limites para o uso de IA",
-   "fonte": "Estadão Blue Studio",
-   "data": "2026-11-11",
-   "link": "https://news.google.com/rss/articles/CBMixgFBVV95cUxPYXlYNEdlUWRzLXF3a2RRaXFFRFNwT3d2MkpCS1lOUFZTUWxLbk1vLUh6Rzc3NzVJd0FFRUpVLUNvQWFJWlNLSUlvZE9VVDNpU0xhZk5mSTBEcWtORml4bFBsa0RiMEZQZ1JvRy1Zb3RTeGJkMzE3dVlaWlF4bzVUU3dVYTk5NjhmZlRjOVNLVUQ3MzA2X3NKcEtkSkQ3UDJrWV9JUWdqVDhmVXZJZ0J5UUI4c3RaNUFYRndLUk1kdE55enVuSFE?oc=5",
-   "dominio": "bluestudio.estadao.com.br"
-  },
-  {
-   "titulo": "Novas regras do SAC: cancelamento e cobrança indevida",
-   "fonte": "www.proteste.org.br",
-   "data": "2026-11-11",
-   "link": "https://news.google.com/rss/articles/CBMikgFBVV95cUxQSjhpendOR3g1VWpXbDhHZGh1THFVVjB0YzVHNlQzRXRhSjJ1d1czVTNtenRTVDJ4TTNkak9yMWtNTUJIQVgxaUl4YTRIbmRzQmNBUjRxS3J5SmpDU05DRVBLWWR0OTIwZHllaVdmeDAxZXpwYkNkaXJRUnJzT3dFTW05NzRRNEdpUHVScmRrMVVtUQ?oc=5",
-   "dominio": "seudireito.proteste.org.br"
-  },
-  {
-   "titulo": "Detran-PB moderniza sistema de Call Center e centraliza atendimento em um único número",
-   "fonte": "Detran-PB",
-   "data": "2026-11-10",
-   "link": "https://news.google.com/rss/articles/CBMiywFBVV95cUxOaThmakRFRnp3UG45dUJxLTA5bng4a0lTaENfRzZGRVZiVEhJUzZGc1VoR2t4YkVCeHI2MUZJR19FdkxoeG0yQXJOZkJlWjBuRXRiNUdFRHdFMkhzWnVqWnpoT3dlRXI2NnA2OURtVkJRNTJwZjYzTzBmTXhTQ21DekVXRGxoWlhGMUttWlhXN0NXMjlIdHFGWTkyV1FNbUhDTDB4RGdSMXg3UF9TX1dQQ0Y0WE5CS001eVJFbVlabEgtZUNsUmRydXpZWQ?oc=5",
-   "dominio": "detran.pb.gov.br"
-  },
-  {
-   "titulo": "Detran-PB lança novo número para atendimento no Call Center",
-   "fonte": "Portal Correio",
-   "data": "2026-11-10",
-   "link": "https://news.google.com/rss/articles/CBMikwFBVV95cUxNWW9IUlFsNkVzSTc5SG9aMUJNV3FMeDZlajZta1NNMlhhaEFMQy0tNXZqVXNLSjBQNzlWcExZYkdWRnM1dXE0RW54THZoQlJmMTJTZ21qWkFIS0lDQzhKeDFaUk5Hd3MzYVkzTy1iX1FJSHZUeld4cGVXZ0RjeUdRYi1TTmNrRE5vT0R2TTFQS2h3d0U?oc=5",
-   "dominio": "portalcorreio.com.br"
-  },
-  {
-   "titulo": "O colapso do grande gestor de 'call centers' põe à prova a qualidade do atendimento ao cliente",
-   "fonte": "Consumidor Global",
-   "data": "2026-11-10",
-   "link": "https://news.google.com/rss/articles/CBMi4AFBVV95cUxNOWdHOUNuTXBGVDRMQm5UUFg3Wjl1Y09FdVA3dm5QQlV5X1BpLUR4V3phQldJRmhjVDlTTDRKQ29EeVl2cXUyT1d0Y1dqNkNEb3diTTJOMzNWMWtBdkhncXVMb2RaaUxfc0xCLUJkSmo0LTlmV1RYRERTUGtTdk8tdHYwMGRSWGxTNXVlQ21YVURjTjB3SmNVdlNKZWJEbnk2ZDlZNVpmVGtiLUhPMWtwRXJwcnNrUndKR1E4M2E5SDVLcE90N2huYVdaQnlzODRRZm5FMDVUeTJoTWRuOGRDLdIB5gFBVV95cUxNNFpLVWJZYVFSdEI0ZC1IemtyYWIwWHMyejZhN0M0SzRaenJZLWllc0lSNTNtSXJ3ZHlyMVMtS3ZPeEdsVmNjc2wtbk1QZllqcGotcmFpaEo5Q2VJaGJxcmMza3h1bnN2cWJid1NEb2tvRzJzTzBQdVpPbkpLYzMxcGZkb1d1LTd4TzB1T0ozZ3hyMm1zaVJrbTZHWTZQQy13cnRTVm9kT21va29TVlBlajFsaU1oMDd1QWJtR1hUR0ZTSHdfNmVyVXVkdWYzTjI3TVduZXRsQVpGSlM4bVEyS0RhdGR6Zw?oc=5",
-   "dominio": "consumidorglobal.com"
-  },
-  {
-   "titulo": "Experiência do cliente no Brasil já é mais conversacional e multicanal",
-   "fonte": "ClienteSA",
-   "data": "2026-11-10",
-   "link": "https://news.google.com/rss/articles/CBMipgFBVV95cUxQRnk5VlFJYnhtRWxDM2c4MHBIVkltTkdRVG8yRWZ0WHAzMk9Wa3JGXzROZG5VYXNuQTZ0c3hBdlNZWnE2NzhpeDdXVTF1dFJTTzdndndQQ1hldVNSem9XcTZfUnhoYk05T1BsMVNwMHMtczBQLUNGcTUyNzRycUtVUF9Bdnp0T3BvekpydVVKb1FxMC00SF9pOGo1Wjk5T2MwTGJZTTNR?oc=5",
-   "dominio": "portal.clientesa.com.br"
-  },
-  {
-   "titulo": "Hapvida +Odonto conquista selo de reconhecimento em experiência do cliente",
-   "fonte": "Diário de São Paulo",
-   "data": "2026-11-10",
-   "link": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxPMl9oY3BlbXBXdkIxRktMTTY4c2RLaUNoZU1wMXRLMjB0eGplMzhtSjdSellBTHJDQ3Z3RllPb29hdFplZ2lOTGFwaGRrZVUwUU93bnFtZm14MkI3Zk1USnd3Q213SDlvX25nZmo2Ui1PeWlJZUZrTDFiVzkzQmY5LXBOOFRZUjV6QXNjTndJUUdjQnZ1R1V1TjQ5Q2NfeXVFM0NwV0pldjN1Z3JRUVdVT01qMnlsS3c30gG-AUFVX3lxTE1ZUDRfZWZmRWtEaC1GN2ltM1BxUnpKVEF4NUpySTlHLTBqU19nY0R0czhzYjdXNEIyOUVzQnVHRVEzWTBJOHFwS3pqOFJmSE1IN2o4dTRoREttQUpadnJ2emhQalo5U0g0TmQ3VWJWQ2M3cFdSd0RTMjNYWDhnUmFZcUpIbXE4eFhvQXdiU21sb1Z0MzRWNjhpRm5FM3F2ZEVCZk1CODJvTkVfZHZoMlFpa1lIcTFKcnZhS1dERnc?oc=5",
-   "dominio": "spdiario.com.br"
-  },
-  {
-   "titulo": "O VietinBank Premium anuncia 3 níveis de prioridade, aprimorando a experiência do cliente.",
-   "fonte": "Vietnam.vn",
-   "data": "2026-11-10",
-   "link": "https://news.google.com/rss/articles/CBMimAFBVV95cUxQbEVzZXlSRUNSV1ZOdkVVM0NyTHhyUGo0QlVpMDlxYzhLSmpjXzRXYXludkN5Tnp2cnAtcEN0YlY3bjNyLVVVUmJyUFdyWjRQQy1tLUJxR0dpTWpXVDFYSGhWU29mNXBRWWI5MGREMzFBZVpWS1Vja2U3eHp3WkNheVRWN1NnOFBWTmIzNW1IMUg4SWVLaGdaQg?oc=5",
-   "dominio": "vietnam.vn"
-  },
-  {
-   "titulo": "Atendimento humano e cancelamento fácil: o que muda no SAC e como cobrar seus direitos",
-   "fonte": "A Gazeta",
-   "data": "2026-11-10",
-   "link": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxPYWJpc1FUTlJRcTN0c2VKOHdmb3JGVi1rcDlFVmJyc1pOY3hucVlsSEJteVR0MG5jNmNyZDdEU1RWMjlFLWFZb3cyVnVpeVhHRjBCZXBVYm1Ia29GaksyR1U0ZTVhclRseTRyaFp2M0VMamVtRjU4MGZ2UU04ZU5aSWNsR0RpM3dVUEpYVEd5T2JBWjRjaEpHQmsxdGx5dWluaGhzY2puREJyLU1FVEsyMlZ6X0NRRW9yUldkYVpSMExPMzhwUVkyUg?oc=5",
-   "dominio": "agazeta.com.br"
-  },
-  {
-   "titulo": "Novas regras do SAC: inovações do Decreto e a jornada do consumidor no atendimento",
-   "fonte": "ClienteSA",
-   "data": "2026-11-10",
-   "link": "https://news.google.com/rss/articles/CBMiswFBVV95cUxPdVNHLXE2SVZCUmNTMzBwcEpTR0hWamFjanBKeTN5ZmdCSUFOeTFiWEg4eHhDNzQzWkpQS0pJcEhwTWJwM2RObms5aU9EWXBFc0hnNHY0aWFiUDVLNGRTOTJxWlNzU2wzdnhva1UzczdiNDBoQnludUdDMU1vYjlLRnh5akYxZ1h2X1BqV0U3dTgtYjh6YkxPRV9MNkVXMTJYZGYxaVdieUZwZnoyM09UZVJMcw?oc=5",
-   "dominio": "portal.clientesa.com.br"
-  },
-  {
-   "titulo": "O futuro da assistência e da experiência do cliente ganha destaque no CQCS Inovação 2026",
-   "fonte": "CQCS",
-   "data": "2026-11-09",
-   "link": "https://news.google.com/rss/articles/CBMiywFBVV95cUxPOFhkbEVqY21ILXV1dmJzb0w1Z1Q1emc2aUxlZFNNQ2xGTWY5ZHZEX0x1M3F4Vm5fTEowNlhPWmRmWjgwX282bUZHMEh1TFc3aVhHcWFsOU9ZU0ltWGUxYjR6dEw3NldjRmpuV2pOTWx6UF9KZkY2SnFmdVA3cmkxVHpkNncxVnRZSjM4NHJEand5UnpEaF9Kc1RIYlNTTS1zZHNBdmhPbmxadFRwam1OTVhKQURfMGF0VmlhNVdyMkh2TGxQcHhYNkV6Yw?oc=5",
-   "dominio": "cqcs.com.br"
-  },
-  {
-   "titulo": "PROCON ALERTA: Novas regras garantem atendimento humano e limitam uso de IA",
-   "fonte": "Umuarama News",
-   "data": "2026-11-09",
-   "link": "https://news.google.com/rss/articles/CBMivAFBVV95cUxOZUxqLTh0clRhd080djhiWUI1bHVtTWV3WG9DcFB0TDZVQ0FMYXFHUXJaU25Tc2tRemxld29YblRaRkRkTWtvbm55RjlJV2lCMVhVNy00MVNic0Z5NGFqX0ZKYTdSaDBOLVF3NHBUZWdMNGVqV1BMajFQLWpFbklRM2hTWGpURmh5NndYZFI4U2hJdm9RYUxEaXFfdVRTT0hpVXpjLTF3bm92RGx0aExKdDNGU2h6aXhoU3dQQw?oc=5",
-   "dominio": "portalumuaramanews.com.br"
   }
  ]
 }
