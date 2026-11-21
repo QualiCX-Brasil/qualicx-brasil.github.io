@@ -258,7 +258,8 @@ jobs:
               return (f'<a class="ncard" data-cat="{E(i["cat"])}" {ext(i)}><div class="art">{arte(i["titulo"], i["cores"], rotulo=i["cat"])}<span class="chip">{E(i["cat"])}</span>{logo(i)}</div>'
                       f'<div class="body"><h3>{E(i["titulo"])}</h3><span class="meta">{E(i["fonte"])} · {dbr(i["data"])}</span></div></a>')
 
-          ART = [('artigos/expertise360-atendimento-protagonista.html', 'Expertise360: o que o atendimento protagonista ensina à área de Qualidade', 'Cobertura da palestra Atendimento Protagonista, de Gisele Paula, no evento da CSH.', '14/11/2026', '', ('#0b1d3a', '#1d4ed8', '#38bdf8')),
+          ART = [('artigos/decreto-sac-resolver.html', 'O novo Decreto do SAC não é sobre atender rápido. É sobre resolver.', 'O que o Decreto nº 13.135/2026 exige e como a Qualidade transforma velocidade em resolução.', '20/11/2026', '', ('#0b1d3a', '#1d4ed8', '#38bdf8')),
+                 ('artigos/expertise360-atendimento-protagonista.html', 'Expertise360: o que o atendimento protagonista ensina à área de Qualidade', 'Cobertura da palestra Atendimento Protagonista, de Gisele Paula, no evento da CSH.', '14/11/2026', '', ('#0b1d3a', '#1d4ed8', '#38bdf8')),
                  ('artigos/reclame-aqui-armadilha.html', 'O Reclame Aqui é uma armadilha para as empresas?', 'Reputação pública, resolução no primeiro contato e experiência do cliente.', '06/11/2026', '10.5281/zenodo.24025962', ('#0c1e33', '#2563eb', '#f59e0b')),
                  ('artigos/nao-so-de-call-center.html', 'Não Só de Call Center Vive a Experiência do Cliente', 'Qualidade estratégica, Voz do Cliente e análise de dados para transformar jornadas em resultados.', '28/04/2026', '10.5281/zenodo.23898804', ('#0b1d3a', '#1d4ed8', '#22d3ee')),
                  ('artigos/qualidade-nao-e-controle.html', 'Qualidade não é controle. É alavanca estratégica de resultado', 'Da monitoria à leitura estatística do NPS.', '06/04/2026', '10.5281/zenodo.23891605', ('#0b1d3a', '#1d4ed8', '#22d3ee')),
@@ -412,7 +413,7 @@ jobs:
           if rb.exists(): rb.write_text(rb.read_text().replace('https://qualicx-brasil' + '.github.io', 'https://qualicx.com.br'))
 
           # ---------------- Sitemap ----------------
-          urls = [''] + [p.name for p in sorted(B.glob('*.html')) if not p.name.startswith('google') and p.name not in ('index.html', 'projeto-promotor.html')] + [f'artigos/{p.name}' for p in sorted(B.glob('artigos/*.html'))]
+          urls = [''] + [p.name for p in sorted(B.glob('*.html')) if not p.name.startswith('google') and p.name not in ('index.html', 'projeto-promotor.html', '404.html')] + [f'artigos/{p.name}' for p in sorted(B.glob('artigos/*.html'))]
           (B/'sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
               ''.join(f'  <url><loc>{SITE}{u}</loc><lastmod>{HOJE}</lastmod></url>\n' for u in urls) + '</urlset>\n')
           print('ok', len(urls), 'urls', len(IT), 'noticias')
