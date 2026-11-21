@@ -82,7 +82,7 @@ FONTS = '<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.
 (B/'assets'/'qcx.css').write_text(CSS.strip() + '\n')
 
 LINKS = [('', 'Início'), ('noticias.html', 'Notícias'), ('artigos.html', 'Artigos'), ('destaques.html', 'Destaques'), ('boas-praticas.html', 'Colaborações'),
-         ('frases.html', 'Frases'), ('indicadores.html', 'Indicadores'), ('palestras.html', 'Palestras'), ('publique.html', 'Publique'), ('autor.html', 'Sobre')]
+         ('frases.html', 'Frases'), ('indicadores.html', 'Indicadores'), ('ferramentas.html', 'Ferramentas'), ('palestras.html', 'Palestras'), ('publique.html', 'Publique'), ('autor.html', 'Sobre')]
 
 def nav(prefix=''):
     home = prefix or './'
